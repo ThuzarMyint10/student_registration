@@ -2,6 +2,29 @@
 
 class Auth extends Controller
 {
+    private $db;
+    public function __construct()
+    {
+        $this->model('UserModel');
+        $this->db = new Database();
+    }
+
+    public function formRegister()
+    {
+        if (
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            isset($_POST['email_check']) &&
+            $_POST['email_check'] == 1
+        ) {
+            $email = $_POST['email'];
+            // call columnFilter Method from Database.php
+            $isUserExist = $this->db->columnFilter('users', 'email', $email);
+            if ($isUserExist) {
+                echo 'Sorry! email has already taken. Please try another.';
+            }
+        }
+    }
+    
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

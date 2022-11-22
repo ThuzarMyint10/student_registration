@@ -52,6 +52,17 @@ class Database
             echo $e;
         }
     }
+    
+    public function columnFilter($table, $column, $value)
+    {
+        // $sql = 'SELECT * FROM ' . $table . ' WHERE `' . $column . '` = :value';
+        $sql = 'SELECT * FROM ' . $table . ' WHERE `' . str_replace('`', '', $column) . '` = :value';
+        $stm = $this->pdo->prepare($sql);
+        $stm->bindValue(':value', $value);
+        $success = $stm->execute();
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return ($success) ? $row : [];
+    }
 
     public function loginCheck($email, $password)
     {
