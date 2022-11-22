@@ -1,58 +1,78 @@
-<?php ?>
+<?php require_once APPROOT . '/views/inc/header.php'; ?>
 
-<!DOCTYPE html>
+<?php
+    // require "connect.php";
+    $usernameErr="";
+    $emailErr="";
+    $passwordErr = "";
+    if(isset($_POST['singin'])){
+        echo "hello";
+        redirect('pages/login');
+    }
+    if(isset($_POST['register'])){
+        $username=$_POST['username'];
+        $email=$_POST['email'];
+        $password=$_POST['password'];
+        if(empty($username)){
+            $usernameErr='The username field is required';
+        }
+        if(empty($email)){
+            $emailErr='The email field is required';
+        }
+        if(empty($password)){
+            $passwordErr='The password field is required';
+        }
+        if(!empty($username)&& !empty($email)){
+        // $sql="INSERT INTO posts(username,emailription) VALUES('$username','$email')";
+        // $db->exec($sql);
+        // $_SESSION['successMsg']='A post created successfully';
+        // header('location:index.php');
+        echo "Hello World";
+        }  
+    }
+    ?>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Student Register</title>
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
 </head>
-<body>
+<body> -->
    <div class="wrapper">
       
-        <div class="form-left">
+        <form class="form-left" method="POST">
             <h2 class="text-uppercase">information</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <div class="form-field">
-                <input type="submit" class="form_left_button" value="Sign In">
+                <input type="submit" class="form_left_button" value="Sign In" name="singin" id="singin">
             </div>
-                <img src="images/student_photo.png" alt="" class="student_logo">
-</div>
+                <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo">
+</form>
         <form class="form-right needs-validation" name="contactForm" method="POST">
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
                 <div class=" mb-3">
                     <label>User Name</label>
-                    <input type="text" name="username" id="first_name" class="form-control" title="" placeholder="Enter Your Name">
+                    <input type="text" name="username" id="first_name" class="form-control <?php if($usernameErr!= ''):?>is-invalid<?php endif ?>" username="" placeholder="Enter Your Name">
+                        <span class="text-danger"><?php echo $usernameErr; ?></span>
                 </div>
-                <!-- <input type="text" class="form-control is-invalid" title="" placeholder="Enter Your Name"> -->
-                <!-- <div class="col-sm-6 mb-3">
-                    <label>Last Name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control" title="" placeholder="Last Name">
-                </div> -->
-            <!-- </div> -->
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="form-control is-invalid" name="email" title="" placeholder="Enter Your Email">
+                <input type="email" class="form-control  <?php if($emailErr!= ''):?>is-invalid<?php endif ?>" name="email" username="" placeholder="Enter Your Email">
+                    <span class="text-danger"><?php echo $emailErr; ?></span>
             </div>
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                        <input type="password" name="password" id="pwd" class="form-control is-invalid" title="" placeholder="Password">
-                        <!-- <i class="uil uil-eye-slash"></i> -->
+                        <input type="password" name="password" id="pwd" class="form-control is-invalid" username="" placeholder="Password">
                     </div>
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-                    <input type="password" name="cpwd" id="cpwd" class="form-control is-invalid" title="" placeholder="Confirm Password">
-                    <!-- <i class="uil uil-eye-slash"></i> -->
+                    <input type="password" name="password" id="cpwd" class="form-control is-invalid" username="" placeholder="Confirm Password">
                 </div>
             </div>
             <div class="mb-3">
@@ -66,14 +86,12 @@
             </div>
         </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</body>
-</html>
-
-<script src="dist/jbvalidator.min.js"></script>
-        <script>
+<!-- 
+   </body>
+</html> -->
+<!-- 
+<script src="dist/jbvalidator.min.js"></script> -->
+        <!-- <script>
             $(function (){
 
                 let validator = $('.needs-validation').validator({
@@ -100,4 +118,4 @@
                 //reload instance after dynamic element is added
                 validator.reload();
             })
-        </script>
+        </script> -->

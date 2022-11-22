@@ -14,7 +14,7 @@ class Pages extends Controller
     }
 
     public function login() {
-        $this->view('pages/testing');
+        $this->view('pages/login');
     }
 
     public function register() {
