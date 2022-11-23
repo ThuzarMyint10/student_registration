@@ -41,7 +41,7 @@
    <div class="wrapper">
       
         <form class="form-left" method="POST">
-            <h2 class="text-uppercase">information</h2>
+            <h2 class="text-uppercase">Information</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
