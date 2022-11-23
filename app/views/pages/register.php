@@ -33,8 +33,7 @@
     ?>
 
    <div class="wrapper">
-        <form class="form-left" method="POST">
-            <h2 class="text-uppercase">Information</h2>
+       
         <div class="form-left">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -47,7 +46,7 @@
                 <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo">
                
         </div>
-        <form class="form-right needs-validation" name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
+        <form class="form-right" name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
            
