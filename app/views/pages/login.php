@@ -46,7 +46,7 @@
         <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo"> 
     </div>
     
-        <form class="form-right">
+        <form class="form-right" name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
             <h2 class="text-uppercase">Sign In  form</h2>
             <div class="mb-3">
                 <label>Email</label>
@@ -56,7 +56,7 @@
                 <div class="mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                        <input type="password" name="pwd" id="pwd" class="input-field" title="" placeholder="Password">
+                        <input type="password" name="password" id="pwd" class="input-field" title="" placeholder="Password">
                         <!-- <i class="uil uil-eye-slash"></i> -->
                     </div>
                 </div>
