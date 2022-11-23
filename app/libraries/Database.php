@@ -23,8 +23,9 @@ class Database
 
         try {
             $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);
-            // print_r($this->pdo);
-            // echo "Success";
+            print_r($this->pdo);
+            echo "Success";
+            // exit();
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;

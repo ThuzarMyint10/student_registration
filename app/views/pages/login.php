@@ -28,7 +28,7 @@
     ?>
 
     <div class="wrapper">
-        <form class="form-left" method="POST">
+        <div class="form-left">
         
             <h2 class="text-uppercase">New Here ?</h2>
             <p>
@@ -38,11 +38,13 @@
                 <input type="submit" class="account" value="Have an Account?">
             </div> -->
             <div class="form-field">
+            <a href="<?php echo URLROOT; ?>/pages/register">
                 <input type="submit" class="form_left_button" value="Register" name="register">
+            </a>
             </div>
         
         <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo"> 
-        </form>
+    </div>
     
         <form class="form-right">
             <h2 class="text-uppercase">Sign In  form</h2>

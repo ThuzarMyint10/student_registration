@@ -39,6 +39,7 @@ class Auth extends Controller
                 // Validate entries
                 $validation = new UserValidator($_POST);
                 $data = $validation->validateForm();
+                var_dump($data);
                 if (count($data) > 0) {
                     $this->view('pages/register', $data);
                 } else {
