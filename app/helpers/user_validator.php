@@ -4,7 +4,7 @@ class UserValidator
 {
     private $data;
     private $errors        = [];
-    private static $fields = ['name', 'email', 'password'];
+    private static $fields = ['name', 'email', 'password', 'cpassword'];
 
     public function __construct($post_data)
     {
@@ -13,6 +13,7 @@ class UserValidator
 
     public function validateForm()
     {
+        var_dump(self::$fields);
         foreach (self::$fields as $field) {
             if (!array_key_exists($field, $this->data)) {
                 trigger_error($field . " is not present in data");
@@ -21,7 +22,8 @@ class UserValidator
         }
         $this->validateUserName();
         $this->validateEmail();
-        $this->validatePassword();
+        $this->validatePassword('password');
+        $this->validatePassword('cpassword');
         return $this->errors;
     }
 
@@ -56,19 +58,29 @@ class UserValidator
         }
     }
 
-    private function validatePassword()
+    private function validatePassword($key)
     {
         // Validate password strength
-        $password     = trim($this->data['password']);
+        $password     = trim($this->data[$key]);
         $uppercase    = preg_match('@[A-Z]@', $password);
         $lowercase    = preg_match('@[a-z]@', $password);
         $number       = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
         if (empty($password)) {
-            $this->addError('password-err', 'Password can not be empty.');
+            if($key == "password"){
+                $this->addError('password-err', 'Password can not be empty.');
+            }else{
+                $this->addError('password-err', 'Confirm Password can not be empty.');
+            }
+            
         } else {
             if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
-            $this->addError('password-err', 'Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
+                if($key == "password"){
+                    $this->addError('password-err', 'Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
+                } else{
+                    $this->addError('password-err', 'Confirm Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
+                }
+            
             }
         }
     }

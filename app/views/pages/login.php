@@ -1,30 +1,5 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 
-<?php
-    // require "connect.php";
-    $titleErr="";
-    $descErr="";
-    if(isset($_POST['register'])){
-        echo "hello";
-        redirect('pages/register');
-    }
-    // if(isset($_POST['register'])){
-    //     $title=$_POST['username'];
-    //     $desc=$_POST['email'];
-    //     if(empty($title)){
-    //         $titleErr='The title field is required';
-    //     }
-    //     if(empty($desc)){
-    //         $descErr='The description field is required';
-    //     }
-    //     if(!empty($title)&& !empty($desc)){
-    //     // $sql="INSERT INTO posts(title,description) VALUES('$title','$desc')";
-    //     // $db->exec($sql);
-    //     // $_SESSION['successMsg']='A post created successfully';
-    //     // header('location:index.php');
-    //     echo "Hello World";
-    //     }  
-    // }
     ?>
 
     <div class="wrapper">

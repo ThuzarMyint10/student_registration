@@ -26,15 +26,12 @@ body{
 }
 
 .wrapper .form-left{
-    /* background: #dbdcde; */
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding: 20px 40px;
     position: relative;
     width: 85%;
     color: #fff;
-    /* clip-path: ellipse(363px 532px at 30px -2px); */
-    /* clip-path: circle(183vh at 20% -90vh); */
 }
 .student_logo{
     width: 50vh;
@@ -49,7 +46,7 @@ body{
     height: 100%;
     background-color: #5F5E9E;
     
-    clip-path: ellipse(365px 550px at 30px -2px);
+    /* clip-path: ellipse(365px 550px at 30px -2px); */
     /* clip-path: ellipse(370px 700px at 102px -47); */
     /* clip-path: ellipse(363px 532px at 30px -2px); */
     /* background: linear-gradient(57deg, rgb(245, 31, 209), rgb(49, 47, 199));

@@ -1,40 +1,9 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 
-<?php
-    // require "connect.php";
-    // $usernameErr="";
-    // $emailErr="";
-    // $passwordErr = "";
-    // // if(isset($_POST['singin'])){
-    // //     echo "hello";
-    // //     redirect('pages/login');
-    // // }
-    // if(isset($_POST['register'])){
-    //     $username=$_POST['username'];
-    //     $email=$_POST['email'];
-    //     $password=$_POST['password'];
-    //     if(empty($username)){
-    //         $usernameErr='The username field is required';
-    //     }
-    //     if(empty($email)){
-    //         $emailErr='The email field is required';
-    //     }
-    //     if(empty($password)){
-    //         $passwordErr='The password field is required';
-    //     }
-    //     if(!empty($username)&& !empty($email)){
-    //     // $sql="INSERT INTO posts(username,emailription) VALUES('$username','$email')";
-    //     // $db->exec($sql);
-    //     // $_SESSION['successMsg']='A post created successfully';
-    //     // header('location:index.php');
-    //     echo "Hello World";
-    //     }  
-    // }
-    ?>
-
    <div class="wrapper">
        
         <div class="form-left">
+			<h2 class="text-uppercase"> Information </h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
@@ -88,7 +57,7 @@
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-                    <input type="password" name="password" id="cpwd" class="form-control is-invalid" username="" placeholder="Confirm Password">
+                    <input type="password" name="cpassword" id="password" class="form-control is-invalid" username="" placeholder="Confirm Password">
                 </div>
                 <p class="text-danger ml-4">
 						<?php
@@ -97,12 +66,12 @@
 						?>
 					</p>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="option">I agree to the <a href="#">Terms and Conditions</a>
                     <input type="checkbox" checked>
                     <span class="checkmark"></span>
                 </label>
-            </div>
+            </div> -->
             <div class="col-md-12 text-center ">
                 <input type="submit" value="Register" class="form_right_button" name="register">
             </div>
@@ -124,6 +93,7 @@
     $(function () {
 
 		var str=$('name').val();
+		console.log(str);
 		if(/^[a-zA-Z- ]*$/.test(str) == false) {
 				alert('Your search string contains illegal characters.');
 			}
@@ -151,6 +121,11 @@
 					maxlength: 30,
 					required: true,
                 },
+				cpassword: {
+					minlength: 8,
+					maxlength: 30,
+					required: true,
+                },
                 
             },
             // Specify validation error messages
@@ -169,6 +144,11 @@
                     required: "Please enter your password",
                     minlength: "Password length must be min 8 characters long",
                     maxlength: "Password length must not be more than 30 characters long"
+                },
+				cpassword: {
+                    required: "Please enter your confirm password",
+                    minlength: "Confirm Password length must be min 8 characters long",
+                    maxlength: "Confirm Password length must not be more than 30 characters long"
                 },
                 
             },
