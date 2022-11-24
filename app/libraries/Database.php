@@ -49,7 +49,7 @@ class Database
             $status = $stm->execute();
             // echo $status;
             return ($status) ? $this->pdo->lastInsertId() : false;
-        } catch (PODException $e) {
+        } catch (PDOException $e) {
             echo $e;
         }
     }
