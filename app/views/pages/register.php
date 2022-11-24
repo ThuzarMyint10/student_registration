@@ -32,9 +32,10 @@
     // }
     ?>
 
-   <div class="wrapper">
+   <div class="row wrapper">
        
-        <div class="form-left">
+        <div class="col-6 form-left">
+		<h2 class="text-uppercase">Informations</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
@@ -46,7 +47,8 @@
                 <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo">
                
         </div>
-        <form class="form-right" name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
+		<div class="col-6 form-right">
+        <form2 name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
            
@@ -107,6 +109,7 @@
                 <input type="submit" value="Register" class="form_right_button" name="register">
             </div>
         </form>
+		</div>
     </div>
 
     
