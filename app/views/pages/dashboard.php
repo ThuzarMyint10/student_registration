@@ -515,35 +515,35 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo URLROOT; ?>/Register/store" method="POST" enctype="multipart/form-data">
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="firstname">First Name</label>
+                  <label for="studentname">Student Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="user_first_name"
-                    placeholder="Enter First Name"
+                    name="sname"
+                    placeholder="Enter Your Name"
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="lastname">Father Name</label>
+                  <label for="fathername">Father Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="user_last_name"
-                    placeholder="Enter Last Name"
+                    name="fname"
+                    placeholder="Enter Your Father Name"
                   />
                 </div>
               </div>
               <div class="row pt-3" style="color: #5f5e9e">
                 <div class="form-group col-md-6">
-                  <label for="email">Mobile</label>
+                  <label for="email">Email</label>
                   <input
                     type="email"
                     class="form-control"
-                    name="user_email"
-                    placeholder="Enter Email id"
+                    name="mobile"
+                    placeholder="Enter Your email"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -551,8 +551,8 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="#"
-                    placeholder="Enter your Address "
+                    name="address"
+                    placeholder="Enter Your Address "
                   />
                 </div>
               </div>
@@ -562,7 +562,7 @@
                   <input
                     type="date"
                     class="form-control"
-                    name="user_dob"
+                    name="date_of_birth"
                     placeholder="Date of Birth"
                   />
                 </div>
@@ -570,7 +570,7 @@
                   <label for="inputState">Gender</label>
                   <select
                     id="inputState"
-                    name="user_gender"
+                    name="gender"
                     class="form-control"
                   >
                     <option selected>Choose...</option>
@@ -584,7 +584,7 @@
                 <div class="form-group col-md-6">
                   <label for="inputCity">Subject</label>
                   <!-- <input type="text" class="form-control" name="dist"> -->
-                  <select name="state" class="form-control">
+                  <select name="subject" class="form-control">
                     <option selected>Choose...</option>
                     <option value="#">Computer Science</option>
                     <option value="Andaman and Nicobar Islands">
@@ -598,7 +598,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputState">Specialization</label>
-                  <select name="state" class="form-control">
+                  <select name="specialization" class="form-control">
                     <option selected>Choose...</option>
                     <option value="Andhra Pradesh">Computer Science</option>
                     <option value="Andaman and Nicobar Islands">
@@ -612,7 +612,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="inputZip">Degree</label>
-                  <input type="text" class="form-control" name="#" />
+                  <input type="text" class="form-control" name="degree" />
                 </div>
               </div>
               <div class="form-group pt-3">
@@ -621,6 +621,7 @@
               </div>
               <!-- <input type="submit" name="submit" class="btn button-color w-25 h-25" value="Submit"> -->
               <button
+              name="submit"
                 type="submit"
                 class="btn button_color create mt-5 float-end"
               >
@@ -636,7 +637,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <img src="img/logo1.png" width="150px" height="150px" alt="" />
+            <img name="image" src="<?php echo URLROOT; ?>/images/logo1.png" width="150px" height="150px" alt="" />
             <br />
             <h3 class="im-container" id="staticBackdropLabel">
               Student Edition Form
@@ -649,35 +650,35 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
               <div class="row" style="font-weight: bold">
                 <div class="form-group col-md-6">
-                  <label for="firstname">First Name</label>
+                  <label for="studentname">Student Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="user_first_name"
-                    placeholder="Enter First Name"
+                    name="sname"
+                    placeholder="Enter Your Name"
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="lastname">Father Name</label>
+                  <label for="fathername">Father Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="user_last_name"
-                    placeholder="Enter Last Name"
+                    name="fname"
+                    placeholder="Enter your father Name"
                   />
                 </div>
               </div>
               <div class="row pt-3" style="color: #5f5e9e !important">
                 <div class="form-group col-md-6">
-                  <label for="email">Mobile</label>
+                  <label for="email">Email</label>
                   <input
                     type="email"
                     class="form-control"
-                    name="user_email"
-                    placeholder="Enter Email id"
+                    name="mobile"
+                    placeholder="Enter Your Email"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -696,7 +697,7 @@
                   <input
                     type="date"
                     class="form-control"
-                    name="user_dob"
+                    name="date_of_birth"
                     placeholder="Date of Birth"
                   />
                 </div>
@@ -704,7 +705,7 @@
                   <label for="inputState">Gender</label>
                   <select
                     id="inputState"
-                    name="user_gender"
+                    name="gender"
                     class="form-control"
                   >
                     <option selected>Choose...</option>
@@ -718,7 +719,7 @@
                 <div class="form-group col-md-6">
                   <label for="inputCity">Subject</label>
                   <!-- <input type="text" class="form-control" name="dist"> -->
-                  <select name="state" class="form-control">
+                  <select name="subject" class="form-control">
                     <option selected>Choose...</option>
                     <option value="#">Computer Science</option>
                     <option value="Andaman and Nicobar Islands">
@@ -732,7 +733,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputState">Specialization</label>
-                  <select name="state" class="form-control">
+                  <select name="specialization" class="form-control">
                     <option selected>Choose...</option>
                     <option value="Andhra Pradesh">Computer Science</option>
                     <option value="Andaman and Nicobar Islands">
@@ -746,7 +747,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="inputZip">Degree</label>
-                  <input type="text" class="form-control" name="#" />
+                  <input type="text" class="form-control" name="degree" />
                 </div>
               </div>
               <div class="form-group pt-3">
