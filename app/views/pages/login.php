@@ -27,8 +27,8 @@
     // }
     ?>
 
-    <div class="wrapper">
-        <div class="form-left">
+    <div class="row wrapper">
+        <div class="col-5 form_left">
         
             <h2 class="text-uppercase">New Here ?</h2>
             <p>
@@ -45,18 +45,18 @@
         
         <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo"> 
     </div>
-    
-        <form class="form-right" name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
+    <div class="col-7 form_right">
+        <form class="needs-validation" novalidate name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
             <h2 class="text-uppercase">Sign In  form</h2>
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="input-field" name="email" required  title="" placeholder="Enter Your Email">
+                <input type="email" class="form-control" name="email" required  title="" placeholder="Enter Your Email">
             </div>
 
                 <div class="mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                        <input type="password" name="password" id="pwd" class="input-field" title="" placeholder="Password">
+                        <input type="password" name="password" id="pwd" class="form-control" title="" placeholder="Password">
                         <!-- <i class="uil uil-eye-slash"></i> -->
                     </div>
                 </div>
@@ -80,7 +80,8 @@
             </div>
           
         </form>
-        <a href="#" class=" bottom-left"> <p class="col-md-12 text-center">
+    </div>
+        <a href="#" class="button-left"> <p class="col-md-12 text-center">
             create new account? 
        </p>
     </a>
