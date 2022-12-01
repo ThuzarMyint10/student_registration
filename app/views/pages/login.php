@@ -1,34 +1,8 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 
-<?php
-    // require "connect.php";
-    $titleErr="";
-    $descErr="";
-    if(isset($_POST['register'])){
-        echo "hello";
-        redirect('pages/register');
-    }
-    // if(isset($_POST['register'])){
-    //     $title=$_POST['username'];
-    //     $desc=$_POST['email'];
-    //     if(empty($title)){
-    //         $titleErr='The title field is required';
-    //     }
-    //     if(empty($desc)){
-    //         $descErr='The description field is required';
-    //     }
-    //     if(!empty($title)&& !empty($desc)){
-    //     // $sql="INSERT INTO posts(title,description) VALUES('$title','$desc')";
-    //     // $db->exec($sql);
-    //     // $_SESSION['successMsg']='A post created successfully';
-    //     // header('location:index.php');
-    //     echo "Hello World";
-    //     }  
-    // }
-    ?>
 
-    <div class="wrapper">
-        <div class="form-left">
+    <div class="row wrapper">
+        <div class="col-5 form_left">
         
             <h2 class="text-uppercase">New Here ?</h2>
             <p>
@@ -45,18 +19,25 @@
         
         <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo"> 
     </div>
-    
-        <form class="form-right" name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
+    <div class="col-7 form_right">
+        <form name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
             <h2 class="text-uppercase">Sign In  form</h2>
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="input-field" name="email" required  title="" placeholder="Enter Your Email">
+                <input type="email" class="form-control" name="email" placeholder="Enter Your Email">
+                   
             </div>
+            <div class="text-danger">
+						<?php
+							if(isset($data['email-err']))
+							echo $data['email-err'];
+						?>
+					</div>
 
                 <div class="mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                        <input type="password" name="password" id="pwd" class="input-field" title="" placeholder="Password">
+                        <input type="password" name="password" id="pwd" class="form-control" title="" placeholder="Password">
                         <!-- <i class="uil uil-eye-slash"></i> -->
                     </div>
                 </div>
@@ -80,8 +61,73 @@
             </div>
           
         </form>
-        <a href="#" class=" bottom-left"> <p class="col-md-12 text-center">
+    </div>
+        <a href="#" class="button-left"> <p class="col-md-12 text-center">
             create new account? 
        </p>
     </a>
     </div>
+
+<script>
+    $(function() {
+        var str=$('name').val();
+		if(/^[a-zA-Z- ]*$/.test(str) == false) {
+				alert('Your search string contains illegal characters.');
+			}
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		
+
+            $(function () {
+
+var str=$('name').val();
+if(/^[a-zA-Z- ]*$/.test(str) == false) {
+        alert('Your search string contains illegal characters.');
+    }
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+
+    
+$("form[name='contactForm']").validate({
+    // Define validation rules
+    errorClass: "is-invalid",
+    validClass: 'is-valid',
+    rules: {
+        email: "required",
+        password: "required",
+        email: {
+            required: true,
+            minlength: 6,
+            maxlength: 50,
+            email: true
+        },
+        password: {
+            minlength: 8,
+            maxlength: 30,
+            required: true,
+        },
+        
+    },
+    // Specify validation error messages
+    //  config error message
+    messages: {
+        
+        email: {
+            required: "Please enter your email",
+            minlength: "Please enter a valid email address",
+        },
+        password: {
+            required: "Please enter your password",
+            minlength: "Password length must be min 8 characters long",
+            maxlength: "Password length must not be more than 30 characters long"
+        },
+        
+    },
+    
+    submitHandler: function (form) {
+        form.submit();
+    }
+});
+
+});
+    });
+</script>

@@ -1,11 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
+@font-face {
+    font-family: Libre;
+    src: url(../../fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: Roboto;
+    src: url(../../fonts/Roboto_Serif/RobotoSerif-VariableFont_GRAD\opsz\wdth\wght.ttf);
+  }
+  .invalid-feedback {
+    color: #dc3545 !important; }
 /* Reseting */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body{
@@ -14,48 +23,49 @@ body{
 }
 
 .wrapper{
-    max-width: 850px;
-    background-color: #dbdcde;
+    max-width: 900px;
+    background-color: #5F5E9E; 
+    /* background-color: #dbdcde; */
     border-radius: 10px;
     height: auto;
     position: relative;
-    display: flex;
     margin: 50px auto;
     box-shadow: 0 8px 20px 0px #1f1f1f1a;
     overflow: hidden;
 }
 
-.wrapper .form-left{
-    /* background: #dbdcde; */
+.form_right label.is-invalid{
+    color: #dc3545 !important;
+}
+
+
+
+.wrapper .form_left{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding: 20px 40px;
     position: relative;
-    width: 85%;
-    color: #fff;
-    /* clip-path: ellipse(363px 532px at 30px -2px); */
-    /* clip-path: circle(183vh at 20% -90vh); */
 }
-.student_logo{
-    width: 50vh;
-    /* padding-left: 10px; */
-}
-.wrapper::before {
+/* 
+.invalid-feedback {
+color: red;
+} */
+
+/* .wrapper::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: #5F5E9E;
-    
     clip-path: ellipse(365px 550px at 30px -2px);
-    /* clip-path: ellipse(370px 700px at 102px -47); */
-    /* clip-path: ellipse(363px 532px at 30px -2px); */
-    /* background: linear-gradient(57deg, rgb(245, 31, 209), rgb(49, 47, 199));
-    clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 0% 94%); */
-}
+} */
 
+.student_logo{
+    width: 99%;
+    padding-left: 10px;
+}
 
 .wrapper h2{
     font-weight: 700;
@@ -65,22 +75,13 @@ body{
     pointer-events: none;
 }
 
-.wrapper .form-left p{
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.5;
-    pointer-events: none;
-}
 
-.wrapper .form-left .text{
-    margin: 20px 0 25px;
-}
 
-.wrapper .form-left p span{
+.wrapper .form_left p span{
     font-weight: 700;
 }
 
-.wrapper .form-left input{
+.wrapper .form_left .form_left_button{
     padding: 15px;
     background: #fff;
     border-top-left-radius: 5px;
@@ -96,58 +97,30 @@ body{
     outline: none;
 }
 
-.wrapper .form-left input:hover{
+.wrapper .form_left input:hover{
     background-color: #f2f2f2;
 }
 
-.wrapper .form-right{
+.wrapper .form_right{
     padding: 20px 40px;
     position: relative;
-    width: 100%;
     background-color: #dbdcde;
 }
 
-.wrapper .form-right h2{
+.wrapper .form_right h2{
     color: #5F5E9E;
 }
 
-.wrapper .form-right label{
-    font-weight: 600;
-    font-size: 15px;
-    color: #666;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.wrapper .form-right .form-control{
+.wrapper .form_right .form-control{
     border-radius:0rem;
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 10px 15px;
     outline: none;
+    box-shadow: none;
     color: #333;
     font-size: 14px;  /**/
 }
-.wrapper .form-right .form-control:focus{
-    border: 1px solid #31a031;
-    box-shadow: none;
-}
-.wrapper .form-right .input-field{
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid #e5e5e5;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    outline: none;
-    color: #333;
-    font-size: 14px;
-}
-
-
-/* .wrapper .form-right .input-field:focus{
-    border: 1px solid #31a031;
-} */
-
 
 .wrapper .option {
     display: block;
@@ -226,10 +199,9 @@ body{
     font-weight: 700;
     font-size: 15px;
 }
-.bottom-left {
+.button-left {
     position: absolute;
     bottom: 0.5px;
-    left: 30%;
   }
   
 
@@ -264,7 +236,7 @@ margin-bottom: 0px;
         margin: 30px 20px;
     }
 
-    .wrapper .form-left{
+    .wrapper .form_left{
         border-bottom-left-radius: 0px;
     }
 
@@ -277,10 +249,10 @@ margin-bottom: 0px;
         margin: 30px 15px;
     }
 
-    .wrapper .form-left{
+    .wrapper .form_left{
         padding: 25px;
     }
-    .wrapper .form-right{
+    .wrapper .form_right{
         padding: 25px;
     }
 }

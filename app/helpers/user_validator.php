@@ -4,7 +4,7 @@ class UserValidator
 {
     private $data;
     private $errors        = [];
-    private static $fields = ['name', 'email', 'password'];
+    private static $fields = ['name', 'email', 'password','cpassword'];
 
     public function __construct($post_data)
     {
@@ -18,10 +18,11 @@ class UserValidator
                 trigger_error($field . " is not present in data");
                 return;
             }
-        }
+       }
         $this->validateUserName();
         $this->validateEmail();
         $this->validatePassword();
+        $this->validateConfirmPassword();
         return $this->errors;
     }
 
@@ -69,6 +70,23 @@ class UserValidator
         } else {
             if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             $this->addError('password-err', 'Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
+            }
+        }
+    }
+
+    private function validateConfirmPassword()
+    {
+        // Validate confirm password strength
+        $cpassword     = trim($this->data['cpassword']);
+        $uppercase    = preg_match('@[A-Z]@', $cpassword);
+        $lowercase    = preg_match('@[a-z]@', $cpassword);
+        $number       = preg_match('@[0-9]@', $cpassword);
+        $specialChars = preg_match('@[^\w]@', $cpassword);
+        if (empty($cpassword)) {
+            $this->addError('cpassword-err', 'Confirm Password can not be empty.');
+        } else {
+            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($cpassword) < 8) {
+            $this->addError('cpassword-err', 'Confirm Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
             }
         }
     }
