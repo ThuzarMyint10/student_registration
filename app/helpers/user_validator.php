@@ -4,7 +4,7 @@ class UserValidator
 {
     private $data;
     private $errors        = [];
-    private static $fields = ['name', 'email', 'password'];
+    private static $fields = ['name', 'email', 'password','cpassword'];
 
     public function __construct($post_data)
     {
@@ -18,7 +18,7 @@ class UserValidator
                 trigger_error($field . " is not present in data");
                 return;
             }
-        }
+       }
         $this->validateUserName();
         $this->validateEmail();
         $this->validatePassword();

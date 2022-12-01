@@ -14,15 +14,15 @@
     </div>
 		<!-- form-right -->
 	<div class="col-7 form_right">
-        <form class="needs-validation" novalidate name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
+        <form name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
            
-                <div class="mb-3">
+                <div class="clearfix mb-3">
                     <label>User Name</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required> 
                 </div>
-                <div class="invalid-feedback text-danger">
+                <div class="text-danger">
 						<?php
 							if(isset($data['name-err']))
 							echo $data['name-err'];
@@ -31,7 +31,7 @@
                
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter Your Email" required>
+                <input type="email" class="form-control" name="email" placeholder="Enter Your Email">
                    
             </div>
             <div class="text-danger">
@@ -44,9 +44,9 @@
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                        <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" >
                     </div>
-                    <div class="invalid-feedback text-danger">
+                    <div class="text-danger">
 						<?php
 							if(isset($data['password-err']))
 							echo $data['password-err'];
@@ -55,21 +55,17 @@
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-                    <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" required>
-                </div>
-                <div class="invalid-feedback text-danger">
+					<div class="show_psw">
+                    <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password">
+					</div>
+					<div class="text-danger">
 						<?php
 							if(isset($data['cpassword-err']))
 							echo $data['cpassword-err'];
 						?>
 					</div>
-            </div>
-            <div class="mb-3">
-                <label class="option">I agree to the <a href="#">Terms and Conditions</a>
-                    <input type="checkbox" checked>
-                    <span class="checkmark"></span>
-                </label>
-            </div>
+				</div>
+                
             <div class="col-md-12 text-center ">
                 <input type="submit" value="Register" class="form_right_button" name="register">
             </div>
@@ -87,25 +83,7 @@
 			x.type = "password";
 		}
 	}
-	(function () {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+	
 
     $(function () {
 
@@ -114,21 +92,22 @@
 				alert('Your search string contains illegal characters.');
 			}
 			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-  
+		
 
+			
         $("form[name='contactForm']").validate({
             // Define validation rules
+			errorClass: "is-invalid",
+			validClass: 'is-valid',
             rules: {
                 name: "required",
                 email: "required",
                 password: "required",
 				cpassword: "required",
-                
                 name: {
-                    required: true,// to show configuration error message
+					required: true,// to show configuration error message
 					minlength: 6,// limit input value, 	Input value must have greater than or equal to minLength character length
                     maxlength: 20,//limit input value, 	Input value must have less than or equal to maxLength character length
-
                 },
                 email: {
                     required: true,
@@ -151,10 +130,10 @@
             // Specify validation error messages
 			//  config error message
             messages: {
+				
 				name: {
 				required: "Please enter your name",
 				minlength: "Name must be min 6 characters long",
-
 				},
                 email: {
                     required: "Please enter your email",
@@ -172,155 +151,158 @@
                 },
                 
             },
+			
             submitHandler: function (form) {
                 form.submit();
             }
         });
-    });
+
+	 });
 
 	// Email Validation
 	$(document).ready(function() {
 
-		// form autocomplete off
-		// call input tag, set attribute [attr(attribute,value)]	
-		$(":input").attr('autocomplete', 'off');
+// form autocomplete off
+// call input tag, set attribute [attr(attribute,value)]	
+$(":input").attr('autocomplete', 'off');
 
-		// remove box shadow from all text input
-		// call input tag
-		$(":input").css('box-shadow', 'none');
+// remove box shadow from all text input
+// call input tag
+$(":input").css('box-shadow', 'none');
 
-		// remove focus from the text field, remove cursor
-		$("#name").blur(function() {
+
+// remove focus from the text field, remove cursor
+$("#name").blur(function() {
+
+var name  		= 		$('#name').val();//to get the values of form elements(input field)
+
+
+// if name is empty then return
+if(name == "") {
+	return;
+}
+// call formRegister method from controllers>auth>formRegister()
+var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
+
+// send ajax request if name is not empty
+$.ajax({
+		url:form_url,
+		type: 'post',
+		data: {
+			'name':name,
+
+	},
+
+	success:function(response) {	
+	
+		// clear span before error message
+		$("#name_error").remove();
+	
+		// adding span after name textbox with error message
+		$("#name").after("<span id='name_error' class='text-danger'>"+response+"</span>");
+	},
+
+	error:function(e) {
+		$("#result").html("Something went wrong");
+	}
+
+});
+});
+
+
+// ------------------- [ Email blur function ] -----------------
+
+$("#email").blur(function() {
+
+	var email  		= 		$('#email').val();
+
+
+	// if email is empty then return
+	if(email == "") {
+		return;
+	}
+	var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
+
+	// send ajax request if email is not empty
+	$.ajax({
+			url:form_url,
+			type: 'post',
+			data: {
+				'email':email,
+				'email_check':1,
+		},
+	
+		success:function(response) {	
 		
-		var name  		= 		$('#name').val();//to get the values of form elements(input field)
+			// clear span before error message
+			$("#email_error").remove();
 		
-		
-		// if name is empty then return
-		if(name == "") {
-			return;
+			// adding span after email textbox with error message
+			$("#email").after("<span id='email_error' class='text-danger'>"+response+"</span>");
+		},
+	
+		error:function(e) {
+			$("#result").html("Something went wrong");
 		}
-		// call formRegister method from controllers>auth>formRegister()
-		var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
-
-		// send ajax request if name is not empty
-		$.ajax({
-				url:form_url,
-				type: 'post',
-				data: {
-					'name':name,
-
-			},
-		
-			success:function(response) {	
-			
-				// clear span before error message
-				$("#name_error").remove();
-			
-				// adding span after name textbox with error message
-				$("#name").after("<span id='name_error' class='invalid-feedback'>"+response+"</span>");
-			},
-		
-			error:function(e) {
-				$("#result").html("Something went wrong");
-			}
-		
-		});
+	
 	});
+});
+$("#passsword").blur(function() {
+
+var password = $('#password').val();
 
 
-		// ------------------- [ Email blur function ] -----------------
+// if password is empty then return
+if(password == "") {
+	return;
+}
+var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
 
-		$("#email").blur(function() {
-		
-			var email  		= 		$('#email').val();
-		
-		
-			// if email is empty then return
-			if(email == "") {
-				return;
-			}
-			var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
-		
-			// send ajax request if email is not empty
-			$.ajax({
-					url:form_url,
-					type: 'post',
-					data: {
-						'email':email,
-						'email_check':1,
-				},
-			
-				success:function(response) {	
-				
-					// clear span before error message
-					$("#email_error").remove();
-				
-					// adding span after email textbox with error message
-					$("#email").after("<span id='email_error' class='invalid-feedback'>"+response+"</span>");
-				},
-			
-				error:function(e) {
-					$("#result").html("Something went wrong");
-				}
-			
-			});
-		});
-		$("#passsword").blur(function() {
-		
-		var password = $('#password').val();
-		
-		
-		// if password is empty then return
-		if(password == "") {
-			return;
-		}
-		var form_url = '<?php echo URLROOT; ?>/auth/formRegister';
+// send ajax request if password is not empty
+$.ajax({
+		url:form_url,
+		type: 'post',
+		data: {
+			'password':password,
 
-		// send ajax request if password is not empty
-		$.ajax({
-				url:form_url,
-				type: 'post',
-				data: {
-					'password':password,
+	},
 
-			},
-		
-			success:function(response) {	
-			
-				// clear span before error message
-				$("#password_error").remove();
-			
-				// adding span after password textbox with error message
-				$("#password").after("<span id='password_error' class='invalid-feedback'>"+response+"</span>");
-			},
-		
-			error:function(e) {
-				$("#result").html("Something went wrong");
-			}
-		
-		});
-	});
+	success:function(response) {	
+	
+		// clear span before error message
+		$("#password_error").remove();
+	
+		// adding span after password textbox with error message
+		$("#password").after("<span id='password_error' class='text-danger'>"+response+"</span>");
+	},
+
+	error:function(e) {
+		$("#result").html("Something went wrong");
+	}
+
+});
+});
 
 
-		// -----------[ Clear span after clicking on inputs] -----------
+// -----------[ Clear span after clicking on inputs] -----------
 
-		$("#name").keyup(function() {
-			$("#error").remove();
-		});
+$("#name").keyup(function() {
+	$("#error").remove();
+});
 
 
-		$("#email").keyup(function() {
-			$("#error").remove();
-			$("span").remove();
-		});
+$("#email").keyup(function() {
+	$("#error").remove();
+	$("span").remove();
+});
 
-		$("#password").keyup(function() {
-			$("#error").remove();
-		});
+$("#password").keyup(function() {
+	$("#error").remove();
+});
 
-		$("#c_password").keyup(function() {
-			$("#error").remove();
-		});
+$("#c_password").keyup(function() {
+	$("#error").remove();
+});
 
-	});
+});
 </script>

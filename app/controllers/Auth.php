@@ -30,8 +30,10 @@ class Auth extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check user exist
             $email = $_POST['email'];
+            echo($email);
             // call columnFilter Method from Database.php
             $isUserExist = $this->db->columnFilter('users', 'email', $email);
+            echo $isUserExist;
             if ($isUserExist) {
                 setMessage('error', 'This email is already registered !');
                 redirect('pages/register');

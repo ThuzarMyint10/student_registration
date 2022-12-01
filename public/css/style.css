@@ -7,12 +7,14 @@
     font-family: Roboto;
     src: url(../../fonts/Roboto_Serif/RobotoSerif-VariableFont_GRAD\opsz\wdth\wght.ttf);
   }
+  .invalid-feedback {
+    color: #dc3545 !important; }
 /* Reseting */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body{
@@ -32,16 +34,22 @@ body{
     overflow: hidden;
 }
 
+.form_right label.is-invalid{
+    color: #dc3545 !important;
+}
+
+
+
 .wrapper .form_left{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding: 20px 40px;
     position: relative;
 }
-
+/* 
 .invalid-feedback {
 color: red;
-}
+} */
 
 /* .wrapper::before {
     content: '';
@@ -109,6 +117,7 @@ color: red;
     border-bottom-right-radius: 5px;
     padding: 10px 15px;
     outline: none;
+    box-shadow: none;
     color: #333;
     font-size: 14px;  /**/
 }
