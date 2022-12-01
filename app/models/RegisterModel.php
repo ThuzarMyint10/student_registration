@@ -7,7 +7,7 @@ class RegisterModel
     private $user_id;
     private $sname;
     private $fname;
-    private $mobile;
+    private $email;
     private $address;
     private $date_of_birth;
     private $gender;
@@ -52,13 +52,13 @@ class RegisterModel
         return $this->fname;
     }
 
-    public function setMobile($mobile)
+    public function setEmail($email)
     {
-        $this->mobile = $mobile;
+        $this->email = $email;
     }
-    public function getMobile()
+    public function getEmail()
     {
-        return $this->mobile;
+        return $this->email;
     }
 
     public function setAddress($address)
@@ -125,9 +125,9 @@ class RegisterModel
         return [
             "id" => $this->getId(),
             "user_id" => $this->getUserId(),
-            "fname" => $this->getSname(),
-            "lname" => $this->getFname(),
-            "mobile" => $this->getMobile(),
+            "sname" => $this->getSname(),
+            "fname" => $this->getFname(),
+            "email" => $this->getEmail(),
             "address" => $this->getAddress(),
             "date_of_birth" => $this->getDateofbirth(),
             "gender" => $this->getGender(),

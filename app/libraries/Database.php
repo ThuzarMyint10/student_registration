@@ -126,7 +126,47 @@ class Database
         $success = $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return ($success) ? $row : [];
+       
     }
+    public function update($table, $id, $data)
+    {    
+        if (isset($data['id'])) {
+            unset($data['id']);
+        }
+         try {
+            $columns = array_keys($data);
+            function map ($item) {
+                return $item . '=:' . $item;
+            }
+            $columns = array_map('map', $columns);
+            $bindingSql = implode(',', $columns);
+            // echo $bindingSql;
+            // exit;
+            $sql = 'UPDATE ' .  $table . ' SET ' . $bindingSql . ' WHERE `id` =:id';
+            $stm = $this->pdo->prepare($sql);
+
+            // Now, we assign id to bind
+            $data['id'] = $id;
+
+            foreach ($data as $key => $value) {
+                $stm->bindValue(':' . $key, $value);
+            }
+            $status = $stm->execute();
+            // print_r($status);
+            return $status;
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+    public function delete($table, $id)
+    {
+        $sql = 'DELETE FROM ' . $table . ' WHERE `id` = :id';
+        $stm = $this->pdo->prepare($sql);
+        $stm->bindValue(':id', $id);
+        $success = $stm->execute();
+        return ($success);
+    }
+
 
 }
 
