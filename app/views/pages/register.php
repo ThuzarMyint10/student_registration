@@ -1,4 +1,5 @@
-<?php require_once APPROOT . '/views/inc/header.php'; ?>
+<?php
+ require_once APPROOT . '/views/inc/header.php'; ?>
 
    <div class="row wrapper">
    <!-- form-left -->
@@ -18,16 +19,16 @@
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
            
-                <div class="clearfix mb-3">
-                    <label>User Name</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required> 
-                </div>
-                <div class="text-danger">
-						<?php
-							if(isset($data['name-err']))
-							echo $data['name-err'];
-						?>
-					</div>
+			<div class="clearfix mb-3">
+				<label>User Name</label>
+				<input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required> 
+			</div>
+			<div class="text-danger">
+				<?php
+					if(isset($data['name-err']))
+					echo $data['name-err'];
+				?>
+			</div>
                
             <div class="mb-3">
                 <label>Email</label>
@@ -35,11 +36,16 @@
                    
             </div>
             <div class="text-danger">
-						<?php
-							if(isset($data['email-err']))
-							echo $data['email-err'];
-						?>
-					</div>
+				<?php
+					if(isset($data['email-err'])){
+
+						echo $data['email-err'];
+					}
+					// if(isset($_SESSION['error'])){
+
+					// }
+				?>
+			</div>
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>

@@ -30,12 +30,13 @@ class Auth extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Check user exist
             $email = $_POST['email'];
-            echo($email);
             // call columnFilter Method from Database.php
             $isUserExist = $this->db->columnFilter('users', 'email', $email);
-            echo $isUserExist;
+            // echo $isUserExist;
             if ($isUserExist) {
-                setMessage('error', 'This email is already registered !');
+                echo "<script>
+                    alert('Email is already registered!');
+                    </script>";
                 redirect('pages/register');
             } else {
                 // Validate entries
@@ -72,9 +73,10 @@ class Auth extends Controller
                         //Instatiate mail
                         $mail = new Mail();
 
-                        $verify_token = URLROOT . '/auth/verify/' . $token;
-                        $mail->verifyMail($email, $name, $verify_token);
-
+                        // $verify_token = URLROOT . '/auth/verify/' . $token;
+                        $mail->verifyMail($email, $name, $token);
+                        setMessage('email', $email);
+                        setMessage('token', $token);
                         setMessage('success', 'Please check your Mail box !');
                         redirect('pages/login');
                     }
@@ -84,8 +86,10 @@ class Auth extends Controller
         }
     }
 
-    public function verify($token)
+    public function verify($email)
     {
+        echo $email;
+        exit();
         $user = $this->db->columnFilter('users', 'token', $token);
 
         if ($user) {
@@ -108,10 +112,8 @@ class Auth extends Controller
 
     public function login()
     {
-        //  echo "Hello Bo Kaw";
-        //  exit;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // echo "hello";
+           
             if (isset($_POST['email']) && isset($_POST['password'])) {
                 $email = $_POST['email'];
                 $password = base64_encode($_POST['password']);
@@ -142,13 +144,14 @@ class Auth extends Controller
         }
     }
 
-    function logout($id)
+    function logout()
     {
-        // session_start();
+        session_start();
         // $this->db->unsetLogin(base64_decode($_SESSION['id']));
 
         //$this->db->unsetLogin($this->auth->getAuthId());
-        $this->db->unsetLogin($id);
+
+        $this->db->unsetLogin(base64_decode($_SESSION['id']));
         redirect('pages/login');
     }
 }

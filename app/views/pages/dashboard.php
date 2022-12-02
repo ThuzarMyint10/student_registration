@@ -25,7 +25,7 @@
         </div>
       </div>
       <hr class="divided" />
-      <a href="#" class="btn button_color"
+      <a href="<?php echo URLROOT; ?>/auth/logout" class="btn button_color"
         ><i class="fa fa-arrow-circle-left"></i> Log out</a
       >
       <button

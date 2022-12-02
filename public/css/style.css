@@ -51,17 +51,6 @@ body{
 color: red;
 } */
 
-/* .wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: ellipse(365px 550px at 30px -2px);
-} */
-
 .student_logo{
     width: 99%;
     padding-left: 10px;
@@ -120,6 +109,38 @@ color: red;
     box-shadow: none;
     color: #333;
     font-size: 14px;  /**/
+}
+
+/* testing */
+.show-password i {
+    position: absolute;
+}
+  
+.show-password {
+    width: 100%;
+    margin-bottom: 10px;
+}
+  
+.icon {
+    margin-left: -45px;
+    cursor: pointer;
+    padding: 10px;
+    color: green;
+    min-width: 50px;
+    text-align: center;
+    display: inline-block;
+}
+  
+.input-field {
+    width: 100%;
+    padding: 10px;
+    /* text-align: center; */
+}
+
+#cpwd{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
 }
 
 .wrapper .option {
