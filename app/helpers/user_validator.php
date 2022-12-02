@@ -68,7 +68,7 @@ class UserValidator
         if (empty($password)) {
             $this->addError('password-err', 'Password can not be empty.');
         } else {
-            if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            if (!$uppercase || !$lowercase || !$number  || !$specialChars ||  strlen($password) < 8) {
             $this->addError('password-err', 'Password should be at least 8 characters , <br> at least one upper case letter, one lower case letter , one number, and one special character.');
             }
         }

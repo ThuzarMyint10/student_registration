@@ -1,4 +1,3 @@
-
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 
 <!DOCTYPE html>
@@ -9,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     
-    <!--Fontawesome-->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="bootstrap/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
@@ -26,18 +24,18 @@
         </div>
       </div>
       <hr class="divided" />
-      <a href="#" class="btn button_color"
+      <a href="#" class=" button_color"
         ><i class="fa fa-arrow-circle-left"></i> Log out</a
       >
       <button
-        class="btn button_color"
+        class=" button_color"
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#myModal"
       >
         <i class="fa fa-plus"></i> Add New Student
       </button>
-      <a href="#" class="btn button_color float-end">
+      <a href="#" class=" button_color float-end">
         <i class="fa-solid fa-print"></i> Print PDF
       </a>
       
@@ -117,12 +115,11 @@
       <a href="#" class="btn button_color mt-3">
         <i class="fa-solid fa-file-excel"></i> Export Data
       </a>
-
-      <!-- <form method="post" action="#">
-			<input type="submit" name="export" class="btn button-color" value="Export Data" />
-		</form> -->
     </div>
-    <!-- Student Create form modal-->
+    
+
+
+<!-- Student Create form modal-->
     <div class="modal fade" id="myModal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -258,6 +255,9 @@
         </div>
       </div>
     </div>
+     
+
+
 
 <!-- view button -->
   <?php 
@@ -289,7 +289,7 @@
 							<div class='container' id='profile'> 
 								<div class='row'>
 									<div class='col-sm-6'>
-										<img src='/student_registration/public/upload_images/$img' alt='image' class='img-fluid' ><br><br>
+										<img src='student_registration/public/upload_images/$img' alt='image' class='img-fluid' ><br><br>
 										<i class='fa fa-phone' aria-hidden='true'></i> $email  <br>
 									
 									</div>
@@ -320,7 +320,8 @@
 	?>
 
 
-    <!-- Student Edit form modal-->
+
+<!-- Student Edit form modal-->
     <?php
     $database=new Database();
     $edit_datas=$database->readAll('register');
@@ -336,7 +337,8 @@
 		$specialization = $data['specialization'];
 		$degree = $data['degree'];
 		$img = $data['image'];
-	?>
+    
+?>
 <div class='modal fade' id='edit'>
 	<div class='modal-dialog modal-lg'>
 	  	<div class='modal-content'>
@@ -350,35 +352,35 @@
 			<div class='modal-body'>
 				<form action='<?php echo URLROOT; ?>/Register/update' method='POST' enctype='multipart/form-data'>
 					<div class='row'>
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="text" name="id" value="<?php echo $id; ?>">
 						<div class='form-group col-md-6'>
 							<label for='name'> Name</label>
-							<input type='text' class='form-control' name='sname' placeholder='Enter Student Name' value ="<?php echo $sname?>">
+							<input type='text' class='form-control' name='sname' placeholder='Enter Student Name' value = '<?php $sname; ?>'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='fname'>Father Name</label>
-							<input type='text' class='form-control' name='fname' placeholder='Enter Father Name' value = "<?php echo $fname?>">
+							<input type='text' class='form-control' name='fname' placeholder='Enter Father Name' value = '<?php $fname;?>'>
 						</div>
 					</div>
 					<div class='row pt-3' style='color: #5F5E9E'>
 						<div class='form-group col-md-6'>
 							<label for='mobile'>Mobile</label>
-							<input type='mobile' class='form-control' name='email' placeholder='Enter Your Email' value = "<?php echo $email?>">
+							<input type='mobile' class='form-control' name='email' placeholder='Enter Email number' value = '<?php $email;?>'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='address'>Address</label>
-							<input type='text' class='form-control' name='address'  placeholder='Enter your Address ' value = "<?php echo $address?>">
+							<input type='text' class='form-control' name='address'  placeholder='Enter your Address ' value = '<?php $address;?>'>
 						</div>
 					</div>
 					<div class='row pt-3'>
 						<div class='form-group col-md-6'>
 							<label for='dob'>Date of Birth</label>
-							<input type='date' class='form-control' name='date_of_birth' placeholder='Date of Birth' value = "<?php echo $date_of_birth?>">
+							<input type='date' class='form-control' name='date_of_birth' placeholder='Date of Birth' value = '<?php $date_of_birth;?>'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='gender'>Gender</label>
-							<select id='gen' name='gender' class='form-control' value = "<?php echo $gender?>">
-								<option selected>"<?php echo $gender?>"</option>
+							<select id='gen' name='gender' class='form-control' value = '<?php $gender;?>'>
+								<option selected><?php $gender;?></option>
 								<option>Male</option>
 								<option>Female</option>
 								<option>Other</option>
@@ -387,9 +389,9 @@
 					</div>
 					<div class='row pt-3 '>
 						<div class='form-group col-md-6'>
-							<label for='subject'>Subject</label>
-							<select name='subject' class='form-control' value = "<?php echo $subject?>">
-								<option>"<?php echo $subject?>"</option>
+							<label for='subj'>Subject</label>
+							<select name='subject' class='form-control' value = '<?php $subject;?>'>
+								<option><?php $subject;?></option>
 								<option value='Computer Science'>Computer Science</option>
 								<option value='Information Technology'>Information Technology</option>
 								<option value='Computer Architecture'>Computer Architecture</option>
@@ -398,8 +400,8 @@
 						</div>
 						<div class='form-group col-md-4'>
 							<label for='specialization'>Specialization</label>
-							<select name='specialization' class='form-control' value = "<?php echo $specialization?>">
-								<option selected>"<?php echo $specialization?>"</option>
+							<select name='specialization' class='form-control' value = '<?php $specialization;?>'>
+								<option selected><?php $specialization;?></option>
 								<option value='Computer Science'>Computer Science</option>
 								<option value='Information Technology'>Information Technology</option>
 								<option value='Computer Architecture'>Computer Architecture</option>
@@ -408,13 +410,13 @@
 						</div>
 						<div class='form-group col-md-2'>
 							<label for='degree'>Degree</label>
-							<input type='text' class='form-control' name='degree' value ="<?php echo $degree?>">
+							<input type='text' class='form-control' name='sdegree' value = '<?php $degree;?>'>
 						</div>
 					</div>
 					   <div class='form-group pt-3 '>
 						    <label>Image</label>
 							<input type='file' name='image' class='form-control' >
-							<img src = '<?php echo URLROOT; ?>/upload_images/"<?php echo $img?>"' style='width:50px; height:50px'>
+							<img src = 'upload_images/<?php $img;?>' style='width:50px; height:50px'>
 					   </div>
 					<input type='submit' name='submit' class='btn button_color float-end mt-3 ' value='Submit'>
 				</form>	
@@ -422,10 +424,11 @@
 		</div>
 	</div>
 </div>
-	<?php
-	}
+<?php
+  }
 ?>
- 
+
+
     <?php require APPROOT . '/views/inc/footer.php'; ?>
 
     <script>

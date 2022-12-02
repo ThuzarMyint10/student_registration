@@ -18,14 +18,11 @@ class Database
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false // For General Error
+            PDO::ATTR_EMULATE_PREPARES   => false
         );
 
         try {
             $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);
-            // print_r($this->pdo);
-            // echo "Success";
-            // exit();
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
@@ -38,16 +35,16 @@ class Database
             $column = array_keys($data);
             $columnSql = implode(', ', $column);
             $bindingSql = ':' . implode(',:', $column);
-            // echo $bindingSql;
+        
             $sql = "INSERT INTO $table ($columnSql) VALUES ($bindingSql)";
-            // echo $sql;
+            
             $stm = $this->pdo->prepare($sql);
             foreach ($data as $key => $value) {
                 $stm->bindValue(':' . $key, $value);
             }
-            // print_r($stm);
+           
             $status = $stm->execute();
-            // echo $status;
+            
             return ($status) ? $this->pdo->lastInsertId() : false;
         } catch (PDOException $e) {
             echo $e;
@@ -56,7 +53,6 @@ class Database
     
     public function columnFilter($table, $column, $value)
     {
-        // $sql = 'SELECT * FROM ' . $table . ' WHERE `' . $column . '` = :value';
         $sql = 'SELECT * FROM ' . $table . ' WHERE `' . str_replace('`', '', $column) . '` = :value';
         $stm = $this->pdo->prepare($sql);
         $stm->bindValue(':value', $value);
@@ -84,7 +80,7 @@ class Database
         $stm->bindValue(':value', 1);
         $stm->bindValue(':id', $id);
         $success = $stm->execute();
-        $stm->closeCursor();    // to solve PHP Unbuffered Queries
+        $stm->closeCursor();    
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return ($success) ? $row : [];
     }
