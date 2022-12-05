@@ -4,8 +4,8 @@
     <div class="row wrapper">
         <div class="col-5 form_left">
         
-            <h2 class="text-uppercase">New Here ?</h2>
-            <p>
+            <h2 class="text-uppercase text-white">New Here ?</h2>
+            <p class="text-white">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <!-- <div class="form-field">
@@ -22,6 +22,7 @@
     <div class="col-7 form_right">
         <form name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
             <h2 class="text-uppercase">Sign In  form</h2>
+            <?php require APPROOT . '/views/components/auth_message.php'; ?>
             <div class="mb-3">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter Your Email">
@@ -33,12 +34,12 @@
 							echo $data['email-err'];
 						?>
 					</div>
-
+                   
                 <div class="mb-3">
                     <label>Password</label>
-                    <div class="show_psw">
-                        <input type="password" name="password" id="pwd" class="form-control" title="" placeholder="Password">
-                        <!-- <i class="uil uil-eye-slash"></i> -->
+                    <div class="input-icons">
+                        <input type="password" name="password" id="pwd" class="form-control input-field" title="" placeholder="Password">
+                        <i class="uil uil-eye-slash icon"></i>
                     </div>
                 </div>
             <div class="mb-3">
@@ -53,16 +54,16 @@
                     Or Login with social platforms
                  </p>
                  <div class="social_icons">
-                 <i class="social_icon uil uil-facebook"></i>
-                 <i class="social_icon uil uil-twitter"></i>
-                 <i class="social_icon uil uil-instagram-alt"></i>
-                 <i class="social_icon uil uil-whatsapp-alt"></i>
+                 <a href="www.facebook.com"><i class="social_icon uil uil-facebook"></i></a>
+                 <a href="www.facebook.com"><i class="social_icon uil uil-twitter"></i></a>
+                 <a href="www.facebook.com"><i class="social_icon uil uil-instagram-alt"></i></a>
+                 <a href="www.facebook.com"><i class="social_icon uil uil-whatsapp-alt"></i></a>
                 </div>
             </div>
           
         </form>
     </div>
-        <a href="#" class="button-left"> <p class="col-md-12 text-center">
+        <a href="<?php echo URLROOT; ?>/pages/register" class="button-left"> <p class="col-md-12 text-center">
             create new account? 
        </p>
     </a>

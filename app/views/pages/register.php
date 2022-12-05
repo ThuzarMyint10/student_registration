@@ -2,10 +2,9 @@
  require_once APPROOT . '/views/inc/header.php'; ?>
 
    <div class="row wrapper">
-   <!-- form-left -->
     <div class="col-5 form_left">
-		<h2 class="text-uppercase">Informations</h2>
-            <p>
+		<h2 class="text-uppercase text-white">Informations</h2>
+            <p class="text-white">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
                 <a href="<?php echo URLROOT; ?>/pages/login">
@@ -13,12 +12,13 @@
                </a>
         <img src="<?php echo URLROOT; ?>/images/student_photo.png" alt="" class="student_logo"> 
     </div>
-		<!-- form-right -->
 	<div class="col-7 form_right">
+	
         <form name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
+		<?php require APPROOT . '/views/components/auth_message.php'; ?>
             <h2 class="text-uppercase">Registration form</h2>
             <!-- <div class="row"> -->
-           
+           <div id="error"> </div>
 			<div class="clearfix mb-3">
 				<label>User Name</label>
 				<input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required> 
@@ -49,8 +49,9 @@
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
-                    <div class="show_psw">
+                    <div class="show_password">
                         <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" >
+						<i class="uil uil-eye-slash"></i>
                     </div>
                     <div class="text-danger">
 						<?php
@@ -61,8 +62,9 @@
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-					<div class="show_psw">
+					<div class="show_password">
                     <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password">
+					<i class="uil uil-eye-slash"></i>
 					</div>
 					<div class="text-danger">
 						<?php
@@ -78,9 +80,10 @@
         </form>
 	</div>
     </div>
-    
+	<!-- echo "<script type=\"text/javascript\">self.opener.document.getElementById('error').innerHTML='Error:Show Error';window.close();</script>"; -->
+                
 <script>
-	// Show Password
+// Show Password
 	function myFunction() {
 		var x = document.getElementById("myInput");
 		if (x.type === "password") {

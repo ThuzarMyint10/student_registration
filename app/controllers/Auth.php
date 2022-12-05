@@ -34,10 +34,8 @@ class Auth extends Controller
             $isUserExist = $this->db->columnFilter('users', 'email', $email);
             // echo $isUserExist;
             if ($isUserExist) {
-                echo "<script>
-                    alert('Email is already registered!');
-                    </script>";
-                redirect('pages/register');
+                setMessage('error', 'This email is already registered !');
+               redirect('pages/register');
             } else {
                 // Validate entries
                 $validation = new UserValidator($_POST);
@@ -85,6 +83,7 @@ class Auth extends Controller
             } // end of user-exist
         }
     }
+
 
     public function verify($email)
     {
@@ -154,4 +153,7 @@ class Auth extends Controller
         $this->db->unsetLogin(base64_decode($_SESSION['id']));
         redirect('pages/login');
     }
+
+   
 }
+

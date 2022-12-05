@@ -22,10 +22,10 @@ body{
     min-height: 100vh;
 }
 
+
 .wrapper{
     max-width: 900px;
-    background-color: #5F5E9E; 
-    /* background-color: #dbdcde; */
+    background-color: #5F5E9E;
     border-radius: 10px;
     height: auto;
     position: relative;
@@ -109,6 +109,8 @@ color: red;
     box-shadow: none;
     color: #333;
     font-size: 14px;  /**/
+    display: none;
+    width: auto;
 }
 
 /* testing */
@@ -131,12 +133,6 @@ color: red;
     display: inline-block;
 }
   
-.input-field {
-    width: 100%;
-    padding: 10px;
-    /* text-align: center; */
-}
-
 #cpwd{
     width: 100%;
     padding: 10px;
@@ -162,6 +158,26 @@ color: red;
     width: 0
 }
 
+.input-icons {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.input-icons i {
+    position: absolute;
+}
+  
+.icon {
+    padding: 10px;
+    min-width: 40px;
+}
+  
+.input-field {
+    padding: 10px;
+    text-align: center;
+    display: none;
+    width: 80%;
+}
 .uil{
     color: #000;
     display: inline-block;
