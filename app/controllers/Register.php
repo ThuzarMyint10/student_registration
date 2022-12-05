@@ -47,9 +47,6 @@ class Register extends Controller
             $msg = "";
             $img = $_FILES['image']['name'];
             $target = "upload_images/".basename($img);
-            // echo $target;
-            // die();
-
             if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
                 $msg = "Image uploaded successfully";
             }else{
@@ -74,8 +71,11 @@ class Register extends Controller
             redirect('pages/dashboard');
         }
      }
-      public function edit($id)
+      
+    public function edit($id)
     {
+        $register = $this->db->readAll('register');
+
         $register = $this->db->getById('register', $id);
 
         $data = [
@@ -84,12 +84,12 @@ class Register extends Controller
         $this->view('pages/dashboard', $data);
     }
 
-    public function update()        {
+    public function update() {
      
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             session_start();
-            $id= base64_decode($_SESSION['id']);
+            $id = $_POST['id'];
             $sname = $_POST['sname'];
             $fname = $_POST['fname'];
             $email = $_POST['email'];
@@ -99,16 +99,15 @@ class Register extends Controller
             $subject = $_POST['subject'];
             $specialization = $_POST['specialization'];
             $degree = $_POST['degree'];
-            $msg = "";
-            $img = $_FILES['image']['name'];
-            $target = "upload_images/".basename($img);
-            
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+            $user_id =base64_decode($_SESSION['id']);
+            $newImg = $_FILES['image']['name'];
+            $target = "upload_images/".basename($newImg);
+            if (!empty(move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
                 $msg = "Image uploaded successfully";
             }else{
                 $msg = "Failed to upload image";
             }
-           
+
             $register = new RegisterModel();
             $register->setId($id);
             $register->setSname($sname);
@@ -120,11 +119,22 @@ class Register extends Controller
             $register->setSubject($subject);
             $register->setSpecialization($specialization);
             $register->setDegree($degree);
-            $register->setImage($img);
-            
-            $updated = $this->db->update('register', $register->getId(), $register->toArray());
-            setMessage('success', 'Create successful!');
-            redirect('pages/dashboard');  
+            if(empty($newImg))
+            {
+                $edit_query = $this->db->getById('register', $id);
+                $newImg = $edit_query['image'];
+            }
+            $register->setImage($newImg);
+            $register->setUserId($user_id);
+            $updated = $this->db->update('register', $register->getId( ), $register->toArray());
+            if($updated){
+            echo "<script>
+            alert('Success! Data has been successfully updated!');
+            </script>";
+            }else{
+                echo "Data not update";
+            }
+            redirect('pages/dashboard');
         }
     }
      public function destroy()
@@ -139,6 +149,23 @@ class Register extends Controller
         setMessage('success', " Data has been Deleted");
         redirect('pages/dashboard');
     }
-
-     }
+    public function export(){
+       $run_datas = $this->db->readAll('register');
+       $timestamp = time();
+        $filename = 'Export_excel_' . $timestamp . '.xls';
+        
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        
+        $isPrintHeader = false;
+        foreach ($run_datas as $row) {
+            if (! $isPrintHeader) {
+                echo implode("\t", array_keys($row)) . "\n";
+                $isPrintHeader = true;
+            }
+            echo implode("\t", array_values($row)) . "\n";
+        }
+        exit();
+    }
+}
 ?>

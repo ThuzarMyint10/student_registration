@@ -1,4 +1,5 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/components/auth_message.php'; ?>
 
 <!DOCTYPE html>
 <html>
@@ -35,9 +36,7 @@
       >
         <i class="fa fa-plus"></i> Add New Student
       </button>
-      <a href="#" class=" button_color float-end">
-        <i class="fa-solid fa-print"></i> Print PDF
-      </a>
+      <button onclick="window.print()" class=" button_color float-end">Print PDF</button>
       
       <hr class="divided" />
       <table class="table table-striped" id="myTable">
@@ -87,7 +86,7 @@
             <td class="text-center">
               <span>
                 <a
-                  href="#edit"
+                  href="#edit<?=$id ?>"
                   class="btn btn-warning mr-3 edituser"
                   data-bs-toggle="modal"
                   title="Edit"
@@ -97,7 +96,7 @@
             </td>
             <td class="text-center">
               <span>
-                <a href="<?php echo URLROOT; ?>/Register/destroy?id=<?= $row['id'] ?>" class="btn btn-danger deleteuser" title="Delete">
+                <a href="<?php echo URLROOT; ?>/Register/destroy?id=<?= $row['id'] ?>" class="btn btn-danger deleteuser" title="Delete" onclick="return confirm('Are you sure?')">
                   <i class="fa-solid fa-trash"></i>
                 </a>
               </span>
@@ -112,7 +111,7 @@
         </tbody>
       </table>
 
-      <a href="#" class="btn button_color mt-3">
+      <a href="<?php echo URLROOT; ?>/Register/export" class="btn button_color mt-3">
         <i class="fa-solid fa-file-excel"></i> Export Data
       </a>
     </div>
@@ -145,7 +144,7 @@
                     type="text"
                     class="form-control"
                     name="sname"
-                    placeholder="Enter Your Name"
+                    placeholder="Enter Your Name"  required
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -154,7 +153,7 @@
                     type="text"
                     class="form-control"
                     name="fname"
-                    placeholder="Enter Your Father Name"
+                    placeholder="Enter Your Father Name" required
                   />
                 </div>
               </div>
@@ -165,16 +164,16 @@
                     type="email"
                     class="form-control"
                     name="email"
-                    placeholder="Enter Your email"
+                    placeholder="Enter Your email" required
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="aadharno">Address</label>
+                  <label for="address">Address</label>
                   <input
                     type="text"
                     class="form-control"
                     name="address"
-                    placeholder="Enter Your Address "
+                    placeholder="Enter Your Address " required
                   />
                 </div>
               </div>
@@ -185,7 +184,7 @@
                     type="date"
                     class="form-control"
                     name="date_of_birth"
-                    placeholder="Date of Birth"
+                    placeholder="Date of Birth" required
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -193,7 +192,7 @@
                   <select
                     id="inputState"
                     name="gender"
-                    class="form-control"
+                    class="form-control"  required="required"
                   >
                     <option selected>Choose...</option>
                     <option>Male</option>
@@ -205,8 +204,7 @@
               <div class="row pt-3">
                 <div class="form-group col-md-6">
                   <label for="inputCity">Subject</label>
-                  <!-- <input type="text" class="form-control" name="dist"> -->
-                  <select name="subject" class="form-control">
+                  <select name="subject" class="form-control"  required="required">
                     <option selected>Choose...</option>
                     <option >Computer Science</option>
                     <option>
@@ -220,8 +218,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputState">Specialization</label>
-                  <select name="specialization" class="form-control">
-                    <option selected>Choose...</option>
+                  <select name="specialization" class="form-control" required="required">
+                    <option selected >Choose...</option>
                     <option>Computer Science</option>
                     <option>
                       Information Technology
@@ -234,12 +232,12 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="inputZip">Degree</label>
-                  <input type="text" class="form-control" name="degree" />
+                  <input type="text" class="form-control" name="degree"  required/>
                 </div>
               </div>
               <div class="form-group pt-3">
                 <label>Image</label>
-                <input type="file" name="image" class="form-control" />
+                <input type="file" name="image" class="form-control" required/>
               </div>
               
               <!-- <input type="submit" name="submit" class="btn button-color w-25 h-25" value="Submit"> -->
@@ -275,6 +273,7 @@
 		$specialization = $row['specialization'];
 		$degree = $row['degree'];
 		$img = $row['image'];
+    $url=URLROOT;
     		echo " 
 			<div class='modal fade' id='view$id' >
 					<div class='modal-dialog modal-dialog-lg'>
@@ -289,7 +288,7 @@
 							<div class='container' id='profile'> 
 								<div class='row'>
 									<div class='col-sm-6'>
-										<img src='student_registration/public/upload_images/$img' alt='image' class='img-fluid' ><br><br>
+										<img src='$url/public/upload_images/$img' alt='image' class='img-fluid' ><br><br>
 										<i class='fa fa-phone' aria-hidden='true'></i> $email  <br>
 									
 									</div>
@@ -337,50 +336,51 @@
 		$specialization = $data['specialization'];
 		$degree = $data['degree'];
 		$img = $data['image'];
-    
-?>
-<div class='modal fade' id='edit'>
+    $user_id=$data['user_id'];
+    $url = URLROOT;
+    echo"
+    <div class='modal fade' id='edit$id'>
 	<div class='modal-dialog modal-lg'>
 	  	<div class='modal-content'>
 			<div class='modal-header'>
-				<img src='<?php echo URLROOT; ?>/images/logo1.png' width='150px' height='150px' alt=''>
+				<img src='$url/public/images/logo1.png' width='150px' height='150px' alt=''>
 				<br>
 				<h3 class='img-responsive' id='staticBackdropLabel'>Student Edition Form</h3>
 		  		<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
 		  		</button>
 			</div>
 			<div class='modal-body'>
-				<form action='<?php echo URLROOT; ?>/Register/update' method='POST' enctype='multipart/form-data'>
+				<form action='$url/Register/update/' method='POST' enctype='multipart/form-data'>
+        <input type='hidden' value='$id' name='id' />
 					<div class='row'>
-            <input type="text" name="id" value="<?php echo $id; ?>">
 						<div class='form-group col-md-6'>
 							<label for='name'> Name</label>
-							<input type='text' class='form-control' name='sname' placeholder='Enter Student Name' value = '<?php $sname; ?>'>
+							<input type='text' class='form-control' name='sname' placeholder='Enter Student Name' value = '$sname'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='fname'>Father Name</label>
-							<input type='text' class='form-control' name='fname' placeholder='Enter Father Name' value = '<?php $fname;?>'>
+							<input type='text' class='form-control' name='fname' placeholder='Enter Father Name' value = '$fname'>
 						</div>
 					</div>
 					<div class='row pt-3' style='color: #5F5E9E'>
 						<div class='form-group col-md-6'>
 							<label for='mobile'>Mobile</label>
-							<input type='mobile' class='form-control' name='email' placeholder='Enter Email number' value = '<?php $email;?>'>
+							<input type='mobile' class='form-control' name='email' placeholder='Enter Your Email' value = '$email'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='address'>Address</label>
-							<input type='text' class='form-control' name='address'  placeholder='Enter your Address ' value = '<?php $address;?>'>
+							<input type='text' class='form-control' name='address'  placeholder='Enter your Address ' value = '$address'>
 						</div>
 					</div>
 					<div class='row pt-3'>
 						<div class='form-group col-md-6'>
 							<label for='dob'>Date of Birth</label>
-							<input type='date' class='form-control' name='date_of_birth' placeholder='Date of Birth' value = '<?php $date_of_birth;?>'>
+							<input type='date' class='form-control' name='date_of_birth' placeholder='Date of Birth' value = '$date_of_birth'>
 						</div>
 						<div class='form-group col-md-6'>
 							<label for='gender'>Gender</label>
-							<select id='gen' name='gender' class='form-control' value = '<?php $gender;?>'>
-								<option selected><?php $gender;?></option>
+							<select id='gen' name='gender' class='form-control' value = '$gender'>
+								<option selected>$gender</option>
 								<option>Male</option>
 								<option>Female</option>
 								<option>Other</option>
@@ -390,8 +390,8 @@
 					<div class='row pt-3 '>
 						<div class='form-group col-md-6'>
 							<label for='subj'>Subject</label>
-							<select name='subject' class='form-control' value = '<?php $subject;?>'>
-								<option><?php $subject;?></option>
+							<select name='subject' class='form-control' value = '$subject'>
+								<option>$subject</option>
 								<option value='Computer Science'>Computer Science</option>
 								<option value='Information Technology'>Information Technology</option>
 								<option value='Computer Architecture'>Computer Architecture</option>
@@ -400,8 +400,8 @@
 						</div>
 						<div class='form-group col-md-4'>
 							<label for='specialization'>Specialization</label>
-							<select name='specialization' class='form-control' value = '<?php $specialization;?>'>
-								<option selected><?php $specialization;?></option>
+							<select name='specialization' class='form-control' value = '$specialization'>
+								<option selected>$specialization</option>
 								<option value='Computer Science'>Computer Science</option>
 								<option value='Information Technology'>Information Technology</option>
 								<option value='Computer Architecture'>Computer Architecture</option>
@@ -409,14 +409,14 @@
 							</select>
 						</div>
 						<div class='form-group col-md-2'>
-							<label for='degree'>Degree</label>
-							<input type='text' class='form-control' name='sdegree' value = '<?php $degree;?>'>
+							<label for='sdegree'>Degree</label>
+							<input type='text' class='form-control' name='degree' value = '$degree'>
 						</div>
 					</div>
 					   <div class='form-group pt-3 '>
 						    <label>Image</label>
-							<input type='file' name='image' class='form-control' >
-							<img src = 'upload_images/<?php $img;?>' style='width:50px; height:50px'>
+							<input type='file' name='image' class='form-control' value = '$img' />
+							<img src = '$url/public/upload_images/$img' style='width:50px; height:50px'>
 					   </div>
 					<input type='submit' name='submit' class='btn button_color float-end mt-3 ' value='Submit'>
 				</form>	
@@ -424,17 +424,17 @@
 		</div>
 	</div>
 </div>
-<?php
-  }
+
+		";
+	}
 ?>
-
-
     <?php require APPROOT . '/views/inc/footer.php'; ?>
 
     <script>
       $(document).ready(function () {
         $("#myTable").DataTable();
       });
+      
     </script>
   </body>
 </html>
