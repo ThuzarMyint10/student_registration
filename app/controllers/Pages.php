@@ -17,6 +17,10 @@ class Pages extends Controller
         $this->view('pages/login');
     }
 
+    public function create() {
+        $this->view('pages/create');
+    }
+
     public function register() {
         $this->view('pages/register');
     }

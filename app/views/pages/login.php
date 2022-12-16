@@ -21,6 +21,7 @@
     </div>
     <div class="col-7 form_right">
         <form name="contactForm" method="POST" action="<?php echo URLROOT; ?>/auth/login">
+        <?php require APPROOT . '/views/components/auth_message.php'; ?>
             <h2 class="text-uppercase">Sign In  form</h2>
             <div class="mb-3">
                 <label>Email</label>

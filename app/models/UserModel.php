@@ -11,6 +11,7 @@ class UserModel
     private $is_active;
     private $is_login;
     private $token;
+    private $token_expire;
     private $date;
 
     public function setName($name)
@@ -85,6 +86,15 @@ class UserModel
         return $this->token;
     }
 
+    public function setTokenExpire($token_expire)
+    {
+        $this->token_expire = $token_expire;
+    }
+    public function getTokenExpire()
+    {
+        return $this->token_expire;
+    }
+
     public function setDate($date)
     {
         $this->date = $date;
@@ -104,6 +114,7 @@ class UserModel
             "is_active" => $this->getIsActive(),
             "is_login" => $this->getIsLogin(),
             "token" => $this->getToken(),
+            "token_expire" => $this->getTokenExpire(),
             "date" => $this->getDate()
         ];
     }
