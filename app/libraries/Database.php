@@ -105,6 +105,35 @@ class Database
         }
     }
 
+    public function setConfirmAndActive($email)
+    {
+        $sql = 'UPDATE users SET `is_confirmed` = :value WHERE `email` = :email';
+        $stm = $this->pdo->prepare($sql);
+        $stm->bindValue(':value', 1);
+        $stm->bindValue(':email', $email);
+        $success = $stm->execute();
+        $stm->closeCursor();    // to solve PHP Unbuffered Queries
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return ($success) ? $row : [];
+    }
+
+    public function unsetConfirmAndActive($id)
+    {
+       try{ 
+           $sql        = "UPDATE users SET is_confirmed = :false WHERE id = :id";
+           $stm        = $this->pdo->prepare($sql);
+           $stm->bindValue(':false','0');
+           $stm->bindValue(':id',$id);
+           $success = $stm->execute();
+           $row     = $stm->fetch(PDO::FETCH_ASSOC);
+           return ($success) ? $row : [];
+        }
+        catch( Exception $e)
+        {
+            echo($e);
+        }
+    }
+
     public function readAll($table)
     {
         $sql = 'SELECT * FROM ' . $table;

@@ -100,6 +100,11 @@ class Auth extends Controller
         }
     }
 
+    public function verify($email)
+    {
+        echo $email;
+        exit();
+        $user = $this->db->columnFilter('users', 'token', $token);
 
     public function resendToken($token)
     {  
