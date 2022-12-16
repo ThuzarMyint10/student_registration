@@ -5,7 +5,7 @@ class Auth extends Controller
     private $db;
     public function __construct()
     {
-        $this->model('UserModel');
+        $this->model('RegisterModel');
         $this->db = new Database();
     }
 
@@ -18,7 +18,7 @@ class Auth extends Controller
         ) {
             $email = $_POST['email'];
             // call columnFilter Method from Database.php
-            $isUserExist = $this->db->columnFilter('users', 'email', $email);
+            $isUserExist = $this->db->columnFilter('student', 'email', $email);
             if ($isUserExist) {
                 echo 'Sorry! email has already taken. Please try another.';
             }
@@ -31,10 +31,13 @@ class Auth extends Controller
             // Check user exist
             $email = $_POST['email'];
             // call columnFilter Method from Database.php
-            $isUserExist = $this->db->columnFilter('users', 'email', $email);
+            $isUserExist = $this->db->columnFilter('student', 'email', $email);
             // echo $isUserExist;
-            if ($isUserExist) {
-                setMessage('error', 'This email is already registered !');
+            if ($isUserExist) {  
+                // $date = date('Y-m-d');
+                $date = date('d-m-Y', strtotime("+1 day", strtotime(date('Y-m-d'))));
+                // set $date;
+                setMessage('error','Email is already registered!');
                redirect('pages/register');
             } else {
                 // Validate entries
@@ -49,22 +52,35 @@ class Auth extends Controller
 
                     $profile_image = 'default_profile.jpg';
                     $token = bin2hex(random_bytes(50));
-
+                    date_default_timezone_set('Asia/Rangoon');
+                    $date = date('Y-m-d');
+                    $tokenExpire = date('Y-m-d', strtotime("+1 day", strtotime($date)));
+                    var_dump($tokenExpire);
                     //Hash Password before saving
                     $password = base64_encode($password);
 
-                    $user = new UserModel();
+                    $user = new RegisterModel();
                     $user->setName($name);
                     $user->setEmail($email);
                     $user->setPassword($password);
                     $user->setToken($token);
+                    $user->setTokenExpire($tokenExpire);
                     $user->setProfileImage($profile_image);
                     $user->setIsLogin(0);
                     $user->setIsActive(0);
                     $user->setIsConfirmed(0);
-                    $user->setDate(date('Y-m-d H:i:s'));
+                    $user->setDate($date);
+                    $user->setUserTypeId(4);
+                    $user->setFatherName('');
+                    $user->setDateOfBirth('');
+                    $user->setGender('');
+                    $user->setAddressId(0);
+                    $user->setSocialId(0);
+                    $user->setEducationId(0);
+                    // $user->setDate("2022-12-07 14:51:09");
 
-                    $userCreated = $this->db->create('users', $user->toArray());
+                    $userCreated = $this->db->create('student', $user->toArray());
+                  
                     //$userCreated="true";
 
                     if ($userCreated) {
@@ -84,29 +100,100 @@ class Auth extends Controller
         }
     }
 
-
     public function verify($email)
     {
         echo $email;
         exit();
         $user = $this->db->columnFilter('users', 'token', $token);
 
-        if ($user) {
-            $success = $this->db->verify($user[0]['id']);
-
-            if ($success) {
-                setMessage(
-                    'success',
-                    'Successfully Verified . Please log in !'
-                );
-            } else {
-                setMessage('error', 'Fail to Verify . Please try again!');
+    public function resendToken($token)
+    {  
+        $users = $this->db->columnFilter('student', 'token', $token);
+         
+            $newToken = bin2hex(random_bytes(50));
+            $name = $users['name'];
+            $email = $users['email'];
+            date_default_timezone_set('Asia/Rangoon');
+            $date = date('Y-m-d');
+            $tokenExpire = date('Y-m-d', strtotime("+1 day", strtotime($date)));
+            $user = new RegisterModel();
+            $user->setName($name);
+            $user->setEmail($email);
+            $user->setPassword($users['password']);
+            $user->setToken($newToken);
+            $user->setTokenExpire($tokenExpire);
+            $user->setProfileImage($users['profile_image']);
+            $user->setIsLogin(0);
+            $user->setIsActive(1);
+            $user->setIsConfirmed(1);
+            $user->setDate($date);
+            $user->setUserTypeId($users['user_type_id']);
+            $user->setFatherName($users['father_name']);
+            $user->setDateOfBirth($users['date_of_birth']);
+            $user->setGender($users['gender']);
+            $user->setAddressId($users['address_id']);
+            $user->setSocialId($users['social_id']);
+            $user->setEducationId($users['education_id']);
+    
+            $userUpdated = $this->db->update('student',$users[id], $user->toArray());
+            //$userCreated="true";
+    
+            if ($userUpdated) {
+                $mail = new Mail();
+                // $verify_token = URLROOT . '/auth/verify/' . $token;
+                $mail->verifyMail($email, $name, $newToken);    
+                setMessage('success', 'Please check your Mail box !');
+                redirect('pages/login');
             }
-        } else {
-            setMessage('error', 'Incrorrect Token . Please try again!');
-        }
+          
+    }
 
-        redirect('');
+
+    public function verify($token)
+    {       $users = $this->db->columnFilter('student', 'token', $token);
+            $origin = new DateTimeImmutable($users['token_expire']);
+            $target = new DateTimeImmutable(date('Y-m-d'));
+            $interval = date_diff($origin, $target);
+            $tokenExpire = $interval->format("%R%a");
+         echo $tokenExpire;
+        //  exit;
+            if($tokenExpire > 1 || $tokenExpire == 1){   
+                $this->view('pages/mail_body_template', $users);
+            } else {
+                
+            $name = $users['name'];
+            $email = $users['email'];
+            $token = $users['token'];
+            $user = new RegisterModel();
+            $user->setName($name);
+            $user->setEmail($email);
+            $user->setPassword($users['password']);
+            $user->setToken($token);
+            $user->setTokenExpire($users['token_expire']);
+            $user->setProfileImage($users['profile_image']);
+            $user->setIsLogin(0);
+            $user->setIsActive(1);
+            $user->setIsConfirmed(1);
+            $user->setDate($users['date']);
+            $user->setUserTypeId($users['user_type_id']);
+            $user->setFatherName($users['father_name']);
+            $user->setDateOfBirth($users['date_of_birth']);
+            $user->setGender($users['gender']);
+            $user->setAddressId($users['address_id']);
+            $user->setSocialId($users['social_id']);
+            $user->setEducationId($users['education_id']);
+    
+            $userUpdated = $this->db->update('student',$users[id], $user->toArray());
+            //$userCreated="true";
+    
+            if ($userUpdated) {
+                setMessage('success', 'Please check your Mail box !');
+                redirect('pages/login');
+            }
+            }
+           
+        
+       
     }
 
     public function login()
@@ -126,19 +213,6 @@ class Auth extends Controller
                     setMessage('error', 'Login Fail!');
                     redirect('pages/login');
                 }
-
-                // $isEmailExist = $this->db->columnFilter('users', 'email', $email);
-                // print_r($isEmailExist);
-                // exit;
-                // $isPasswordExist = $this->db->columnFilter('users', 'password', $password);
-
-                // if ($isEmailExist && $isPasswordExist) {
-                //     echo "Login success";
-                // } else {
-                //     echo "login fail";
-                // }
-                // print_r($email);
-                // print_r($password);
             }
         }
     }

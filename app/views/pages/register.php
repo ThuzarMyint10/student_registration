@@ -49,10 +49,14 @@
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
-                    <div class="show_password">
+                    <!-- <div class="show_password">
                         <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" >
-						<i class="uil uil-eye-slash"></i>
-                    </div>
+						<i class="uil uil-eye-slash" style ="display: inline-block; position:absolute;"></i>
+                    </div> -->
+					<div class="show_psw">
+                      <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
+            <i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
+          </div>
                     <div class="text-danger">
 						<?php
 							if(isset($data['password-err']))
@@ -62,10 +66,14 @@
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-					<div class="show_password">
+					<!-- <div class="show_password">
                     <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password">
 					<i class="uil uil-eye-slash"></i>
-					</div>
+					</div> -->
+					<div class="show_psw">
+                      <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" style="display: inline-block;">
+            <i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye1"></i>
+          </div>
 					<div class="text-danger">
 						<?php
 							if(isset($data['cpassword-err']))
@@ -92,7 +100,25 @@
 			x.type = "password";
 		}
 	}
-	
+	// Show Password//////////////////////////////////
+
+    const passwordField = document.querySelector("#pwd")
+    const eye = document.querySelector("#eye")
+
+    eye.addEventListener("click", function(){
+        this.classList.toggle("uil-eye-slash")
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password"
+        passwordField.setAttribute("type", type)
+    });
+
+    const passwordField1 = document.querySelector("#cpassword")
+    const eye1 = document.querySelector("#eye1")
+
+    eye1.addEventListener("click", function(){
+        this.classList.toggle("uil-eye-slash")
+        const type1 = passwordField1.getAttribute("type") === "password" ? "text" : "password"
+        passwordField1.setAttribute("type", type1)
+    });
 
     $(function () {
 

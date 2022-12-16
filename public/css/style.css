@@ -38,8 +38,6 @@ body{
     color: #dc3545 !important;
 }
 
-
-
 .wrapper .form_left{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -265,8 +263,6 @@ margin-bottom: 0px;
         margin: 50px 5px;
     }
 }
-
-
 @media (max-width: 767.5px){
     .wrapper{
         flex-direction: column;

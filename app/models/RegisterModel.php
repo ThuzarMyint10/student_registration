@@ -3,78 +3,150 @@
 class RegisterModel
 {
     // Access Modifier = public, private, protected
-    private $id;
-    private $user_id;
-    private $sname;
-    private $fname;
-    private $mobile;
-    private $address;
+    // private $id;
+    private $name;
+    private $email;
+    private $password;
+    private $profile_image;
+    private $is_confirmed;
+    private $is_active;
+    private $is_login;
+    private $token;
+    private $date;
+    private $token_expire;
+    private $user_type_id;
+    private $father_name;
     private $date_of_birth;
     private $gender;
-    private $subject;
-    private $specialization;
-    private $degree;
-    private $image;
+    private $address_id;
+    private $social_id;
+    private $education_id;
+   
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
+    // public function setId($id)
+    // {
+    //     $this->id = $id;
+    // }
+    // public function getId()
+    // {
+    //     return $this->id;
+    // }
 
-    public function setUserId($user_id)
+    public function setUserTypeId($user_type_id)
     {
-        $this->user_id = $user_id;
+        $this->user_type_id = $user_type_id;
     }
-    public function getUserId()
+    public function getUserTypeId()
     {
-        return $this->user_id;
-    }
-
-    public function setSname($sname)
-    {
-        $this->sname = $sname;
-    }
-    public function getSname()
-    {
-        return $this->sname;
+        return $this->user_type_id;
     }
 
-    public function setFname($fname)
+    public function setName($name)
     {
-        $this->fname = $fname;
+        $this->name = $name;
     }
-    public function getFname()
+    public function getName()
     {
-        return $this->fname;
-    }
-
-    public function setMobile($mobile)
-    {
-        $this->mobile = $mobile;
-    }
-    public function getMobile()
-    {
-        return $this->mobile;
+        return $this->name;
     }
 
-    public function setAddress($address)
+    
+    public function setFatherName($father_name)
     {
-        $this->address = $address;
+        $this->father_name = $father_name;
     }
-    public function getAddress()
+    public function getFatherName()
     {
-        return $this->address;
+        return $this->father_name;
     }
 
-    public function setDateofbirth($date_of_birth)
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setProfileImage($profile_image)
+    {
+        $this->profile_image = $profile_image;
+    }
+    public function getProfileImage()
+    {
+        return $this->profile_image;
+    }
+
+    public function setIsConfirmed($is_confirmed)
+    {
+        $this->is_confirmed = $is_confirmed;
+    }
+    public function getIsConfirmed()
+    {
+        return $this->is_confirmed;
+    }
+
+    public function setIsActive($is_active)
+    {
+        $this->is_active = $is_active;
+    }
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    public function setIsLogin($is_login)
+    {
+        $this->is_login = $is_login;
+    }
+    public function getIsLogin()
+    {
+        return $this->is_login;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function setTokenExpire($token_expire)
+    {
+        $this->token_expire = $token_expire;
+    }
+    public function getTokenExpire()
+    {
+        return $this->token_expire;
+    }
+
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    
+    public function setDateOfBirth($date_of_birth)
     {
         $this->date_of_birth = $date_of_birth;
     }
-    public function getDateofbirth()
+    public function getDateOfBirth()
     {
         return $this->date_of_birth;
     }
@@ -88,53 +160,53 @@ class RegisterModel
         return $this->gender;
     }
 
-    public function setSubject($subject)
+    public function setAddressId($address_id)
     {
-        $this->subject = $subject;
+        $this->address_id= $address_id;
     }
-    public function getSubject()
+    public function getAddressId()
     {
-        return $this->subject;
+        return $this->address_id;
     }
-    public function setSpecialization($specialization)
+
+    public function setSocialId($social_id)
     {
-        $this->specialization = $specialization;
+        $this->social_id= $social_id;
     }
-    public function getSpecialization()
+    public function getSocialId()
     {
-        return $this->specialization;
+        return $this->social_id;
     }
-     public function setDegree($degree)
+
+    public function setEducationId($education_id)
     {
-        $this->degree = $degree;
+        $this->education_id= $education_id;
     }
-    public function getDegree()
+    public function getEducationId()
     {
-        return $this->degree;
-    }
-     public function setImage($image)
-    {
-        $this->image= $image;
-    }
-    public function getImage()
-    {
-        return $this->image;
+        return $this->education_id;
     }
 
     public function toArray() {
         return [
-            "id" => $this->getId(),
-            "user_id" => $this->getUserId(),
-            "fname" => $this->getSname(),
-            "lname" => $this->getFname(),
-            "mobile" => $this->getMobile(),
-            "address" => $this->getAddress(),
-            "date_of_birth" => $this->getDateofbirth(),
+            // "id" => $this->getId(),
+            "name" => $this->getName(),
+            "email" => $this->getEmail(),
+            "password" => $this->getPassword(),
+            "profile_image" => $this->getProfileImage(),
+            "is_confirmed" => $this->getIsConfirmed(),
+            "is_active" => $this->getIsActive(),
+            "is_login" => $this->getIsLogin(),
+            "token" => $this->getToken(),
+            "token_expire" => $this->getTokenExpire(),
+            "date" => $this->getDate(),
+            "user_type_id" => $this->getUserTypeId(),
+            "father_name" => $this->getFatherName(),
+            "date_of_birth" => $this->getDateOfBirth(),
             "gender" => $this->getGender(),
-            "subject" => $this->getSubject(),
-            "specialization" => $this->getSpecialization(),
-            "degree" => $this->getDegree(),
-            "image" => $this->getImage()
+            "address_id" => $this->getAddressId(),
+            "social_id" => $this->getSocialId(),
+            "education_id" => $this->getEducationId(),
         ];
     }
 }

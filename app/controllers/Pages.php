@@ -17,6 +17,10 @@ class Pages extends Controller
         $this->view('pages/login');
     }
 
+    public function create() {
+        $this->view('pages/create');
+    }
+
     public function register() {
         $this->view('pages/register');
     }
@@ -28,12 +32,6 @@ class Pages extends Controller
 
     public function dashboard()
     {
-        // $income = $this->db->incomeTransition();
-        // $expense = $this->db->expenseTransition();
-        // $data = [
-        //     'income' => $income,
-        //     'expense' => $expense
-        // ];
         $this->view('pages/dashboard');
     }
 
