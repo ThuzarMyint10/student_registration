@@ -21,6 +21,22 @@ class Pages extends Controller
         $this->view('pages/create');
     }
 
+    public function township() {
+        $this->view('pages/township_list');
+    }
+
+    public function townshipEdit() {
+        $this->view('pages/township_list');
+    }
+
+    public function street() {
+        $this->view('pages/street_name_list');
+    }
+    
+    public function semester() {
+        $this->view('pages/semester');
+    }
+    
     public function register() {
         $this->view('pages/register');
     }

@@ -19,7 +19,7 @@ class RegisterModel
     private $date_of_birth;
     private $gender;
     private $address_id;
-    private $social_id;
+    // private $social_id;
     private $education_id;
    
 
@@ -169,14 +169,14 @@ class RegisterModel
         return $this->address_id;
     }
 
-    public function setSocialId($social_id)
-    {
-        $this->social_id= $social_id;
-    }
-    public function getSocialId()
-    {
-        return $this->social_id;
-    }
+    // public function setSocialId($social_id)
+    // {
+    //     $this->social_id= $social_id;
+    // }
+    // public function getSocialId()
+    // {
+    //     return $this->social_id;
+    // }
 
     public function setEducationId($education_id)
     {
@@ -205,7 +205,7 @@ class RegisterModel
             "date_of_birth" => $this->getDateOfBirth(),
             "gender" => $this->getGender(),
             "address_id" => $this->getAddressId(),
-            "social_id" => $this->getSocialId(),
+            // "social_id" => $this->getSocialId(),
             "education_id" => $this->getEducationId(),
         ];
     }

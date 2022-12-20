@@ -1,30 +1,27 @@
-<?php require_once APPROOT . '/views/inc/header.php'; ?>
-<?php require APPROOT . '/views/components/auth_message.php'; ?>
-<!-- view button -->
+
   <?php 
       $database=new Database();
-      $personalView_datas=$database->readAll('register');
+      $personalView_datas=$database->readAll('vw_student');
+	 
       foreach($personalView_datas as $row){
         $id = $row['id'];
-        $sname = $row['sname'];
-        $fname= $row['fname'];
+        $sname = $row['name'];
+        $fname = $row['father_name'];
         $email = $row['email'];
         $date_of_birth = $row['date_of_birth'];
-        $gender= $row['gender'];
+        $gender = $row['gender'];
         $img = $row['image'];
+ 
+      	$block = $row['block'];
+		$unit = $row['unit'];
+      	$street = $row['street_name'];
+      	$township = $row['township_name'];
+      	$city = $row['city_name'];
 
-    $addressView_datas=$database->readAll('addresses');
-    foreach($addressView_datas as $row){
-      $blog=$row['blog'];
-      $street=$row['street'];
-      $township=$row['township'];
-      $city=$row['city'];
-
-    $educationView_datas=$database->readAll('education');
-    foreach($educationView_datas as $row){
-      $semester=$row['semester'];
-      $specialization=$row['specialization'];
-      $degree=$row['degree'];
+      	$semester = $row['semester'];
+      	$specialization = $row['specialization'];
+      	$degree = $row['degree'];
+		$achedamic_year = $row['achedamic_year'];
 
     $url=URLROOT;
     		echo " 
@@ -55,7 +52,7 @@
 										<strong>Specialization :</strong>$specialization <br>
 										<strong>Degree :</strong>$degree <br>
 										<br />
-										<i class='fa fa-home' aria-hidden='true'> Address : </i> <strong>Addres:</strong> $blog Blog, $street Street, $township Township, $city City<br>
+										<i class='fa fa-home' aria-hidden='true'> Address : </i> <strong>Addres:</strong> $block Block, $street Street, $township Township, $city City<br>
 									</div>
 								</div>   
 							</div>
@@ -69,8 +66,6 @@
 				</div> 
 				";
 			}
-    }
-  } 
 	?>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

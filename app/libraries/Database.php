@@ -143,27 +143,40 @@ class Database
         $row = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $success ? $row : [];
     }
-    public function getByCityId($table, $city_id)
+    public function getById($table, $key, $id)
     {
-        $sql = 'SELECT * FROM ' . $table . ' WHERE `city_id` =:city_id';
-        print_r($sql);
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $key. ' =:'.$key;
         $stm = $this->pdo->prepare($sql);
-        $stm->bindValue(':city_id', $city_id);
+        $stm->bindValue(':'.$key, $id);
         $success = $stm->execute();
         $row = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $success ? $row : [];
     }
 
-    public function getById($table, $id)
+    public function getAddressId($table, $unit, $block, $street_id)
     {
-        $sql = 'SELECT * FROM ' . $table . ' WHERE `id` =:id';
-        // print_r($sql);
+        $sql = 'SELECT * FROM ' . $table . ' WHERE `unit` =:unit' . ' AND `block` =:block' . ' AND `street_id` =:street_id';
         $stm = $this->pdo->prepare($sql);
-        $stm->bindValue(':id', $id);
+        $stm->bindValue(':unit', $unit);
+        $stm->bindValue(':block', $block);
+        $stm->bindValue(':street_id', $street_id);
         $success = $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return $success ? $row : [];
     }
+
+    public function getEducationId($table, $subjectId, $semesterId, $achedamicYearId)
+    {
+        $sql = 'SELECT * FROM ' . $table . ' WHERE `subject_id` =:subject_id' . ' AND `semester_id` =:semester_id' . ' AND `achedamic_year_id` =:achedamic_year_id';
+        $stm = $this->pdo->prepare($sql);
+        $stm->bindValue(':subject_id', $subjectId);
+        $stm->bindValue(':semester_id', $semesterId);
+        $stm->bindValue(':achedamic_year_id', $achedamicYearId);
+        $success = $stm->execute();
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $success ? $row : [];
+    }
+
     public function update($table, $id, $data)
     {
         if (isset($data['id'])) {

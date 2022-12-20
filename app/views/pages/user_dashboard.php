@@ -17,7 +17,7 @@
     <?php
     $database=new Database();
         $id = base64_decode($_SESSION['id']);
-        $user=$database->getById('student',$id);
+        $user=$database->getById('student', 'id', $id);
     ?>
 
      <div class="container">
@@ -33,7 +33,7 @@
         <?php 
         $database=new Database();
         $id = base64_decode($_SESSION['id']);
-        $admin=$database->getById('student',$id);
+        $admin=$database->getById('student', 'id',$id);
         ?>
         Welcome <?php echo $admin['name']; ?>
       </div>
