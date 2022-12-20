@@ -1,9 +1,10 @@
 <?php
 class AddressModel {
     private $id;
-    private $city;
-    private $blog;
+    private $block;
+    private $unit;
     private $street_id;
+    private $township_id;
 
     public function setId($id)
     {
@@ -13,22 +14,21 @@ class AddressModel {
     {
         return $this->id;
     }
-
-    public function setCity($city)
+    public function setBlock($block)
     {
-        $this->city = $city;
+        $this->block=$block;
     }
-    public function getCity()
+    public function getBlock()
     {
-        return $this->city;
+        return $this->block;
     }
-    public function setBlog($blog)
+     public function setUnit($unit)
     {
-        $this->blog=$blog;
+        $this->unit = $unit;
     }
-    public function getBlog()
+    public function getUnit()
     {
-        return $this->blog;
+        return $this->unit;
     }
     public function setStreetId($street_id)
     {
@@ -38,12 +38,21 @@ class AddressModel {
     {
         return $this->street_id;
     }
+     public function setTownshipId($township_id)
+    {
+        $this->township_id=$township_id;
+    }
+    public function getTownshipId()
+    {
+        return $this->township_id;
+    }
     public function toArray() {
         return [
             "id" => $this->getId(),
-            "city" => $this->getCity(),
-            "blog" => $this->getBlog(),
-            "street_id"=>$this->getStreetId()
+            "block" => $this->getBlock(),
+            "unit" => $this->getUnit(),
+            "street_id"=>$this->getStreetId(),
+            "township_id"=>$this->getTownshipId()
         ];
     }
 }

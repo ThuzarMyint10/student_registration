@@ -1,6 +1,8 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/components/auth_message.php'; ?>
 <?php require  APPROOT.'/views/pages/create.php';?>
+<?php require  APPROOT.'/views/pages/view.php';?>
+<?php require  APPROOT.'/views/pages/edit.php';?>
 
      <div class="container">
       <div class="row">
@@ -15,9 +17,9 @@
         <?php 
         $database=new Database();
         $id = base64_decode($_SESSION['id']);
-        $admin=$database->getById('student',$id);
+        $admin=$database->getById('student', 'id', $id);
         ?>
-        Welcome
+        Welcome <?php echo $admin['name']; ?>
       </div>
       </div>
       
@@ -66,7 +68,7 @@
             <td class="text-center">
               <span>
                 <a
-                  href="#view<?= $id ?>"
+                  href="#view<?= $row['id'] ?>"
                   class="btn btn-success mr-3 profile"
                   data-bs-toggle="modal"
                   title="Profile"
@@ -76,7 +78,7 @@
             </td>
             <td class="text-center">
               <span><a
-                  href="#edit<?= $id ?>"
+                  href="#edit<?= $row['id'] ?>"
                   class="btn btn-warning mr-3 edituser"
                   data-bs-toggle="modal"
                   title="Edit"
@@ -113,6 +115,8 @@
       $(document).ready(function () {
         $("#myTable").DataTable();
       });
+
+      
       
     </script>
 

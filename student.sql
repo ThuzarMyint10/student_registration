@@ -148,6 +148,136 @@ INSERT INTO `user_types` (`id`, `type`) VALUES
 (3, 'Editor'),
 (4, 'Student');
 
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_address`
+-- (See below for the actual view)
+--
+CREATE TABLE `vw_address` (
+`id` int(11)
+,`city_name` varchar(255)
+,`township_name` varchar(255)
+,`street_name` varchar(255)
+,`block` varchar(255)
+,`unit` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_education`
+-- (See below for the actual view)
+--
+CREATE TABLE `vw_education` (
+`id` int(11)
+,`semester_name` varchar(255)
+,`specialization` varchar(255)
+,`degree` varchar(255)
+,`achedamic_year` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_expenses_categories_users`
+-- (See below for the actual view)
+--
+CREATE TABLE `vw_students` (
+`id` int(11)
+,`name` varchar(255)
+,`email` varchar(255)
+,`password` varchar(255)
+,`image` varchar(255)
+,`father_name` varchar(255)
+,`date_of_birth` date
+,`gender` varchar(255)
+,`city_name` varchar(255)
+,`township_name` varchar(255)
+,`street_name` varchar(255)
+,`block` varchar(255)
+,`unit` varchar(255)
+,`semester_name` varchar(255)
+,`specialization` varchar(255)
+,`degree` varchar(255)
+,`achedamic_year` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_address`
+--
+DROP TABLE IF EXISTS
+    `vw_student`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `vw_student` AS SELECT
+    `student`.`id` AS `id`,
+    `student`.`name` AS `name`,
+    `student`.`email` AS `email`,
+    `student`.`father_name` AS `father_name`,
+    `student`.`date_of_birth` AS `date_of_birth`,
+    `student`.`gender` AS `gender`,
+    `student`.`profile_image` AS `image`,
+    `semester`.`name` AS `semester`,
+    `subject`.`specialization` AS `specialization`,
+    `subject`.`degree` AS `degree`,
+    `achedamic_year`.`name` AS `achedamic_year`,
+    `city`.`name` AS `city_name`,
+    `township`.`name` AS `township_name`,
+    `street`.`name` AS `street_name`,
+    `address`.`block` AS `block`,
+    `address`.`unit` AS `unit`
+FROM
+    (
+        (
+            `student`
+        LEFT JOIN `education` ON(
+                `student`.`education_id` = `education`.`id`
+            )
+        )
+    LEFT JOIN `semester` ON
+        (
+            `education`.`semester_id` = `semester`.`id`
+        )
+    LEFT JOIN `subject` ON(
+            `education`.`subject_id` = `subject`.`id`
+        )
+    LEFT JOIN `achedamic_year` ON(
+            `education`.`achedamic_year_id` = `achedamic_year`.`id`
+        )
+    LEFT JOIN `address` ON(
+            `student`.`address_id` = `address`.`id`
+        )
+    LEFT JOIN `street` ON
+        (`address`.`street_id` = `street`.`id`)
+    LEFT JOIN `township` ON(
+            `address`.`township_id` = `township`.`id`
+        )
+    LEFT JOIN `city` ON(`township`.`city_id` = `city`.`id`)
+    );
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_education`
+--
+DROP TABLE IF EXISTS `vw_education`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_education`  AS  select `education`.`id` AS `id`,`semester`.`name` AS `semester_name`,`subject`.`specialization` AS `specialization`,`subject`.`degree` AS `degree`,`achedamic_year`.`name` AS `name` from ((`education` left join `semester` on(`education`.`semester_id` = `semester`.`id`)) left join `subject` on(`education`.`subject_id` = `subject`.`id`) left join `achedamic_year` on(`education`.`achedamic_year_id` = `achedamic_year`.`id`)) ;
+
+-- --------------------------------------------------------
+
+
+--
+-- Structure for view `vw_student`
+--
+-- DROP TABLE IF EXISTS `vw_student`;
+
+-- CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_student`  AS  select `student`.`id` AS `id`,`student`.`name` AS `semester_name`,`subject`.`specialization` AS `specialization`,`subject`.`degree` AS `degree`,`achedamic_year`.`name` AS `name` from ((`education` left join `semester` on(`education`.`semester_id` = `semester`.`id`)) left join `subject` on(`education`.`subject_id` = `subject`.`id`) left join `achedamic_year` on(`education`.`achedamic_year_id` = `achedamic_year`.`id`)) ;
+
+-- --------------------------------------------------------
+
 --
 -- Indexes for dumped tables
 --

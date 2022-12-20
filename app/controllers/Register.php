@@ -36,31 +36,38 @@ class Register extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             session_start();
-            $name = $_POST['name'];
+            // for student
+            $name = $_POST['student_name'];
             $email=$_POST['email'];
+            $password=$_POST['password'];
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
             $gender = $_POST['gender'];
-            $password='Eek752000@';
             $is_confirmed='1';
             $is_active='1';
             $is_login='0';
             $token='';
             $date='';
             $token_expire='';
-            $user_type_id='2';
-            $social_id='';
+            $user_type_id='4';
 
-            $city = $_POST['city'];
-            $blog = $_POST['blog'];
-            $street_name=$_POST['street_name'];
-            $street_no=$_POST['street_no'];
-            $township_name=$_POST['township_name'];
-            $street_id=1;
-            $township_id=1;
-            $semester_name=$_POST['semester_name'];
-            $specialization = $_POST['specialization'];
-            $degree = $_POST['degree'];
+            //for address
+            $city_id = $_POST['city'];
+            $township_id = $_POST['township'];
+            $street_id=$_POST['street_name'];
+            $block = $_POST['block'];
+            $unit = $_POST['unit'];
+           
+            // for education
+            if(!empty($_POST['semester'])){
+                $semester_id=$_POST['semester'];
+            }else{
+                $semester_id= 0;
+            }
+            $subject_id = $_POST['specialization'];
+            $achedamic_year_id = $_POST['achedamic'];
+
+            // for image
             $msg = "";
             $img = $_FILES['profile_image']['name'];
             $target = "upload_images/".basename($img);
@@ -72,35 +79,56 @@ class Register extends Controller
 
           
            
-            $township=new TownshipModel();
-            $township->setName($township_name);
-            $townshipCreate = $this->db->create('township', $township->toArray());
+            // $township=new TownshipModel();
+            // $township->setName($township_name);
+            // $townshipCreate = $this->db->create('township', $township->toArray());
 
-            $street=new StreetModel();
-            $street->setName($street_name);
-            $street->setStreetNo($street_no);
-            $street->setTownshipId((int)$townshipCreate);
-            $streetCreate = $this->db->create('street', $street->toArray());
+            // $street=new StreetModel();
+            // $street->setName($street_name);
+            // $street->setStreetNo($street_no);
+            // $street->setTownshipId((int)$townshipCreate);
+            // $streetCreate = $this->db->create('street', $street->toArray());
+
+            // $education=new SemesterModel();
+            // $education->setName($semester_name);
+            // $educationCreate=$this->db->create('semester',$education->toArray());
+            // $education=new SubjectModel();
+            // $education->setSpecialization($specialization);
+            // $education->setDegree($degree);
 
             $address = new AddressModel();
-            $address->setCity($city);
-            $address->setBlog($blog);
-            $address->setStreetId((int)$streetCreate);
-            $addressCreate = $this->db->create('address', $address->toArray());
+            $address->setId("");
+            $address->setBlock($block);
+            $address->setUnit($unit);
+            $address->setStreetId($street_id);
+            $address->setTownshipId($township_id);
+            $isAddressExist = $this->db->getAddressId('address', $unit, $block, $street_id);
+            if($isAddressExist){
+               $addressId = $isAddressExist['id'];
+            } else{
+                $addressCreate = $this->db->create('address', $address->toArray());
+                $addressId = (int)$addressCreate;
+            }
+           
             
             $education=new EducationModel();
-            $education=new SemesterModel();
-            $education->setName($semester_name);
-            $educationCreate=$this->db->create('semester',$education->toArray());
-            $education=new SubjectModel();
-            $education->setSpecialization($specialization);
-            $education->setDegree($degree);
-            $educationCreate=$this->db->create('subject',$education->toArray());
+            $education->setId("");
+            $education->setSemesterId($semester_id);
+            $education->setSubjectId($subject_id);
+            $education->setAchedamicYearId($achedamic_year_id);
+            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id);
+            if($isEducationIdExist){
+                $educationId = $isEducationIdExist['id'];
+            }else{
+                $educationCreate=$this->db->create('education',$education->toArray());
+                $educationId = (int)$educationCreate;
+            }
+            
            
            $register = new RegisterModel();
            $register->setName($name);
            $register->setEmail($email);
-           $register->setProfileImage($img);
+           $register->setPassword($password);
            $register->setFatherName($father_name);
            $register->setDateofbirth($date_of_birth);
            $register->setGender($gender);
@@ -111,10 +139,8 @@ class Register extends Controller
            $register->setDate($date);
            $register->setTokenExpire($token_expire);
            $register->setUserTypeId($user_type_id);
-           $register->setPassword($password);
-           $register->setSocialId($social_id);
-           $register->setAddressId((int)$addressCreate);
-           $register->setEducationId((int)$educationCreate);
+           $register->setAddressId($addressId);
+           $register->setEducationId($educationId);
            $register->setProfileImage($img);
            $registerCreate = $this->db->create('student', $register->toArray());
            if( $registerCreate){
@@ -127,42 +153,59 @@ class Register extends Controller
      }
       
     public function edit($id)
-    {
-        $register = $this->db->readAll('register');
+    {   $register = $this->db->getById('student', 'id', 3);
+        $this->view('pages/edit', $register);
+    }
 
-        $register = $this->db->getById('register', $id);
-
-        $data = [
-            'register'    => $register
-        ];
-        $this->view('pages/dashboard', $data);
+    public function show(){
+     $this->view('pages/view');
     }
 
     public function update() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             session_start();
-            $id = $_POST['id'];
-            $sname = $_POST['sname'];
-            $fname = $_POST['fname'];
-            $email = $_POST['email'];
-            $gender = $_POST['gender'];
-            $blog= $_POST['blog'];
-            $street = $_POST['street'];
-            $township = $_POST['township'];
-            $city = $_POST['city'];
+            // for student
+            $name = $_POST['student_name'];
+            $email=$_POST['email'];
+            $password=$_POST['password'];
+            $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
-            $semester = $_POST['semester'];
-            $specialization = $_POST['specialization'];
-            $degree = $_POST['degree'];
-            $user_id =base64_decode($_SESSION['id']);
-            $newImg = $_FILES['image']['name'];
-            $target = "upload_images/".basename($newImg);
-            if (!empty(move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
+            $gender = $_POST['gender'];
+            $is_confirmed='1';
+            $is_active='1';
+            $is_login='0';
+            $token='';
+            $date='';
+            $token_expire='';
+            $user_type_id='4';
+
+            //for address
+            $city_id = $_POST['city'];
+            $township_id = $_POST['township'];
+            $street_id=$_POST['street_name'];
+            $block = $_POST['block'];
+            $unit = $_POST['unit'];
+           
+            // for education
+            if(!empty($_POST['semester'])){
+                $semester_id=$_POST['semester'];
+            }else{
+                $semester_id= 0;
+            }
+            $subject_id = $_POST['specialization'];
+            $achedamic_year_id = $_POST['achedamic'];
+
+            // for image
+            $msg = "";
+            $img = $_FILES['profile_image']['name'];
+            $target = "upload_images/".basename($img);
+            if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $target)) {
                 $msg = "Image uploaded successfully";
             }else{
                 $msg = "Failed to upload image";
             }
+
             $address = new AddressModel();
             $address->setId($id);
             $address->setBlog($blog);
@@ -190,7 +233,7 @@ class Register extends Controller
             $register->setGender($gender);
             if(empty($newImg))
             {
-                $edit_query = $this->db->getById('register', $id);
+                $edit_query = $this->db->getById('register', 'id', $id);
                 $newImg = $edit_query['image'];
             }
             $register->setImage($newImg);

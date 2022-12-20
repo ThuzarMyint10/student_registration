@@ -4,6 +4,7 @@ class EducationModel {
     private $id;
     private $semester_id;
     private $subject_id;
+    private $achedamic_year_id;
    
     public function setId($id)
     {
@@ -32,13 +33,21 @@ class EducationModel {
         return $this->subject_id;
     }
 
+    public function setAchedamicYearId($achedamic_year_id)
+    {
+        $this->achedamic_year_id = $achedamic_year_id;
+    }
+    public function getAchedamicYearId()
+    {
+        return $this->achedamic_year_id;
+    }
 
     public function toArray() {
         return [
             "id" => $this->getId(),
             "semester_id" => $this->getSemesterId(),
             "subject_id" => $this->getSubjectId(),
-           
+            "achedamic_year_id" => $this->getAchedamicYearId()
         ];
     }
 }
