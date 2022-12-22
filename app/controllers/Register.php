@@ -126,6 +126,7 @@ class Register extends Controller
             
            
            $register = new RegisterModel();
+           $register->setId("");
            $register->setName($name);
            $register->setEmail($email);
            $register->setPassword($password);
@@ -166,6 +167,8 @@ class Register extends Controller
         {
             session_start();
             // for student
+            // $student_data = explode(",",); 
+            $id = $_GET['id'];
             $name = $_POST['student_name'];
             $email=$_POST['email'];
             $password=$_POST['password'];
@@ -182,7 +185,7 @@ class Register extends Controller
 
             //for address
             $city_id = $_POST['city'];
-            $township_id = $_POST['township'];
+            $township_id = $_POST['townshipEdit'];
             $street_id=$_POST['street_name'];
             $block = $_POST['block'];
             $unit = $_POST['unit'];
@@ -198,47 +201,70 @@ class Register extends Controller
 
             // for image
             $msg = "";
-            $img = $_FILES['profile_image']['name'];
+            $img = $_FILES['image']['name'];
             $target = "upload_images/".basename($img);
-            if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $target)) {
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
                 $msg = "Image uploaded successfully";
             }else{
                 $msg = "Failed to upload image";
             }
 
             $address = new AddressModel();
-            $address->setId($id);
-            $address->setBlog($blog);
-            $address->setStreet($street);
-            $address->setTownship($township);
-            $address->setCity($city);
-            $addressCreate = $this->db->update('addresses', $address->getId( ), $address->toArray());
+            $address->setId("");
+            $address->setBlock($block);
+            $address->setUnit($unit);
+            $address->setStreetId($street_id);
+            $address->setTownshipId($township_id);
+            $isAddressExist = $this->db->getAddressId('address', $unit, $block, $street_id);
+            if($isAddressExist){
+               $addressId = $isAddressExist['id'];
+            } else{
+                $addressCreate = $this->db->create('address', $address->toArray());
+                $addressId = (int)$addressCreate;
+            }
            
+            
             $education=new EducationModel();
-            $education->setId($id);
-            $education->setSemester($semester);
-            $education->setSpecialization($specialization);
-            $education->setDegree($degree);
-            $educationCreate=$this->db->update('education', $education->getId( ), $education->toArray());
-           
+            $education->setId("");
+            $education->setSemesterId($semester_id);
+            $education->setSubjectId($subject_id);
+            $education->setAchedamicYearId($achedamic_year_id);
+            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id);
+            if($isEducationIdExist){
+                $educationId = $isEducationIdExist['id'];
+            }else{
+                $educationCreate=$this->db->create('education',$education->toArray());
+                $educationId = (int)$educationCreate;
+            }
 
             $register = new RegisterModel();
             $register->setId($id);
-            $register->setSname($sname);
-            $register->setFname($fname);
+            $register->setName($name);
             $register->setEmail($email);
+            $register->setPassword($password);
+            $register->setFatherName($father_name);
             $register->setDateofbirth($date_of_birth);
-            $register->setAddressId((int)$addressCreate);
-            $register->setEducationId((int)$educationCreate);
             $register->setGender($gender);
-            if(empty($newImg))
+            $register->setIsConfirmed($is_confirmed);
+            $register->setIsActive($is_active);
+            $register->setIsLogin($is_login);
+            $register->setToken($token);
+            $register->setDate($date);
+            $register->setTokenExpire($token_expire);
+            $register->setUserTypeId($user_type_id);
+            $register->setAddressId($addressId);
+            $register->setEducationId($educationId);
+            var_dump($img);
+            exit;
+            if(empty($img))
             {
-                $edit_query = $this->db->getById('register', 'id', $id);
-                $newImg = $edit_query['image'];
+                $edit_query = $this->db->getById('student', 'id', $id);
+                $img = $edit_query['image'];
             }
-            $register->setImage($newImg);
-            $register->setUserId($user_id);
-            $updated = $this->db->update('register', $register->getId( ), $register->toArray());
+            $register->setProfileImage($img);
+
+            $updated = $this->db->update('student', $id, $register->toArray());
+            
             if($updated){
             echo "<script>
             alert('Success! Data has been successfully updated!');

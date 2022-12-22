@@ -8,9 +8,6 @@
             <p class="text-white">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <!-- <div class="form-field">
-                <input type="submit" class="account" value="Have an Account?">
-            </div> -->
             <div class="form-field">
             <a href="<?php echo URLROOT; ?>/pages/register">
                 <input type="submit" class="form_left_button" value="Register" name="register">

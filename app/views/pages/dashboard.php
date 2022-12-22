@@ -77,8 +77,7 @@
               </span>
             </td>
             <td class="text-center">
-              <span><a
-                  href="#edit<?= $row['id'] ?>"
+              <span><a   
                   class="btn btn-warning mr-3 edituser"
                   data-bs-toggle="modal"
                   title="Edit"
@@ -111,11 +110,72 @@
 
     <?php require APPROOT . '/views/inc/footer.php'; ?>
 
+    <div class="modal fade" id="edit">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <img src="<?= URLROOT; ?>/images/logo1.png"      
+             width="150px" height="150px" alt="" />
+            <br />
+            <h3 class="img-responsive" id="staticBackdropLabel">
+              Student Registration Form
+            </h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body edit-body">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       $(document).ready(function () {
         $("#myTable").DataTable();
+        
+
+$('.edituser').on('click', function () {
+
+    $tr = $(this).closest('tr');
+
+    var data = $tr.children("td").map(function () {
+        return $(this).text();
+    }).get();
+
+    console.log(data[2]);
+
+    var url = 'pages';
+            var form_url = '<?php echo URLROOT; ?>/' + url + '/edit';
+            $.ajax({
+                url : form_url,
+                type : 'GET', 
+                data : jQuery.param({studentId: data[2]}) ,//parse parameter 
+                success : function (resp) {
+                  $('.edit-body').html(resp);
+                  $("#edit").modal('show');
+                }
+                
+            });
+
+    
+    // $('#fname').val(data[1]);
+    // $('#lname').val(data[2]);
+    // $('#course').val(data[3]);
+    // $('#contact').val(data[4]);
+});
       });
 
+    // function takeActionEdit(studentId) {
+    //     // $(document).on('click', '.edituser', function(){
+       
+           
+	// });
+    // }
       
       
     </script>

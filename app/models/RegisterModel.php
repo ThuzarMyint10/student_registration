@@ -3,7 +3,7 @@
 class RegisterModel
 {
     // Access Modifier = public, private, protected
-    // private $id;
+    private $id;
     private $name;
     private $email;
     private $password;
@@ -23,14 +23,14 @@ class RegisterModel
     private $education_id;
    
 
-    // public function setId($id)
-    // {
-    //     $this->id = $id;
-    // }
-    // public function getId()
-    // {
-    //     return $this->id;
-    // }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setUserTypeId($user_type_id)
     {
@@ -189,7 +189,7 @@ class RegisterModel
 
     public function toArray() {
         return [
-            // "id" => $this->getId(),
+            "id" => $this->getId(),
             "name" => $this->getName(),
             "email" => $this->getEmail(),
             "password" => $this->getPassword(),
