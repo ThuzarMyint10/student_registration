@@ -1,5 +1,5 @@
 <?php
- require_once APPROOT . '/views/inc/header.php'; ?>
+require_once APPROOT . '/views/inc/header.php'; ?>
 
    <div class="row wrapper">
     <div class="col-5 form_left">
@@ -15,19 +15,17 @@
 	<div class="col-7 form_right">
 	
         <form name="contactForm" method="POST" action ="<?php echo URLROOT; ?>/auth/register">
-		<?php require APPROOT . '/views/components/auth_message.php'; ?>
+			<?php require APPROOT . '/views/components/auth_message.php'; ?>
             <h2 class="text-uppercase">Registration form</h2>
-            <!-- <div class="row"> -->
-           <div id="error"> </div>
-			<div class="clearfix mb-3">
+           
+			<div class="mb-3">
 				<label>User Name</label>
 				<input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required> 
 			</div>
 			<div class="text-danger">
-				<?php
-					if(isset($data['name-err']))
-					echo $data['name-err'];
-				?>
+				<?php if (isset($data['name-err'])) {
+        			echo $data['name-err'];
+   				 } ?>
 			</div>
                
             <div class="mb-3">
@@ -36,49 +34,35 @@
                    
             </div>
             <div class="text-danger">
-				<?php
-					if(isset($data['email-err'])){
-
-						echo $data['email-err'];
-					}
-					// if(isset($_SESSION['error'])){
-
-					// }
-				?>
+					<?php if (isset($data['email-err'])) {
+        				echo $data['email-err'];
+    				}?>
 			</div>
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
-                    <!-- <div class="show_password">
-                        <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" >
-						<i class="uil uil-eye-slash" style ="display: inline-block; position:absolute;"></i>
-                    </div> -->
+                    
 					<div class="show_psw">
-                      <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
-            <i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
-          </div>
+                      	<input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
+            			<i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
+          			</div>
                     <div class="text-danger">
-						<?php
-							if(isset($data['password-err']))
-							echo $data['password-err'];
-						?>
+						<?php if (isset($data['password-err'])) {
+         				 echo $data['password-err'];
+     					 } ?>
 					</div>
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label>Confirm Password</label>
-					<!-- <div class="show_password">
-                    <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password">
-					<i class="uil uil-eye-slash"></i>
-					</div> -->
+					
 					<div class="show_psw">
-                      <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" style="display: inline-block;">
-            <i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye1"></i>
-          </div>
+                      	<input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" style="display: inline-block;">
+            			<i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye1"></i>
+          			</div>
 					<div class="text-danger">
-						<?php
-							if(isset($data['cpassword-err']))
-							echo $data['cpassword-err'];
-						?>
+						<?php if (isset($data['cpassword-err'])) {
+          				echo $data['cpassword-err'];
+     				 } ?>
 					</div>
 				</div>
                 
@@ -88,6 +72,7 @@
         </form>
 	</div>
     </div>
+					
 	<!-- echo "<script type=\"text/javascript\">self.opener.document.getElementById('error').innerHTML='Error:Show Error';window.close();</script>"; -->
                 
 <script>
@@ -340,4 +325,5 @@ $("#c_password").keyup(function() {
 });
 
 });
+
 </script>

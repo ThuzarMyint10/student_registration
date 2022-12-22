@@ -243,6 +243,7 @@
                 type : 'GET', 
                 data : jQuery.param({ cityId: cityId}) ,//parse parameter 
                 success : function (townshipList) {
+                  alert(townshipList);
                     // document.getElementById("street_name_list").value = "Select Street Name";
                     document.getElementById("township_list").innerHTML = townshipList;
                 }

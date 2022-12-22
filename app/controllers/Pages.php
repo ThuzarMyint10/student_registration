@@ -36,6 +36,10 @@ class Pages extends Controller
     public function semester() {
         $this->view('pages/semester');
     }
+
+    public function edit() {
+        $this->view('pages/edit');
+    }
     
     public function register() {
         $this->view('pages/register');
