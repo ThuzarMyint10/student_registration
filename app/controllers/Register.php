@@ -39,7 +39,7 @@ class Register extends Controller
             // for student
             $name = $_POST['student_name'];
             $email=$_POST['email'];
-            $password=$_POST['password'];
+            $password=base64_encode($_POST['password']);
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
             $gender = $_POST['gender'];
@@ -202,13 +202,7 @@ class Register extends Controller
             // for image
             $msg = "";
             $img = $_FILES['image']['name'];
-            $target = "upload_images/".basename($img);
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-                $msg = "Image uploaded successfully";
-            }else{
-                $msg = "Failed to upload image";
-            }
-
+           
             $address = new AddressModel();
             $address->setId("");
             $address->setBlock($block);
@@ -254,14 +248,20 @@ class Register extends Controller
             $register->setUserTypeId($user_type_id);
             $register->setAddressId($addressId);
             $register->setEducationId($educationId);
-            var_dump($img);
-            exit;
             if(empty($img))
-            {
+            {   
                 $edit_query = $this->db->getById('student', 'id', $id);
-                $img = $edit_query['image'];
-            }
-            $register->setProfileImage($img);
+                $newImage = $edit_query[0]['profile_image'];
+                $register->setProfileImage($newImage);
+            } else{
+                $target = "upload_images/".basename($img);
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+                    $msg = "Image uploaded successfully";
+                    $register->setProfileImage($img);
+                }else{
+                    $msg = "Failed to upload image";
+                }
+            }       
 
             $updated = $this->db->update('student', $id, $register->toArray());
             
@@ -278,7 +278,7 @@ class Register extends Controller
      public function destroy()
     {
         $id = $_GET['id'];
-        $isdestroy = $this->db->delete('register', $id);
+        $isdestroy = $this->db->delete('student', $id);
         if ($isdestroy) {
             setMessage('success', "Successfully Deleted!");
         } else {

@@ -100,12 +100,7 @@ class Auth extends Controller
         }
     }
 
-    public function verify($email)
-    {
-        echo $email;
-        exit();
-        $user = $this->db->columnFilter('users', 'token', $token);
-
+   
     public function resendToken($token)
     {  
         $users = $this->db->columnFilter('student', 'token', $token);
@@ -135,7 +130,7 @@ class Auth extends Controller
             $user->setSocialId($users['social_id']);
             $user->setEducationId($users['education_id']);
     
-            $userUpdated = $this->db->update('student',$users[id], $user->toArray());
+            $userUpdated = $this->db->update('student',$users['id'], $user->toArray());
             //$userCreated="true";
     
             if ($userUpdated) {
@@ -148,15 +143,12 @@ class Auth extends Controller
           
     }
 
-
     public function verify($token)
     {       $users = $this->db->columnFilter('student', 'token', $token);
             $origin = new DateTimeImmutable($users['token_expire']);
             $target = new DateTimeImmutable(date('Y-m-d'));
             $interval = date_diff($origin, $target);
             $tokenExpire = $interval->format("%R%a");
-         echo $tokenExpire;
-        //  exit;
             if($tokenExpire > 1 || $tokenExpire == 1){   
                 $this->view('pages/mail_body_template', $users);
             } else {

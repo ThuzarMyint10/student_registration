@@ -14,19 +14,17 @@
           <small class="ps-0 ms-0">Let's Learn & Share Together!</small>
         </div>
         <div  class="col-2">
-        <?php 
-        $database=new Database();
-        $id = base64_decode($_SESSION['id']);
-        $admin=$database->getById('student', 'id', $id);
-        ?>
-        Welcome <?php echo $admin['name']; ?>
+       
       </div>
       </div>
-      
+      <?php if(isset($_SESSION['id'])) :  $database=new Database();
+            $id = base64_decode($_SESSION['id']);
+            $admin=$database->getById('student', 'id', $id); ?>
       <hr class="divided" />
-      <a href="#" class=" button_color"
+      <a href="<?php echo URLROOT; ?>/auth/logout" class=" button_color"
         ><i class="fa fa-arrow-circle-left"></i> Log out</a
       >
+      <?php if($admin[0]['user_type_id'] == 1) : ?>
       <a
         class="btn button_color"
         type="button"
@@ -35,9 +33,11 @@
       >
         <i class="fa fa-plus"></i> Add New Student
       </a>
+      <?php endif; ?>
       <button onclick="window.print()" class=" button_color float-end">Print PDF</button>
       
       <hr class="divided" />
+     
       <table class="table table-striped" id="myTable">
         <thead>
           <tr>
@@ -55,8 +55,15 @@
           <?php 
          
           try{
-            $database=new Database();
+           
+            if($admin[0]['user_type_id'] == 4){
+            $run_datas=$admin;
+           } else{
+           
             $run_datas=$database->readAll('student');
+            
+           }
+            
             $i=0;
             foreach($run_datas as $row){ ?>
             <tr>
@@ -105,6 +112,14 @@
       <a href="<?php echo URLROOT; ?>/Register/export" class="btn button_color mt-3">
         <i class="fa-solid fa-file-excel"></i> Export Data
       </a>
+      <?php else : ?>
+        <div class="container">
+  <h1>Student Registration Page</h1>
+  <p>This part is need to login if you wanna see some data.</p> 
+</div>
+      <?php endif; ?>
+     
+
     </div>
   
 

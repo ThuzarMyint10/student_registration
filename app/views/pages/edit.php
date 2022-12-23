@@ -160,7 +160,7 @@
             <div class="row pt-3">
               <div class="form-group col-md-6">
                   <label for="achedamic">Achedamic Year</label>
-                  <select class="form-select" id="achedamic_year_edit" name="achedamic" required onchange='GetAchedamicId(this.value)'>
+                  <select class="form-select" id="achedamic_year_edit" name="achedamic" required onchange='GetAchedamicIdEdit(this.value)'>
                                       
                   <option selected="disabled" value='0'>Select Achedamic Year</option> 
                     <?php 
@@ -250,10 +250,16 @@
     <?php endif; ?> 
  <script>
 
+$(document).ready(function(){
+    GetCityIdByEdit(cityId);
+    GetTownshipIdEdit(townshipId);
+    GetAchedamicIdEdit(achedamicId);
+    GetSpecializationEdit(subjectDatas);
+});
+
     function GetSpecializationEdit(subjectDatas) {
       if(subjectDatas!= '0'){
       const subjectData = subjectDatas.split(" "); 
-      alert(subjectData);
       document.getElementById("degree_edit").value = subjectData[1];
       return;
       } else{
@@ -290,7 +296,7 @@ function GetTownshipIdEdit(townshipId) {
             });
 }
 
-function GetAchedamicId(achedamicId){
+function GetAchedamicIdEdit(achedamicId){
    if(achedamicId == 6 || achedamicId == '0'){
     document.getElementById("semesterEdit").value = achedamicId;
     $('#semesterEdit').attr("disabled", true);

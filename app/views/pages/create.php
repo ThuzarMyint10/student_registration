@@ -223,6 +223,12 @@
     </div>
 
  <script>
+  $(document).ready(function(){
+    GetCityId(cityId);
+    GetTownshipId(townshipId);
+    GetAchedamicId(achedamicId);
+    GetSpecialization(subjectDatas);
+});
   function GetSpecialization(subjectDatas) {
     if(subjectDatas!= '0'){
       const subjectData = subjectDatas.split(" "); 
@@ -243,8 +249,6 @@
                 type : 'GET', 
                 data : jQuery.param({ cityId: cityId}) ,//parse parameter 
                 success : function (townshipList) {
-                  alert(townshipList);
-                    // document.getElementById("street_name_list").value = "Select Street Name";
                     document.getElementById("township_list").innerHTML = townshipList;
                 }
             });
