@@ -190,8 +190,6 @@ class Database
             }
             $columns = array_map('map', $columns);
             $bindingSql = implode(',', $columns);
-            // echo $bindingSql;
-            // exit;
             $sql =
                 'UPDATE ' . $table . ' SET ' . $bindingSql . ' WHERE `id` =:id';
             $stm = $this->pdo->prepare($sql);
