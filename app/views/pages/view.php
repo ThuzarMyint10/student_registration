@@ -1,71 +1,69 @@
 
-  <?php 
-      $database=new Database();
-      $personalView_datas=$database->readAll('vw_student');
-	 
-      foreach($personalView_datas as $row){
-        $id = $row['id'];
-        $sname = $row['name'];
-        $fname = $row['father_name'];
-        $email = $row['email'];
-        $date_of_birth = $row['date_of_birth'];
-        $gender = $row['gender'];
-        $img = $row['image'];
+	<?php if (!empty($_GET['studentId'])) :
+    $database=new Database();
+    $data=$database->getById('vw_student', 'id', $_GET['studentId']); 
+	$id = $data[0]['id'];
+	$sname = $data[0]['name'];
+	$fname = $data[0]['father_name'];
+	$email = $data[0]['email'];
+	$date_of_birth = $data[0]['date_of_birth'];
+	$gender = $data[0]['gender'];
+	$img = $data[0]['image'];
+
+	  $block = $data[0]['block'];
+	$unit = $data[0]['unit'];
+	  $street = $data[0]['street_name'];
+	  $township = $data[0]['township_name'];
+	  $city = $data[0]['city_name'];
+
+	  $semester = $data[0]['semester'];
+	  $specialization = $data[0]['specialization'];
+	  $degree = $data[0]['degree'];
+	$achedamic_year = $data[0]['achedamic_year'];
+	$status_id = $data[0]['status_id'];
+	$address_id = $data[0]['address_id'];
+	$url=URLROOT;
+	?> 
  
-      	$block = $row['block'];
-		$unit = $row['unit'];
-      	$street = $row['street_name'];
-      	$township = $row['township_name'];
-      	$city = $row['city_name'];
-
-      	$semester = $row['semester'];
-      	$specialization = $row['specialization'];
-      	$degree = $row['degree'];
-		$achedamic_year = $row['achedamic_year'];
-
-    $url=URLROOT;
-    		echo " 
-			<div class='modal fade' id='view$id' >
-					<div class='modal-dialog modal-dialog-lg'>
-						<div class='modal-content'>
-							<div class='modal-header'>
+ 					<div class='modal-header'>
 								<h5 class='modal-title'>Profile  <i class='fa-solid fa-user'></i>
 								</h5>
 								<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
 								</button>
 							</div>
-						<div class='modal-body'>
-							<div class='container' id='profile'> 
+						<div class='modal-body view-body'>
+						<div class='container' id='profile'> 
 								<div class='row'>
 									<div class='col-sm-6'>
-										<img src='$url/public/upload_images/$img' alt='image' class='img-fluid' ><br><br>
-										<i class='fa fa-envelope' aria-hidden='true'></i> $email  <br>
+										<img src="<?= URLROOT; ?>/public/upload_images/<?= $id?>/<?= $img?>" alt='image' class='img-fluid' ><br><br>
+										<i class='fa fa-envelope' aria-hidden='true'></i> <?= $email ?>  <br>
 									
 									</div>
 									<div class='col-sm-6'>
-										<h3 class='text-primary'>$sname</h3>
+										<h3 class='text-primary'><?= $sname ?></h3>
 										<p class='text-secondary'>
-										<strong>Father Name:</strong> $fname <br>
-										<strong>Gender &nbsp;<i class='fa fa-venus-mars' aria-hidden='true'></i>:</strong> $gender <br>
-										<strong>Date Of Birth:</strong>$date_of_birth <br>
-										<strong>Semester :</strong>$semester <br>
-										<strong>Specialization :</strong>$specialization <br>
-										<strong>Degree :</strong>$degree <br>
+										<strong>Father Name:</strong><?= $fname ?><br>
+										<strong>Gender &nbsp;<i class='fa fa-venus-mars' aria-hidden='true'></i>:</strong> <?=$gender?> <br>
+										<strong>Date Of Birth:</strong><?= $date_of_birth ?><br>
+										<strong>Semester :</strong><?= $semester ?> <br>
+										<strong>Specialization :</strong><?= $specialization ?> <br>
+										<strong>Degree :</strong><?= $degree ?><br>
 										<br />
-										<i class='fa fa-home' aria-hidden='true'> Address : </i> <strong>Addres:</strong> $block Block, $street Street, $township Township, $city City<br>
+										<i class='fa fa-home' aria-hidden='true'> </i> <strong>Addres:</strong> <?= $block ?> Block, <?= $unit ?> Unit, <?= $street ?>, <?= $township ?> Township, <?= $city ?> City<br>
 									</div>
 								</div>   
 							</div>
 						</div>
 						<div class='modal-footer'>
-							<button type='button' class='btn button_color' data-bs-dismiss='modal'>Close</button>
+						<button type='button' class='btn button_color' data-bs-dismiss='modal'>Close</button>
 						</div>
 						
-						</div>
-					</div>
-				</div> 
-				";
-			}
-	?>
+
+
+				
+			
+	
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+<?php endif; ?> 

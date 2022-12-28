@@ -37,12 +37,12 @@
                     <label>Password</label>
                     <div class="input-icons">
                         <input type="password" name="password" id="pwd" class="form-control input-field" title="" placeholder="Password">
-                        <i class="uil uil-eye-slash icon"></i>
+                        <i class="uil uil-eye-slash icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
                     </div>
                 </div>
+                
             <div class="mb-3">
                 <label class="option">Remember me
-                    <input type="checkbox" checked>
                     <span class="checkmark"></span>
                 </label>
             </div>

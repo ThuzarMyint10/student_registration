@@ -143,6 +143,17 @@ class Database
         $row = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $success ? $row : [];
     }
+
+    public function readAllByLimit($table)
+    {
+        $sql = 'SELECT id FROM student ORDER BY id DESC LIMIT 1';
+        // print_r($sql);
+        $stm = $this->pdo->prepare($sql);
+        $success = $stm->execute();
+        $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $success ? $row : [];
+    }
+
     public function getById($table, $key, $id)
     {
         $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $key. ' =:'.$key;
