@@ -25,6 +25,14 @@ class Pages extends Controller
         $this->view('pages/township_list');
     }
 
+    public function delete() {
+        $this->view('pages/delete');
+    }
+
+    public function suspended() {
+        $this->view('pages/suspended');
+    }
+
     public function townshipEdit() {
         $this->view('pages/township_list');
     }
@@ -35,6 +43,10 @@ class Pages extends Controller
     
     public function semester() {
         $this->view('pages/semester');
+    }
+
+    public function viewpage() {
+        $this->view('pages/view');
     }
 
     public function edit() {

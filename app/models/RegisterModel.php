@@ -19,8 +19,8 @@ class RegisterModel
     private $date_of_birth;
     private $gender;
     private $address_id;
-    // private $social_id;
     private $education_id;
+    private $status_id;
    
 
     public function setId($id)
@@ -169,15 +169,6 @@ class RegisterModel
         return $this->address_id;
     }
 
-    // public function setSocialId($social_id)
-    // {
-    //     $this->social_id= $social_id;
-    // }
-    // public function getSocialId()
-    // {
-    //     return $this->social_id;
-    // }
-
     public function setEducationId($education_id)
     {
         $this->education_id= $education_id;
@@ -185,6 +176,15 @@ class RegisterModel
     public function getEducationId()
     {
         return $this->education_id;
+    }
+
+    public function setStatusId($status_id)
+    {
+        $this->status_id= $status_id;
+    }
+    public function getStatusId()
+    {
+        return $this->status_id;
     }
 
     public function toArray() {
@@ -205,8 +205,8 @@ class RegisterModel
             "date_of_birth" => $this->getDateOfBirth(),
             "gender" => $this->getGender(),
             "address_id" => $this->getAddressId(),
-            // "social_id" => $this->getSocialId(),
             "education_id" => $this->getEducationId(),
+            "status_id" => $this->getStatusId(),
         ];
     }
 }

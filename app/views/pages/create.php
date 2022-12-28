@@ -78,11 +78,15 @@
 
               <div class="form-group col-md-3">
                 <label for="gender">Gender</label>
+                <?php $genderArray = ['Male','Female']?>
                   <select class="form-select" id="gender" name="gender" required>
                     <option selected disabled value="">Choose...</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option>Others</option>
+                  <?php   foreach ($genderArray as $gender) {
+                            // $city_name = $city['name'];
+                            // $city_id = $city['id'];
+                            echo "<option value=$gender>$gender</option>";
+                        }
+                        ?>
                   </select>
               </div>
 
@@ -228,6 +232,7 @@
     GetTownshipId(townshipId);
     GetAchedamicId(achedamicId);
     GetSpecialization(subjectDatas);
+
 });
   function GetSpecialization(subjectDatas) {
     if(subjectDatas!= '0'){
@@ -250,6 +255,7 @@
                 data : jQuery.param({ cityId: cityId}) ,//parse parameter 
                 success : function (townshipList) {
                     document.getElementById("township_list").innerHTML = townshipList;
+                    GetTownshipId(0);
                 }
             });
 }
@@ -285,4 +291,5 @@ function GetAchedamicId(achedamicId){
    }
  
 }
+
 </script>

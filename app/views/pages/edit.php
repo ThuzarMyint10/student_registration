@@ -1,11 +1,8 @@
-<?php
 
-
-?>
 <?php if (!empty($_GET['studentId'])) :
     $database=new Database();
     $data=$database->getById('vw_student', 'id', $_GET['studentId']); ?> 
-   <form action="<?= URLROOT; ?>/Register/update?id=<?= $data[0]['id'] ?>" method="POST" enctype="multipart/form-data">
+   <form action="<?= URLROOT; ?>/Register/update?id=<?= $data[0]['id']?>" method="POST" enctype="multipart/form-data">
    <div class="row pt-3">
               <div class="form-group col-md-6">
                 <label for="student_name">Student Name</label>
@@ -236,7 +233,7 @@
               <div class='form-group pt-3'>
                 <label>Image</label>
                   <input type='file' value="<?= $data[0]['image']; ?>" name='image' class='form-control' >
-                  <img src = '<?= URLROOT; ?>/public/upload_images/<?= $data[0]['image']; ?>' style='width:50px; height:50px'>
+                  <img src = '<?= URLROOT; ?>/public/upload_images/<?= $data[0]['id']; ?>/<?= $data[0]['image']; ?>' style='width:50px; height:50px'>
               </div>
               <button
               name="submit"
@@ -278,6 +275,7 @@ $(document).ready(function(){
                 data : jQuery.param({cityId: cityId}) ,//parse parameter 
                 success : function (townshipList) {
                     document.getElementById('township_list_edit').innerHTML = townshipList;
+                    GetTownshipIdEdit(0);
                 }
             });
 }
