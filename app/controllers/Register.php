@@ -38,9 +38,6 @@ class Register extends Controller
             session_start();
             $student = $this->db->readAllByLimit('student');
             $image_store_id = $student[0]['id']+1;
-            // echo $student['id'];
-            // print_r($student[0]['id']+1);
-            // exit;
             // for student
             $name = $_POST['student_name'];
             $email=$_POST['email'];
@@ -176,6 +173,74 @@ class Register extends Controller
 
     public function show(){
      $this->view('pages/view');
+    }
+  
+    public function updatePerformance() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            session_start();
+            // for student
+            $id = $_POST['id'];
+            $student_data = $this->db->getById('vw_student', 'id', $id);
+            // if($student_data[0]['status_id'] == 1){
+            //     $status_id = 2;
+            // }elseif($student_data[0]['status_id'] == 2){
+            //     $status_id = 1;
+            // }
+           
+            $name = $student_data[0]['name'];
+            $email=$student_data[0]['email'];
+            $password=$student_data[0]['password'];
+            $father_name = $student_data[0]['father_name'];
+            $date_of_birth = $student_data[0]['date_of_birth'];
+            $gender = $student_data[0]['gender'];
+            $is_confirmed='1';
+            $is_active='1';
+            $is_login=$student_data[0]['is_login'];
+            $token='';
+            $date='';
+            $token_expire='';
+            $user_type_id= $student_data[0]['user_type_id'];
+
+            $img =  $student_data[0]['image'];
+           
+            $addressId = $student_data[0]['address_id'];
+            $educationId =  $student_data[0]['education_id'];
+            $status_id = $student_data[0]['status_id'];
+            $performance_id = $_POST['performanceId'];
+            
+            $register = new RegisterModel();
+            $register->setId($id);
+            $register->setName($name);
+            $register->setEmail($email);
+            $register->setPassword($password);
+            $register->setFatherName($father_name);
+            $register->setDateofbirth($date_of_birth);
+            $register->setGender($gender);
+            $register->setIsConfirmed($is_confirmed);
+            $register->setIsActive($is_active);
+            $register->setIsLogin($is_login);
+            $register->setToken($token);
+            $register->setDate($date);
+            $register->setTokenExpire($token_expire);
+            $register->setUserTypeId($user_type_id);
+            $register->setAddressId($addressId);
+            $register->setEducationId($educationId);
+            $register->setStatusId($status_id);
+            $register->setProfileImage($img);
+            $register->setPerformanceId($performance_id);
+            
+            $updated = $this->db->update('student', $id, $register->toArray());
+            
+            if($updated){
+            echo "<script>
+            alert('Success! Data has been successfully updated!');
+            </script>";
+            }else{
+                echo "Data not update";
+            }
+            redirect('pages/dashboard');
+        }
     }
 
     public function updateStatus() {
