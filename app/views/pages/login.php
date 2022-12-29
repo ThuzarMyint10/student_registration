@@ -1,4 +1,5 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
+<?php require_once APPROOT . '/views/pages/forget_psw.php'; ?>
 
 
     <div class="row wrapper">
@@ -37,17 +38,18 @@
                     <label>Password</label>
                     <div class="input-icons">
                         <input type="password" name="password" id="pwd" class="form-control input-field" title="" placeholder="Password">
-                        <i class="uil uil-eye-slash icon"></i>
+                        <i class="uil uil-eye-slash icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
                     </div>
                 </div>
+                
             <div class="mb-3">
                 <label class="option">Remember me
-                    <input type="checkbox" checked>
                     <span class="checkmark"></span>
                 </label>
             </div>
             <div class="col-md-12 text-center ">
                 <input type="submit" value="Sign In" class="form_right_button" name="signin">
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal">Forgot Your Password?</a>
                 <p class="social_text">
                     Or Login with social platforms
                  </p>

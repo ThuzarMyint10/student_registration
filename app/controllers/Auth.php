@@ -32,13 +32,9 @@ class Auth extends Controller
             $email = $_POST['email'];
             // call columnFilter Method from Database.php
             $isUserExist = $this->db->columnFilter('student', 'email', $email);
-            // echo $isUserExist;
-            if ($isUserExist) {  
-                // $date = date('Y-m-d');
-                $date = date('d-m-Y', strtotime("+1 day", strtotime(date('Y-m-d'))));
-                // set $date;
+            if ($isUserExist) {           
                 setMessage('error','Email is already registered!');
-               redirect('pages/register');
+                redirect('pages/register');
             } else {
                 // Validate entries
                 $validation = new UserValidator($_POST);
@@ -75,8 +71,8 @@ class Auth extends Controller
                     $user->setDateOfBirth('');
                     $user->setGender('');
                     $user->setAddressId(0);
-                    $user->setSocialId(0);
                     $user->setEducationId(0);
+                    $user->setStatusId(1);
                     // $user->setDate("2022-12-07 14:51:09");
 
                     $userCreated = $this->db->create('student', $user->toArray());
@@ -127,7 +123,7 @@ class Auth extends Controller
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
             $user->setAddressId($users['address_id']);
-            $user->setSocialId($users['social_id']);
+            $user->setStatusId(1);
             $user->setEducationId($users['education_id']);
     
             $userUpdated = $this->db->update('student',$users['id'], $user->toArray());
@@ -152,11 +148,12 @@ class Auth extends Controller
             if($tokenExpire > 1 || $tokenExpire == 1){   
                 $this->view('pages/mail_body_template', $users);
             } else {
-                
+            $id = $users['id'];
             $name = $users['name'];
             $email = $users['email'];
             $token = $users['token'];
             $user = new RegisterModel();
+            $user->setId($id);
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($users['password']);
@@ -171,11 +168,11 @@ class Auth extends Controller
             $user->setFatherName($users['father_name']);
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
+            $user->setStatusId(1);
             $user->setAddressId($users['address_id']);
-            $user->setSocialId($users['social_id']);
             $user->setEducationId($users['education_id']);
     
-            $userUpdated = $this->db->update('student',$users[id], $user->toArray());
+            $userUpdated = $this->db->update('student', $id, $user->toArray());
             //$userCreated="true";
     
             if ($userUpdated) {
@@ -197,10 +194,25 @@ class Auth extends Controller
                 $password = base64_encode($_POST['password']);
                 $isLogin = $this->db->loginCheck($email, $password);
                 if ($isLogin) {
-                    setMessage('id', base64_encode($isLogin['id']));
-                    $id = $isLogin['id'];
-                    $setLogin = $this->db->setLogin($id);
-                    redirect('pages/dashboard');
+                    if($isLogin['is_login'] == 1){
+                        setMessage('error', 'User already Login!');
+                        redirect('pages/login');
+                    }
+                    elseif($isLogin['status_id'] == 2){
+                        setMessage('error', 'Your account is suspended!!!! You can not login! Please request again to admin!');
+                       
+                        // echo '<script>
+                        // alert("Your account is rejected!!!! Please request again to admin!");
+                        // </script>';
+                        redirect('pages/login');
+                    }
+                    else{
+                        setMessage('id', base64_encode($isLogin['id']));
+                        $id = $isLogin['id'];
+                        $setLogin = $this->db->setLogin($id);
+                        redirect('pages/dashboard');
+                    }
+                   
                 } else {
                     setMessage('error', 'Login Fail!');
                     redirect('pages/login');
