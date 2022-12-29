@@ -1,16 +1,14 @@
 <?php
 $database = new Database();
-$semester_datas = $database->readAll('semester');
-if ($semester_datas) {
-    foreach ($semester_datas as $data) {
-        $semester_data = $data['name'];
-        $semester_id = $data['id'];
+$semesterDatas = $database->readAll('semester');
+if ($semesterDatas) {
+    foreach ($semesterDatas as $semesterData) {
+        $semesterName = $semesterData['name'];
+        $semesterId = $semesterData['id'];
        
-        echo "<option value=$semester_id>$semester_data</option>";
+        echo "<option value=$semesterId>$semesterName</option>";
     }
 } else {
-    foreach ($semester_datas as $data) {
-        echo "<option value='strtolower('meet')'>meet</option>";
-     }
+    echo "<option value=''></option>";
  }
  ?>

@@ -47,7 +47,7 @@
             <th class="text-center" scope="col">Name</th>
             <th class="text-center" scope="col">Student Id</th>
             <th class="text-center" scope="col">Email</th>
-            <th class="text-center" scope="col"> Date Of Birth</th>
+            <th class="text-center" scope="col"> Performance </th>
             <th class="text-center" scope="col">View</th>
             <th class="text-center" scope="col">Edit</th>
             <th class="text-center" scope="col">Delete</th>
@@ -76,7 +76,25 @@
             <td class="text-left"><?php echo $row['name'];?></td>
             <td class="text-left"><?php echo $row['id'];?></td>
             <td class="text-left"><?php echo $row['email'];?></td>
-            <td class="text-center"><?php echo $row['date_of_birth']; ?></td>
+           
+            <td class="text-left">
+            <select class="form-select" style = "border:none; background-color:#dbdced; focus:none; box-shadow:none;" id="performance_list" name="performance" required onchange='GetPerformance(this.value)'>                                
+            <?php 
+            $performance = $database->getById('performance', 'id', $row['performance_id']);
+            
+            $performanceNames = $database->readAll('performance');
+            foreach ($performanceNames as $performanceName) { ?>
+              <option value="<?= $performanceName['id'] .' '.$row['id']; ?>" <?php if ($performanceName['name'] == $performance[0]['name']) {
+                  echo " selected";
+              } ?>>
+
+              <?= $performanceName['name']; ?>
+              </option>
+              <?php } 
+
+            ?>
+                  </select>
+            </td>
             <td class="text-center">
               <span>
                 <a
@@ -97,19 +115,11 @@
                 </a>
               </span>
             </td>
-            <td class='text-center'>
-            
-          <!-- <input type="hidden" class="delete_id_value" value="<?= $row['id'] ?>"> -->
-          <a href="" class="btn btn-danger delete_btn_ajax">
-            <i class="fa-solid fa-trash"></i></a>
-        </td>
-            <!-- <td class="text-center">
-              <span>
-                <a href="<?php echo URLROOT; ?>/Register/destroy?id=<?= $row['id'] ?>" class="btn btn-danger deleteuser" title="Delete" onclick="return confirm('Are you sure?')">
-                  <i class="fa-solid fa-trash"></i>
-                </a>
-              </span>
-            </td> -->
+            <td class='text-center'>    
+              <a href="" class="btn btn-danger delete_btn_ajax">
+              <i class="fa-solid fa-trash"></i></a>
+            </td>
+          
             <?php    if($admin[0]['user_type_id'] == 1) : ?>
             <td class='text-center'>
             <?php 
@@ -193,8 +203,7 @@
     <script>
       $(document).ready(function () {
         $("#myTable").DataTable();
-        
-
+       
         $('.profile').on('click', function () {
 
             $tr = $(this).closest('tr');
@@ -319,6 +328,22 @@ $.ajax({
 });
          });
         // End of Suspended
-      
+        function GetPerformance(performanceDatas) {
+          
+          const performanceData = performanceDatas.split(" ");
+          var id = performanceData[1];
+          var performance_id = performanceData[0];
+          var form_url = '<?= URLROOT; ?>/Register/updatePerformance';
+          
+
+            $.ajax({
+                url : form_url,
+                type : 'POST', 
+                data : jQuery.param({ "performanceId": performance_id, "id": id,}) ,//parse parameter 
+                success : function (performanceList) {
+                 
+                }
+            });
+}
     </script>
 

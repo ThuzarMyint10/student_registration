@@ -21,6 +21,7 @@ class RegisterModel
     private $address_id;
     private $education_id;
     private $status_id;
+    private $performance_id;
    
 
     public function setId($id)
@@ -187,6 +188,15 @@ class RegisterModel
         return $this->status_id;
     }
 
+    public function setPerformanceId($performance_id)
+    {
+        $this->performance_id= $performance_id;
+    }
+    public function getPerformanceId()
+    {
+        return $this->performance_id;
+    }
+
     public function toArray() {
         return [
             "id" => $this->getId(),
@@ -207,6 +217,7 @@ class RegisterModel
             "address_id" => $this->getAddressId(),
             "education_id" => $this->getEducationId(),
             "status_id" => $this->getStatusId(),
+            "performance_id" => $this->getPerformanceId(),
         ];
     }
 }
