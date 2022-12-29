@@ -30,7 +30,7 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header bg">
-                <h5>The Registration of Student</h5>
+                <h5>The Student Registration</h5>
             </div>
             <div class="card-body">
                 <canvas id="myChart"></canvas>
