@@ -1,5 +1,6 @@
 
 	<?php if (!empty($_GET['studentId'])) :
+
 		$database=new Database();
 		$data=$database->getById('vw_student', 'id', $_GET['studentId']); 
 		// Personal Info

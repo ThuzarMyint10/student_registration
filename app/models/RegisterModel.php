@@ -21,8 +21,7 @@ class RegisterModel
     private $address_id;
     private $education_id;
     private $status_id;
-    private $performance_id;
-   
+    private $performance_id; 
 
     public function setId($id)
     {

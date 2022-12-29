@@ -17,6 +17,10 @@ class Pages extends Controller
         $this->view('pages/login');
     }
 
+    public function forget_psw() {
+        $this->view('pages/forget_psw');
+    }
+    
     public function create() {
         $this->view('pages/create');
     }

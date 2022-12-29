@@ -174,8 +174,7 @@ class Register extends Controller
     public function show(){
      $this->view('pages/view');
     }
-
-    
+  
     public function updatePerformance() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {

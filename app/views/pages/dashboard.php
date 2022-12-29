@@ -17,6 +17,82 @@
        
       </div>
       </div>
+      
+    <!-- for chart -->
+    <?php
+    $datas=$database->readAll('chart');
+    foreach($datas as $data){
+      $month[]=$data['month'];
+      $count[]=$data['count'];
+    }
+    ?>
+    <div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg">
+                <h5>The Registration of Student</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+      </div>
+    </div>
+    <script>
+  Chart.defaults.font.size = 14;
+  const labels = <?php echo json_encode($month) ?>;
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Students',
+      data: <?php echo json_encode($count) ?>,
+      backgroundColor: [
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)',
+        'rgb(95, 94, 158)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        x:{
+          title:{
+            display:true,
+            text:'months'
+          }
+        },
+        y: {
+          beginAtZero: true,
+          title:{
+            display:true,
+            text:'percentages %'
+          }
+        }
+      }
+    },
+  };
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+    </script>
+   <!-- end for chart -->
+
       <?php if(isset($_SESSION['id'])) :  $database=new Database();
             $id = base64_decode($_SESSION['id']);
             $admin=$database->getById('student', 'id', $id); ?>
@@ -115,6 +191,7 @@
                 </a>
               </span>
             </td>
+            
             <td class='text-center'>    
               <a href="" class="btn btn-danger delete_btn_ajax">
               <i class="fa-solid fa-trash"></i></a>
@@ -300,6 +377,102 @@ $('.status').on('click', function (e) {
 
  var form_url = '<?= URLROOT; ?>/Register/updateStatus';
 
+        $('.profile').on('click', function () {
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            var url = 'pages';
+            var form_url = '<?php echo URLROOT; ?>/' + url + '/viewpage';
+              $.ajax({
+                  url : form_url,
+                  type : 'GET', 
+                  data : jQuery.param({studentId: data[2]}) ,//parse parameter 
+                  success : function (resp) {
+                    $('.view-body-content').html(resp);
+                    $("#view").modal('show');
+                  }      
+              });
+          });
+        });
+            
+        $('.edituser').on('click', function () {
+
+         $tr = $(this).closest('tr');
+
+          var data = $tr.children("td").map(function () {
+             return $(this).text();
+          }).get();
+
+              var url = 'pages';
+              var form_url = '<?php echo URLROOT; ?>/' + url + '/edit';
+                $.ajax({
+                    url : form_url,
+                    type : 'GET', 
+                    data : jQuery.param({studentId: data[2]}) ,//parse parameter 
+                    success : function (resp) {
+                      $('.edit-body').html(resp);
+                      $("#edit").modal('show');
+                    }      
+              });
+         });
+
+        // For Sweet Alert
+       $('.delete_btn_ajax').click(function(e){
+          e.preventDefault();
+          $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+          return $(this).text();
+        }).get();
+
+        var deleteid = data[2];
+        var url = 'pages';
+             var form_url = '<?php echo URLROOT; ?>/' + url + '/delete';
+        
+        swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this Data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+            type: "GET",
+            url: form_url,
+            data: {
+              "delete_btn_set": 1,
+              "id": deleteid,
+            },
+            
+            success: function(response){
+              swal("Data Deleted Successfully!", {
+                icon: "success",
+              }).then((result) => {
+                location.reload();
+              });
+            }
+          })
+        } 
+        });
+      });
+     
+//  For Suspended
+$('.status').on('click', function (e) {
+  e.preventDefault(); 
+  $tr = $(this).closest('tr');
+
+ var data = $tr.children("td").map(function () {
+   return $(this).text();
+ }).get();
+
+ var form_url = '<?= URLROOT; ?>/Register/updateStatus';
+
 swal({
 title: "Are you sure?",
 text: "Do you wanna change status!",
@@ -328,6 +501,7 @@ $.ajax({
 });
          });
         // End of Suspended
+
         function GetPerformance(performanceDatas) {
           
           const performanceData = performanceDatas.split(" ");

@@ -1,3 +1,4 @@
+
 <option value="">Select Street Name</option>
 <?php
     $database = new Database();
@@ -5,7 +6,6 @@
         
         $townshipId = $_GET['townshipId'];
         $streetDatas = $database->getById('street', 'township_id', $townshipId);
-        
      ?>
 	
 <?php foreach ($streetDatas as $streetData) { ?>

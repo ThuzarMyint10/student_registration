@@ -1,4 +1,5 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
+<?php require_once APPROOT . '/views/pages/forget_psw.php'; ?>
 
 
     <div class="row wrapper">
@@ -48,6 +49,7 @@
             </div>
             <div class="col-md-12 text-center ">
                 <input type="submit" value="Sign In" class="form_right_button" name="signin">
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal">Forgot Your Password?</a>
                 <p class="social_text">
                     Or Login with social platforms
                  </p>
