@@ -1,8 +1,6 @@
 <!-- Student Create form modal-->
 
 <?php $database = new Database();?>
-
-
     <div class="modal fade" id="myModal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -82,8 +80,6 @@
                   <select class="form-select" id="gender" name="gender" required>
                     <option selected disabled value="">Choose...</option>
                   <?php   foreach ($genderArray as $gender) {
-                            // $city_name = $city['name'];
-                            // $city_id = $city['id'];
                             echo "<option value=$gender>$gender</option>";
                         }
                         ?>
@@ -95,7 +91,7 @@
             <div class="row pt-3"> 
                <div class="form-group col-md-6">
                 <label for="city">City</label>
-                  <select class="form-select" id="city_list" name="city" required onchange='GetCityId(this.value)'>
+                  <select class="form-select" id="city_list" name="city" required onchange='GetTownshipListByCityId(this.value)'>
                                       
                    <option selected="selected">Select City</option>
                     <?php
@@ -115,7 +111,7 @@
 
               <div class="form-group col-md-6">
                   <label for="township">Township</label>
-                  <select class="form-select" id="township_list" name="township" required onchange='GetTownshipId(this.value)'>                                
+                  <select class="form-select" id="township_list" name="township" required onchange='GetStreetNameListByTownshipId(this.value)'>                                
                     <option selected="selected">Select Township</option>     
                   </select>
               </div>
@@ -153,7 +149,7 @@
             <div class="row pt-3">
               <div class="form-group col-md-6">
                   <label for="achedamic">Achedamic Year</label>
-                  <select class="form-select" id="achedamic_year" name="achedamic" required onchange='GetAchedamicId(this.value)'>
+                  <select class="form-select" id="achedamic_year" name="achedamic" required onchange='GetSemesterListByAchedamicId(this.value)'>
                                       
                   <option selected="disabled" value='0'>Select Achedamic Year</option>
                     <?php
@@ -183,7 +179,7 @@
               <div class="row pt-3">
                 <div class="form-group col-md-6">
                   <label for="specialization">Specialization</label>
-                  <select class="form-select" id="specialization" name="specialization" required  onchange='GetSpecialization(this.value)'>
+                  <select class="form-select" id="specialization" name="specialization" required  onchange='GetDegreeBySubjectId(this.value)'>
                                       
                     <option selected="disabled" value= '0'>Choose one</option>
                     <?php
@@ -209,6 +205,28 @@
                 </div>
               
               </div>
+              <div class="row pt-3">
+              <div class="form-group col-md-6">
+                <label for="start_date">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="start_date_create"
+                    placeholder="Start Date" required
+                  />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="end_date">End Date</label>
+                  <input
+                    type = "date"
+                    class="form-control"
+                    id = "create_end_date"
+                    name = "end_date_create"
+                    placeholder="End Date"
+                  />
+              </div>
+              
+              </div>
               <div class="form-group pt-3">
                 <label>Image</label>
                 <input type="file" name="profile_image" class="form-control" required/>
@@ -228,13 +246,15 @@
 
  <script>
   $(document).ready(function(){
-    GetCityId(cityId);
-    GetTownshipId(townshipId);
-    GetAchedamicId(achedamicId);
-    GetSpecialization(subjectDatas);
+    GetTownshipListByCityId(cityId);
+    GetStreetNameListByTownshipId(townshipId);
+    GetSemesterListByAchedamicId(achedamicId);
+    GetDegreeBySubjectId(subjectDatas);
 
 });
-  function GetSpecialization(subjectDatas) {
+
+  // Pull out degree by subject id
+  function GetDegreeBySubjectId(subjectDatas) {
     if(subjectDatas!= '0'){
       const subjectData = subjectDatas.split(" "); 
       document.getElementById("degree").value = subjectData[1];
@@ -246,7 +266,7 @@
     }
 
     // Pull out township list by city id
-    function GetCityId(cityId) {
+    function GetTownshipListByCityId(cityId) {
       var url = 'pages';
             var form_url = '<?php echo URLROOT; ?>/' + url + '/township';
             $.ajax({
@@ -255,13 +275,13 @@
                 data : jQuery.param({ cityId: cityId}) ,//parse parameter 
                 success : function (townshipList) {
                     document.getElementById("township_list").innerHTML = townshipList;
-                    GetTownshipId(0);
+                    GetStreetNameListByTownshipId(0);
                 }
             });
 }
 
 // Pull out street name list by township id
-function GetTownshipId(townshipId) {
+function GetStreetNameListByTownshipId(townshipId) {
       var url = 'pages';
             var form_url = '<?php echo URLROOT; ?>/' + url + '/street';
             $.ajax({
@@ -274,10 +294,11 @@ function GetTownshipId(townshipId) {
             });
 }
 
-function GetAchedamicId(achedamicId){
+// Pull out semester list by achedamic id
+function GetSemesterListByAchedamicId(achedamicId){
    if(achedamicId == 6 || achedamicId == '0'){
     document.getElementById("semester").value = achedamicId;
-    $('#semester').attr("disabled", true);
+    $('#semester').attr("disabled", true);   
    } else{
     $('#semester').attr("disabled", false);
     var url = 'pages';

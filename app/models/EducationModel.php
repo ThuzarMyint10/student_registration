@@ -5,6 +5,8 @@ class EducationModel {
     private $semester_id;
     private $subject_id;
     private $achedamic_year_id;
+    private $start_date;
+    private $end_date;
    
     public function setId($id)
     {
@@ -42,12 +44,32 @@ class EducationModel {
         return $this->achedamic_year_id;
     }
 
+    public function setStartDate($start_date)
+    {
+        $this->start_date = $start_date;
+    }
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
+    public function setEndDate($end_date)
+    {
+        $this->end_date = $end_date;
+    }
+    public function getEndDate()
+    {
+        return $this->end_date;
+    }
+
     public function toArray() {
         return [
             "id" => $this->getId(),
             "semester_id" => $this->getSemesterId(),
             "subject_id" => $this->getSubjectId(),
-            "achedamic_year_id" => $this->getAchedamicYearId()
+            "achedamic_year_id" => $this->getAchedamicYearId(),
+            "start_date" => $this->getStartDate(),
+            "end_date" => $this->getEndDate()
         ];
     }
 }

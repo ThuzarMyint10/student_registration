@@ -58,7 +58,7 @@
         'rgb(95, 94, 158)',
         'rgb(95, 94, 158)',
         'rgb(95, 94, 158)',
-        'rgb(95, 94, 158)'
+        'rgb(95, 94, 158)',
       ],
       borderWidth: 1
     }]
@@ -100,7 +100,7 @@
       <a href="<?php echo URLROOT; ?>/auth/logout" class=" button_color"
         ><i class="fa fa-arrow-circle-left"></i> Log out</a
       >
-      <?php if($admin[0]['user_type_id'] == 1) : ?>
+      <?php if($admin[0]['user_type_id'] == ADMIN_ID) : ?>
       <a
         class="btn button_color"
         type="button"
@@ -127,7 +127,7 @@
             <th class="text-center" scope="col">View</th>
             <th class="text-center" scope="col">Edit</th>
             <th class="text-center" scope="col">Delete</th>
-            <?php if($admin[0]['user_type_id'] == 1) : ?>
+            <?php if($admin[0]['user_type_id'] == ADMIN_ID) : ?>
             <th class="text-center" scope="col">Status</th>
             <?php endif; ?>
           </tr>
@@ -137,7 +137,7 @@
          
           try{
            
-            if($admin[0]['user_type_id'] == 4){
+            if($admin[0]['user_type_id'] == NORMAL_USER_ID){
             $run_datas=$admin;
            } else{
            
@@ -197,24 +197,28 @@
               <i class="fa-solid fa-trash"></i></a>
             </td>
           
-            <?php    if($admin[0]['user_type_id'] == 1) : ?>
-            <td class='text-center'>
-            <?php 
-            $status=$database->getById('status', 'id', $row['status_id']); 
-            ?>
-            <?php if($row['status_id'] == 1):?>
-            <div class="btn status text-bg-success" style = "width:120px">
-            
-            <?php else: ?>
-              <div class="btn status text-bg-warning" style = "width:120px">
+            <?php    if($admin[0]['user_type_id'] == ADMIN_ID) : ?>
+              <td class='text-center'>
+                <?php 
+                  $status=$database->getById('status', 'id', $row['status_id']); 
+                ?>
+                <?php if($row['user_type_id'] == ADMIN_ID) : ?> 
+                <div class="btn text-bg-danger" style = "width:120px">
+               
+                <?php elseif($row['status_id'] == 1):?>
+                <div class="btn status text-bg-success" style = "width:120px">
+             
+                <?php else: ?>
+                <div class="btn status text-bg-warning" style = "width:120px">
                 <?php endif;?>
-              <?php if($status[0]['name'] == 'active'): ?>
+
+                <?php if($status[0]['name'] == 'active'): ?>
                 suspend
-              <?php else: ?>
+                <?php else: ?>
                 active
-              <?php endif;?>
-              </div>
-            </td>
+                <?php endif;?>
+                </div>
+              </td>
             <?php endif; ?>
           </tr>
           <?php  }
