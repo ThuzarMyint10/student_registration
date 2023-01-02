@@ -45,13 +45,14 @@ class Register extends Controller
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
             $gender = $_POST['gender'];
-            $is_confirmed='1';
-            $is_active='1';
-            $is_login='0';
+            $is_confirmed= NO_CONFIRM;
+            $is_active= NO_ACTIVE;
+            $is_login = NO_LOGIN;
             $token='';
             $date='';
             $token_expire='';
-            $user_type_id='4';
+            $user_type_id = NORMAL_USER_ID;
+            $performance_id = NORMAL;
 
             //for address
             $city_id = $_POST['city'];
@@ -64,11 +65,13 @@ class Register extends Controller
             if(!empty($_POST['semester'])){
                 $semester_id=$_POST['semester'];
             }else{
-                $semester_id= 0;
+                $semester_id = NO_SEMESTER;
             }
             $subject_id = $_POST['specialization'];
             $achedamic_year_id = $_POST['achedamic'];
-            $status_id = 1;
+            $start_date = $_POST['start_date_create'];
+            $end_date = $_POST['end_date_create'];
+            $status_id = ACTIVE;
 
             $isUserExist = $this->db->columnFilter('student', 'email', $email);
             if ($isUserExist) {           
@@ -95,7 +98,9 @@ class Register extends Controller
             $education->setSemesterId($semester_id);
             $education->setSubjectId($subject_id);
             $education->setAchedamicYearId($achedamic_year_id);
-            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id);
+            $education->setStartDate($start_date);
+            $education->setEndDate($end_date);
+            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id,$start_date,$end_date);
             if($isEducationIdExist){
                 $educationId = $isEducationIdExist['id'];
             }else{
@@ -155,6 +160,7 @@ class Register extends Controller
            $register->setAddressId($addressId);
            $register->setEducationId($educationId);
            $register->setStatusId($status_id);
+           $register->setPerformanceId($performance_id);
            $registerCreate = $this->db->create('student', $register->toArray());
            if( $registerCreate){
             setMessage('success', 'Create successful!');
@@ -182,25 +188,19 @@ class Register extends Controller
             // for student
             $id = $_POST['id'];
             $student_data = $this->db->getById('vw_student', 'id', $id);
-            // if($student_data[0]['status_id'] == 1){
-            //     $status_id = 2;
-            // }elseif($student_data[0]['status_id'] == 2){
-            //     $status_id = 1;
-            // }
-           
             $name = $student_data[0]['name'];
             $email=$student_data[0]['email'];
             $password=$student_data[0]['password'];
             $father_name = $student_data[0]['father_name'];
             $date_of_birth = $student_data[0]['date_of_birth'];
             $gender = $student_data[0]['gender'];
-            $is_confirmed='1';
-            $is_active='1';
-            $is_login=$student_data[0]['is_login'];
-            $token='';
-            $date='';
-            $token_expire='';
-            $user_type_id= $student_data[0]['user_type_id'];
+            $is_confirmed = $student_data[0]['is_confirmed'];
+            $is_active = $student_data[0]['is_active'];
+            $is_login = $student_data[0]['is_login'];
+            $token = $student_data[0]['token_key'];
+            $date = $student_data[0]['token_start_date'];
+            $token_expire = $student_data[0]['token_expire'];
+            $user_type_id = $student_data[0]['user_type_id'];
 
             $img =  $student_data[0]['image'];
            
@@ -250,10 +250,10 @@ class Register extends Controller
             // for student
             $id = $_POST['id'];
             $student_data = $this->db->getById('vw_student', 'id', $id);
-            if($student_data[0]['status_id'] == 1){
-                $status_id = 2;
-            }elseif($student_data[0]['status_id'] == 2){
-                $status_id = 1;
+            if($student_data[0]['status_id'] == ACTIVE){
+                $status_id = SUSPEND;
+            }elseif($student_data[0]['status_id'] == SUSPEND){
+                $status_id = ACTIVE;
             }
            
             $name = $student_data[0]['name'];
@@ -262,13 +262,14 @@ class Register extends Controller
             $father_name = $student_data[0]['father_name'];
             $date_of_birth = $student_data[0]['date_of_birth'];
             $gender = $student_data[0]['gender'];
-            $is_confirmed='1';
-            $is_active='1';
-            $is_login='0';
-            $token='';
-            $date='';
-            $token_expire='';
+            $is_confirmed = $student_data[0]['is_confirmed'];
+            $is_active = $student_data[0]['is_active'];
+            $is_login = $student_data[0]['is_login'];
+            $token = $student_data[0]['token_key'];
+            $date = $student_data[0]['token_start_date'];
+            $token_expire = $student_data[0]['token_expire'];
             $user_type_id= $student_data[0]['user_type_id'];
+            $performance_id = $student_data[0]['performance_id'];
 
             $img =  $student_data[0]['image'];
            
@@ -293,6 +294,7 @@ class Register extends Controller
             $register->setAddressId($addressId);
             $register->setEducationId($educationId);
             $register->setStatusId($status_id);
+            $register->setPerformanceId($performance_id);
             $register->setProfileImage($img);
             
             $updated = $this->db->update('student', $id, $register->toArray());
@@ -327,13 +329,13 @@ class Register extends Controller
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
             $gender = $_POST['gender'];
-            $is_confirmed='1';
-            $is_active='1';
-            $is_login='0';
-            $token='';
-            $date='';
-            $token_expire='';
-            $user_type_id= $student_data[0]['user_type_id'];
+            $is_confirmed = $student_data[0]['is_confirmed'];
+            $is_active = $student_data[0]['is_active'];
+            $is_login = $student_data[0]['is_login'];
+            $token = $student_data[0]['token'];
+            $date = $student_data[0]['date'];
+            $token_expire = $student_data[0]['token_expire'];
+            $user_type_id = $student_data[0]['user_type_id'];
 
             //for address
             $city_id = $_POST['city'];
@@ -350,7 +352,11 @@ class Register extends Controller
             }
             $subject_id = $_POST['specialization'];
             $achedamic_year_id = $_POST['achedamic'];
-
+            $start_date = $_POST['edit_start_date'];
+            $end_date = $_POST['edit_end_date'];
+            $status_id = $student_data[0]['status_id'];
+            $performance_id = $student_data[0]['performance_id'];
+        
             // for image
             $msg = "";
             $img = $_FILES['image']['name'];
@@ -375,7 +381,9 @@ class Register extends Controller
             $education->setSemesterId($semester_id);
             $education->setSubjectId($subject_id);
             $education->setAchedamicYearId($achedamic_year_id);
-            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id);
+            $education->setStartDate($start_date);
+            $education->setEndDate($end_date);
+            $isEducationIdExist = $this->db->getEducationId('education',$subject_id,$semester_id,$achedamic_year_id,$start_date,$end_date);
             if($isEducationIdExist){
                 $educationId = $isEducationIdExist['id'];
             }else{
@@ -401,6 +409,7 @@ class Register extends Controller
             $register->setAddressId($addressId);
             $register->setEducationId($educationId);
             $register->setStatusId($status_id);
+            $register->setPerformanceId($performance_id);
             if(empty($img))
             {   
                 $edit_query = $this->db->getById('student', 'id', $id);

@@ -55,7 +55,7 @@
               <div class="form-group col-md-3">
                 <label for="date_of_birth">Date of Birth</label>
                   <input
-                  value = "<?= $data[0]['date_of_birth'] ?>"
+                    value = "<?= $data[0]['date_of_birth'] ?>"
                     type="date"
                     class="form-control"
                     name="date_of_birth"
@@ -230,13 +230,38 @@
                 </div>
               
               </div>
+
+              <div class="row pt-3">
+              <div class="form-group col-md-6">
+                <label for="edit_start_date">Start Date</label>
+                  <input
+                    value = "<?= $data[0]['start_date'] ?>"
+                    type="date"
+                    class="form-control"
+                    name="edit_start_date"
+                    placeholder="Start Date" required
+                  />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="edit_end_date">End Date</label>
+                  <input  
+                    value = "<?= $data[0]['end_date'] ?>"    
+                    type = "date"
+                    class="form-control"
+                    id = "end_date"
+                    name="edit_end_date"
+                  />
+              </div>
+              
+              </div>
+            
               <div class='form-group pt-3'>
                 <label>Image</label>
                   <input type='file' value="<?= $data[0]['image']; ?>" name='image' class='form-control' >
                   <img src = '<?= URLROOT; ?>/public/upload_images/<?= $data[0]['id']; ?>/<?= $data[0]['image']; ?>' style='width:50px; height:50px'>
               </div>
               <button
-              name="submit"
+                name="submit"
                 type="submit"
                 class="btn button_color create mt-5 float-end"
               >
@@ -298,8 +323,10 @@ function GetAchedamicIdEdit(achedamicId){
    if(achedamicId == 6 || achedamicId == '0'){
     document.getElementById("semesterEdit").value = achedamicId;
     $('#semesterEdit').attr("disabled", true);
+    $('#end_date').attr("disabled", false);
    } else{
     $('#semesterEdit').attr("disabled", false);
+    $('#end_date').attr("disabled", true);
     var url = 'pages';
             var form_url = '<?= URLROOT; ?>/' + url + '/semester';
             $.ajax({

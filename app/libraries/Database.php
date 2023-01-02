@@ -176,13 +176,15 @@ class Database
         return $success ? $row : [];
     }
 
-    public function getEducationId($table, $subjectId, $semesterId, $achedamicYearId)
+    public function getEducationId($table, $subjectId, $semesterId, $achedamicYearId, $startDate, $endDate)
     {
-        $sql = 'SELECT * FROM ' . $table . ' WHERE `subject_id` =:subject_id' . ' AND `semester_id` =:semester_id' . ' AND `achedamic_year_id` =:achedamic_year_id';
+        $sql = 'SELECT * FROM ' . $table . ' WHERE `subject_id` =:subject_id' . ' AND `semester_id` =:semester_id' . ' AND `achedamic_year_id` =:achedamic_year_id' . ' AND `end_date` =:start_date' . ' AND `end_date` =:end_date';
         $stm = $this->pdo->prepare($sql);
         $stm->bindValue(':subject_id', $subjectId);
         $stm->bindValue(':semester_id', $semesterId);
         $stm->bindValue(':achedamic_year_id', $achedamicYearId);
+        $stm->bindValue(':start_date', $startDate);
+        $stm->bindValue(':end_date', $endDate);
         $success = $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         return $success ? $row : [];

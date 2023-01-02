@@ -62,17 +62,18 @@ class Auth extends Controller
                     $user->setToken($token);
                     $user->setTokenExpire($tokenExpire);
                     $user->setProfileImage($profile_image);
-                    $user->setIsLogin(0);
-                    $user->setIsActive(0);
-                    $user->setIsConfirmed(0);
+                    $user->setIsLogin(NO_LOGIN);
+                    $user->setIsActive(NO_ACTIVE);
+                    $user->setIsConfirmed(NO_CONFIRM);
                     $user->setDate($date);
-                    $user->setUserTypeId(4);
+                    $user->setUserTypeId(NORMAL_USER_ID);
                     $user->setFatherName('');
                     $user->setDateOfBirth('');
                     $user->setGender('');
-                    $user->setAddressId(0);
-                    $user->setEducationId(0);
-                    $user->setStatusId(1);
+                    $user->setAddressId(NO_ADDRESS);
+                    $user->setEducationId(NO_EDUCATION);
+                    $user->setStatusId(ACTIVE);
+                    $user->setPerformanceId(NORMAL);
                     // $user->setDate("2022-12-07 14:51:09");
 
                     $userCreated = $this->db->create('student', $user->toArray());
@@ -114,16 +115,17 @@ class Auth extends Controller
             $user->setToken($newToken);
             $user->setTokenExpire($tokenExpire);
             $user->setProfileImage($users['profile_image']);
-            $user->setIsLogin(0);
-            $user->setIsActive(1);
-            $user->setIsConfirmed(1);
+            $user->setIsLogin(NO_LOGIN);
+            $user->setIsActive(IS_ACTIVE);
+            $user->setIsConfirmed(IS_CONFIRM);
             $user->setDate($date);
             $user->setUserTypeId($users['user_type_id']);
             $user->setFatherName($users['father_name']);
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
             $user->setAddressId($users['address_id']);
-            $user->setStatusId(1);
+            $user->setStatusId(ACTIVE);
+            $user->setPerformanceId(NORMAL);
             $user->setEducationId($users['education_id']);
     
             $userUpdated = $this->db->update('student',$users['id'], $user->toArray());
@@ -160,15 +162,16 @@ class Auth extends Controller
             $user->setToken($token);
             $user->setTokenExpire($users['token_expire']);
             $user->setProfileImage($users['profile_image']);
-            $user->setIsLogin(0);
-            $user->setIsActive(1);
-            $user->setIsConfirmed(1);
+            $user->setIsLogin(NO_LOGIN);
+            $user->setIsActive(IS_ACTIVE);
+            $user->setIsConfirmed(IS_CONFIRM);
             $user->setDate($users['date']);
             $user->setUserTypeId($users['user_type_id']);
             $user->setFatherName($users['father_name']);
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
-            $user->setStatusId(1);
+            $user->setStatusId(ACTIVE);
+            $user->setPerformanceId(NORMAL);
             $user->setAddressId($users['address_id']);
             $user->setEducationId($users['education_id']);
     
@@ -194,11 +197,11 @@ class Auth extends Controller
                 $password = base64_encode($_POST['password']);
                 $isLogin = $this->db->loginCheck($email, $password);
                 if ($isLogin) {
-                    if($isLogin['is_login'] == 1){
+                    if($isLogin['is_login'] == IS_LOGIN){
                         setMessage('error', 'User already Login!');
                         redirect('pages/login');
                     }
-                    elseif($isLogin['status_id'] == 2){
+                    elseif($isLogin['status_id'] == SUSPEND){
                         setMessage('error', 'Your account is suspended!!!! You can not login! Please request again to admin!');
                        
                         // echo '<script>
