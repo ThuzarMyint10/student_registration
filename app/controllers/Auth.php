@@ -62,17 +62,17 @@ class Auth extends Controller
                     $user->setToken($token);
                     $user->setTokenExpire($tokenExpire);
                     $user->setProfileImage($profile_image);
-                    $user->setIsLogin(NO_LOGIN);
-                    $user->setIsActive(NO_ACTIVE);
-                    $user->setIsConfirmed(NO_CONFIRM);
+                    $user->setIsLogin(DAFAULT_VALUE);
+                    $user->setIsActive(DAFAULT_VALUE);
+                    $user->setIsConfirmed(DAFAULT_VALUE);
                     $user->setDate($date);
                     $user->setUserTypeId(NORMAL_USER_ID);
                     $user->setFatherName('');
                     $user->setDateOfBirth('');
                     $user->setGender('');
-                    $user->setAddressId(NO_ADDRESS);
-                    $user->setEducationId(NO_EDUCATION);
-                    $user->setStatusId(ACTIVE);
+                    $user->setAddressId(DAFAULT_VALUE);
+                    $user->setEducationId(DAFAULT_VALUE);
+                    $user->setStatusId(ACTIVE_VALUE);
                     $user->setPerformanceId(NORMAL);
                     // $user->setDate("2022-12-07 14:51:09");
 
@@ -116,15 +116,15 @@ class Auth extends Controller
             $user->setTokenExpire($tokenExpire);
             $user->setProfileImage($users['profile_image']);
             $user->setIsLogin(NO_LOGIN);
-            $user->setIsActive(IS_ACTIVE);
-            $user->setIsConfirmed(IS_CONFIRM);
+            $user->setIsActive(ACTIVE_VALUE);
+            $user->setIsConfirmed(ACTIVE_VALUE);
             $user->setDate($date);
             $user->setUserTypeId($users['user_type_id']);
             $user->setFatherName($users['father_name']);
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
             $user->setAddressId($users['address_id']);
-            $user->setStatusId(ACTIVE);
+            $user->setStatusId(ACTIVE_VALUE);
             $user->setPerformanceId(NORMAL);
             $user->setEducationId($users['education_id']);
     
@@ -163,14 +163,14 @@ class Auth extends Controller
             $user->setTokenExpire($users['token_expire']);
             $user->setProfileImage($users['profile_image']);
             $user->setIsLogin(NO_LOGIN);
-            $user->setIsActive(IS_ACTIVE);
-            $user->setIsConfirmed(IS_CONFIRM);
+            $user->setIsActive(ACTIVE_VALUE);
+            $user->setIsConfirmed(ACTIVE_VALUE);
             $user->setDate($users['date']);
             $user->setUserTypeId($users['user_type_id']);
             $user->setFatherName($users['father_name']);
             $user->setDateOfBirth($users['date_of_birth']);
             $user->setGender($users['gender']);
-            $user->setStatusId(ACTIVE);
+            $user->setStatusId(ACTIVE_VALUE);
             $user->setPerformanceId(NORMAL);
             $user->setAddressId($users['address_id']);
             $user->setEducationId($users['education_id']);
@@ -197,7 +197,7 @@ class Auth extends Controller
                 $password = base64_encode($_POST['password']);
                 $isLogin = $this->db->loginCheck($email, $password);
                 if ($isLogin) {
-                    if($isLogin['is_login'] == IS_LOGIN){
+                    if($isLogin['is_login'] == ACTIVE_VALUE){
                         setMessage('error', 'User already Login!');
                         redirect('pages/login');
                     }
