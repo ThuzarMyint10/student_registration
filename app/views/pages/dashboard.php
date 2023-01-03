@@ -20,7 +20,7 @@
       
     <!-- for chart -->
     <?php
-    $datas=$database->readAll('chart');
+    $datas=$database->readAllByFilter('chart');
     foreach($datas as $data){
       $month[]=$data['month'];
       $count[]=$data['count'];
