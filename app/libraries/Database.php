@@ -154,6 +154,16 @@ class Database
         return $success ? $row : [];
     }
 
+    public function readAllByFilter($table)
+    {
+        $sql = 'SELECT monthname(start_date) as month,COUNT(id) as count FROM `vw_student` GROUP BY monthname(start_date)';
+        // print_r($sql);
+        $stm = $this->pdo->prepare($sql);
+        $success = $stm->execute();
+        $row = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $success ? $row : [];
+    }
+
     public function getById($table, $key, $id)
     {
         $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $key. ' =:'.$key;
