@@ -155,7 +155,7 @@ class Auth extends Controller
             $email = $users['email'];
             $token = $users['token'];
             $user = new RegisterModel();
-            $user->setId($id);
+            // $user->setId($id);
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($users['password']);

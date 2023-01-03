@@ -198,7 +198,7 @@ class RegisterModel
 
     public function toArray() {
         return [
-            "id" => $this->getId(),
+            // "id" => $this->getId(),
             "name" => $this->getName(),
             "email" => $this->getEmail(),
             "password" => $this->getPassword(),
