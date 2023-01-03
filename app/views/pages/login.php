@@ -36,10 +36,10 @@
                    
                 <div class="mb-3">
                     <label>Password</label>
-                    <div class="input-icons">
-                        <input type="password" name="password" id="pwd" class="form-control input-field" title="" placeholder="Password">
-                        <i class="uil uil-eye-slash icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
-                    </div>
+                    <div class="show_psw">
+                      	<input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
+            			<i class="uil uil-eye icon" style="position: absolute; margin-left: -47px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
+          			</div>
                 </div>
                 
             <div class="mb-3">
@@ -70,6 +70,17 @@
     </div>
 
 <script>
+
+    // Show Password//////////////////////////////////
+
+    const passwordField = document.querySelector("#pwd")
+    const eye = document.querySelector("#eye")
+
+    eye.addEventListener("click", function(){
+        this.classList.toggle("uil-eye-slash")
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password"
+        passwordField.setAttribute("type", type)
+    });
     $(function() {
         var str=$('name').val();
 		if(/^[a-zA-Z- ]*$/.test(str) == false) {
