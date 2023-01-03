@@ -143,7 +143,7 @@ class Register extends Controller
                 }
             }
             // end of image upload
-           $register->setId("");
+        //    $register->setId("");
            $register->setName($name);
            $register->setEmail($email);
            $register->setPassword($password);
@@ -210,7 +210,7 @@ class Register extends Controller
             $performance_id = $_POST['performanceId'];
             
             $register = new RegisterModel();
-            $register->setId($id);
+            // $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
             $register->setPassword($password);
@@ -277,7 +277,7 @@ class Register extends Controller
             $educationId =  $student_data[0]['education_id'];
             
             $register = new RegisterModel();
-            $register->setId($id);
+            // $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
             $register->setPassword($password);
@@ -392,7 +392,7 @@ class Register extends Controller
             }
 
             $register = new RegisterModel();
-            $register->setId($id);
+            // $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
             $register->setPassword($password);
