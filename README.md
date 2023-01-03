@@ -28,5 +28,5 @@ This project is used by the following companies:
 
 ## Support
 
-For support, email thuzarmyint75@gmail.com & eek752000@gmail.com or join our Slack channel.
+For support, email thuzarmyint75@gmail.com & eek752000@gmail.com .
 
