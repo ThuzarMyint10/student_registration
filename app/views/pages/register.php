@@ -44,7 +44,7 @@ require_once APPROOT . '/views/inc/header.php'; ?>
                     
 					<div class="show_psw">
                       	<input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
-            			<i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye"></i>
+            			<i class="uil uil-eye icon" style="position: absolute; margin-left: -43px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
           			</div>
                     <div class="text-danger">
 						<?php if (isset($data['password-err'])) {
@@ -57,7 +57,7 @@ require_once APPROOT . '/views/inc/header.php'; ?>
 					
 					<div class="show_psw">
                       	<input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" style="display: inline-block;">
-            			<i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: -65px; cursor: pointer;color: green;" id="eye1"></i>
+            			<i class="uil uil-eye icon" style="position: absolute; margin-left: -43px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye1"></i>
           			</div>
 					<div class="text-danger">
 						<?php if (isset($data['cpassword-err'])) {
@@ -76,15 +76,7 @@ require_once APPROOT . '/views/inc/header.php'; ?>
 	<!-- echo "<script type=\"text/javascript\">self.opener.document.getElementById('error').innerHTML='Error:Show Error';window.close();</script>"; -->
                 
 <script>
-// Show Password
-	function myFunction() {
-		var x = document.getElementById("myInput");
-		if (x.type === "password") {
-			x.type = "text";
-		} else {
-			x.type = "password";
-		}
-	}
+
 	// Show Password//////////////////////////////////
 
     const passwordField = document.querySelector("#pwd")
