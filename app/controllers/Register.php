@@ -45,9 +45,9 @@ class Register extends Controller
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
             $gender = $_POST['gender'];
-            $is_confirmed= NO_CONFIRM;
-            $is_active= NO_ACTIVE;
-            $is_login = NO_LOGIN;
+            $is_confirmed= DAFAULT_VALUE;
+            $is_active= DAFAULT_VALUE;
+            $is_login = DAFAULT_VALUE;
             $token='';
             $date='';
             $token_expire='';
@@ -65,13 +65,13 @@ class Register extends Controller
             if(!empty($_POST['semester'])){
                 $semester_id=$_POST['semester'];
             }else{
-                $semester_id = NO_SEMESTER;
+                $semester_id = DAFAULT_VALUE;
             }
             $subject_id = $_POST['specialization'];
             $achedamic_year_id = $_POST['achedamic'];
             $start_date = $_POST['start_date_create'];
             $end_date = $_POST['end_date_create'];
-            $status_id = ACTIVE;
+            $status_id = ACTIVE_VALUE;
 
             $isUserExist = $this->db->columnFilter('student', 'email', $email);
             if ($isUserExist) {           
@@ -250,10 +250,10 @@ class Register extends Controller
             // for student
             $id = $_POST['id'];
             $student_data = $this->db->getById('vw_student', 'id', $id);
-            if($student_data[0]['status_id'] == ACTIVE){
+            if($student_data[0]['status_id'] == ACTIVE_VALUE){
                 $status_id = SUSPEND;
             }elseif($student_data[0]['status_id'] == SUSPEND){
-                $status_id = ACTIVE;
+                $status_id = ACTIVE_VALUE;
             }
            
             $name = $student_data[0]['name'];
