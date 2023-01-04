@@ -180,6 +180,67 @@ class Register extends Controller
     public function show(){
      $this->view('pages/view');
     }
+    public function reset_password(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            session_start();
+            $email=$_POST['email'];
+            $student_data=$this->db->getById('vw_student','email',$email);
+            $id = $student_data[0]['id'];
+            $name = $student_data[0]['name'];
+            $email=$student_data[0]['email'];
+            $password=base64_encode($_POST['confirm_password']);
+            $father_name = $student_data[0]['father_name'];
+            $date_of_birth = $student_data[0]['date_of_birth'];
+            $gender = $student_data[0]['gender'];
+            $is_confirmed = $student_data[0]['is_confirmed'];
+            $is_active = $student_data[0]['is_active'];
+            $is_login = $student_data[0]['is_login'];
+            $token = $student_data[0]['token_key'];
+            $date = $student_data[0]['token_start_date'];
+            $token_expire = $student_data[0]['token_expire'];
+            $user_type_id = $student_data[0]['user_type_id'];
+
+            $img =  $student_data[0]['image'];
+           
+            $addressId = $student_data[0]['address_id'];
+            $educationId =  $student_data[0]['education_id'];
+            $status_id = $student_data[0]['status_id'];
+            $performance_id = $student_data[0]['performance_id'];
+            
+            $register = new RegisterModel();
+            // $register->setId($id);
+            $register->setName($name);
+            $register->setEmail($email);
+            $register->setPassword($password);
+            $register->setFatherName($father_name);
+            $register->setDateofbirth($date_of_birth);
+            $register->setGender($gender);
+            $register->setIsConfirmed($is_confirmed);
+            $register->setIsActive($is_active);
+            $register->setIsLogin($is_login);
+            $register->setToken($token);
+            $register->setDate($date);
+            $register->setTokenExpire($token_expire);
+            $register->setUserTypeId($user_type_id);
+            $register->setAddressId($addressId);
+            $register->setEducationId($educationId);
+            $register->setStatusId($status_id);
+            $register->setProfileImage($img);
+            $register->setPerformanceId($performance_id);
+            
+            $updated = $this->db->update('student', $id, $register->toArray());
+            
+            if($updated){
+            echo "<script>
+            alert('Success! Password has been successfully updated!');
+            </script>";
+            }else{
+                echo "Password not update";
+            }
+            redirect('pages/login');
+        }
+        
+    }
   
     public function updatePerformance() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
