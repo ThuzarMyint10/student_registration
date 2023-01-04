@@ -24,6 +24,28 @@
                   />
               </div>
             </div>
+            <div class="row pt-3">
+              <div class="form-group col-md-12">
+                <label for="password">New Password</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="new_password"
+                    placeholder="Enter Your New Password"  required
+                  />
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="form-group col-md-12">
+                <label for="password">Confirm Password</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="confirm_password"
+                    placeholder="Enter Your Confirm Password"  required
+                  />
+              </div>
+            </div>
             <button
               name="submit"
                 type="submit"
