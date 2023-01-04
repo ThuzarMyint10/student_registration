@@ -37,8 +37,8 @@
                 <div class="mb-3">
                     <label>Password</label>
                     <div class="show_psw">
-                      	<input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
-            			<i class="uil uil-eye icon" style="position: absolute; margin-left: -47px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
+                      	<input type="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
+            			<i class="uil uil-eye icon" name="password" style="position: absolute; margin-left: -47px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
           			</div>
                 </div>
                 
