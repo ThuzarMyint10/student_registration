@@ -43,8 +43,9 @@ require_once APPROOT . '/views/inc/header.php'; ?>
                     <label>Password</label>
                     
 					<div class="show_psw">
-                      	<input type="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
-            			<i class="uil uil-eye icon" name="password" style="display: inline-block; position: absolute; margin-left: -43px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
+						<i class="uil uil-eye icon" style="display: inline-block; position: absolute; margin-left: 31%; margin-top: 9.5px; cursor: pointer;color: green;" id="eye"></i>
+                      	<input type="password" name="password" id="pwd" class="form-control" placeholder="Password" style="display: inline-block;">
+            			
           			</div>
                     <div class="text-danger">
 						<?php if (isset($data['password-err'])) {
@@ -56,8 +57,8 @@ require_once APPROOT . '/views/inc/header.php'; ?>
                     <label>Confirm Password</label>
 					
 					<div class="show_psw">
+						<i class="uil uil-eye icon" name="cpassword" style="position: absolute; margin-left: 31%; margin-top: 9.5px; cursor: pointer;color: green;" id="eye1"></i>
                       	<input type="password" id="cpassword" class="form-control" placeholder="Confirm Password" style="display: inline-block;">
-            			<i class="uil uil-eye icon" name="cpassword" style="position: absolute; margin-left: -43px; margin-top: 9.5px; cursor: pointer;color: green;" id="eye1"></i>
           			</div>
 					<div class="text-danger">
 						<?php if (isset($data['cpassword-err'])) {
