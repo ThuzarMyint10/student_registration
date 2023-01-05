@@ -9,6 +9,8 @@
 		$studentName = $data[0]['name'];
 		$fatherName = $data[0]['father_name'];
 		$email = $data[0]['email'];
+		$phone = $data[0]['phone'];
+		$emergency_phone = $data[0]['emergency_phone'];
 		$dateOfBirth = $data[0]['date_of_birth'];
 		$gender = $data[0]['gender'];
 		$image = $data[0]['image'];
@@ -40,14 +42,16 @@
 	<div class='modal-body view-body'>
 		<div class='container' id='profile'> 
 			<div class='row'>
-				<div class='col-sm-5'>
+				<div class='col-sm-6'>
 					<img src="<?= URLROOT; ?>/public/upload_images/<?= $id?>/<?= $image?>" alt='image' class='img-fluid' ><br><br>
+					<strong>Phone :</strong> <?= $phone ?> <br>
+					<strong>Emergency :</strong> <?= $emergency_phone ?> <br>
 					<i class='fa fa-envelope' aria-hidden='true'></i> <?= $email ?>  <br>
 					<strong>StartDate :</strong> <?= $start_date ?> <br>
 					<strong>EndDate :</strong><?php if($end_date == '0000-00-00'): ?> Present <?php else: ?> <?= $end_date ?> <?php endif ?> <br>
 									
 				</div>
-				<div class='col-sm-7'>
+				<div class='col-sm-6'>
 					<h3 class='text-primary'><?= $studentName ?></h3>
 					<p class='text-secondary'>
 					<strong>Father Name :</strong> <?= $fatherName ?><br>

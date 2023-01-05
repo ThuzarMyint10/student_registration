@@ -21,7 +21,7 @@
             <form action="<?php echo URLROOT; ?>/Register/store" method="POST" enctype="multipart/form-data">
             
             <div class="row pt-3">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-3">
                 <label for="student_name">Student Name</label>
                   <input
                     type="text"
@@ -31,13 +31,32 @@
                   />
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-3">
                 <label for="father_name">Father Name</label>
                   <input
                     type="text"
                     class="form-control"
                     name="father_name"
                     placeholder="Enter Your Father Name" required
+                  />
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="phone">Phone</label>
+                  <input
+                    type="mobile"
+                    class="form-control"
+                    name="phone"
+                    placeholder="Enter Your Phone" required
+                  />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="emergency_phone">Emergency Phone</label>
+                  <input
+                    type="mobile"
+                    class="form-control"
+                    name="emergency_phone"
+                    placeholder="Enter Your Emergency Phone"
                   />
               </div>
 

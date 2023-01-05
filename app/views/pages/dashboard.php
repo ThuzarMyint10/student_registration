@@ -1,6 +1,7 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/components/auth_message.php'; ?>
 <?php require  APPROOT.'/views/pages/create.php';?>
+<?php require  APPROOT.'/views/pages/payment.php';?>
 <?php require  APPROOT.'/views/pages/view.php';?>
 <?php require  APPROOT.'/views/pages/edit.php';?>
 
@@ -100,6 +101,17 @@
       <a href="<?php echo URLROOT; ?>/auth/logout" class=" button_color"
         ><i class="fa fa-arrow-circle-left"></i> Log out</a
       >
+      <?php if($admin[0]['user_type_id'] == NORMAL_USER_ID) : ?>
+      <a
+        class="btn button_color"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#myPayment"
+      >
+         Pay Camp Fee
+      </a>
+
+      <?php endif; ?>
       <?php if($admin[0]['user_type_id'] == ADMIN_ID) : ?>
       <a
         class="btn button_color"
@@ -370,102 +382,7 @@
         });
       });
      
-//  For Suspended
-$('.status').on('click', function (e) {
-  e.preventDefault(); 
-  $tr = $(this).closest('tr');
 
- var data = $tr.children("td").map(function () {
-   return $(this).text();
- }).get();
-
- var form_url = '<?= URLROOT; ?>/Register/updateStatus';
-
-        $('.profile').on('click', function () {
-
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            var url = 'pages';
-            var form_url = '<?php echo URLROOT; ?>/' + url + '/viewpage';
-              $.ajax({
-                  url : form_url,
-                  type : 'GET', 
-                  data : jQuery.param({studentId: data[2]}) ,//parse parameter 
-                  success : function (resp) {
-                    $('.view-body-content').html(resp);
-                    $("#view").modal('show');
-                  }      
-              });
-          });
-        });
-            
-        $('.edituser').on('click', function () {
-
-         $tr = $(this).closest('tr');
-
-          var data = $tr.children("td").map(function () {
-             return $(this).text();
-          }).get();
-
-              var url = 'pages';
-              var form_url = '<?php echo URLROOT; ?>/' + url + '/edit';
-                $.ajax({
-                    url : form_url,
-                    type : 'GET', 
-                    data : jQuery.param({studentId: data[2]}) ,//parse parameter 
-                    success : function (resp) {
-                      $('.edit-body').html(resp);
-                      $("#edit").modal('show');
-                    }      
-              });
-         });
-
-        // For Sweet Alert
-       $('.delete_btn_ajax').click(function(e){
-          e.preventDefault();
-          $tr = $(this).closest('tr');
-
-        var data = $tr.children("td").map(function () {
-          return $(this).text();
-        }).get();
-
-        var deleteid = data[2];
-        var url = 'pages';
-             var form_url = '<?php echo URLROOT; ?>/' + url + '/delete';
-        
-        swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this Data!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-          $.ajax({
-            type: "GET",
-            url: form_url,
-            data: {
-              "delete_btn_set": 1,
-              "id": deleteid,
-            },
-            
-            success: function(response){
-              swal("Data Deleted Successfully!", {
-                icon: "success",
-              }).then((result) => {
-                location.reload();
-              });
-            }
-          })
-        } 
-        });
-      });
-     
 //  For Suspended
 $('.status').on('click', function (e) {
   e.preventDefault(); 
