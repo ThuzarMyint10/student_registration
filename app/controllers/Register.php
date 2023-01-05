@@ -163,14 +163,16 @@ class Register extends Controller
            $register->setPerformanceId($performance_id);
            $registerCreate = $this->db->create('student', $register->toArray());
            if( $registerCreate){
-            setMessage('success', 'Create successful!');
-            redirect('pages/dashboard');
-        }else{
-            echo "Not success";
+            $_SESSION['status']="Create Successfully!!";
+            $_SESSION['status_code']="success";
+            }else{
+             $_SESSION['status']="Not Successfully!!";
+             $_SESSION['status_code']="error";
         }
+        redirect('pages/dashboard');
         }
     }
-    }
+}
       
     public function edit($id)
     {   $register = $this->db->getById('student', 'id', 3);
@@ -510,11 +512,11 @@ class Register extends Controller
             $updated = $this->db->update('student', $id, $register->toArray());
             
             if($updated){
-            echo "<script>
-            alert('Success! Data has been successfully updated!');
-            </script>";
+            $_SESSION['status']="Update Successfully!!";
+            $_SESSION['status_code']="success";
             }else{
-                echo "Data not update";
+            $_SESSION['status']="Not Successfully!!";
+            $_SESSION['status_code']="error";
             }
             redirect('pages/dashboard');
         }
