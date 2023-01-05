@@ -55,7 +55,15 @@ class Auth extends Controller
                     //Hash Password before saving
                     $password = base64_encode($password);
 
+                    $studentData = $this->db->readAllByLimit('student');
+                    if(empty($studentData)){
+                        $studentId = "";
+                    }else{
+                        $studentId = $studentData[0]['id']+1;
+                    }
+
                     $user = new RegisterModel();
+                    $user->setId($studentId);
                     $user->setName($name);
                     $user->setEmail($email);
                     $user->setPassword($password);
@@ -103,12 +111,14 @@ class Auth extends Controller
         $users = $this->db->columnFilter('student', 'token', $token);
          
             $newToken = bin2hex(random_bytes(50));
+            $id = $users['id'];
             $name = $users['name'];
             $email = $users['email'];
             date_default_timezone_set('Asia/Rangoon');
             $date = date('Y-m-d');
             $tokenExpire = date('Y-m-d', strtotime("+1 day", strtotime($date)));
             $user = new RegisterModel();
+            $user->setId($id);
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($users['password']);
@@ -155,7 +165,7 @@ class Auth extends Controller
             $email = $users['email'];
             $token = $users['token'];
             $user = new RegisterModel();
-            // $user->setId($id);
+            $user->setId($id);
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($users['password']);

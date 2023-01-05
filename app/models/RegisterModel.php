@@ -6,6 +6,8 @@ class RegisterModel
     private $id;
     private $name;
     private $email;
+    private $phone;
+    private $emergency_phone;
     private $password;
     private $profile_image;
     private $is_confirmed;
@@ -76,6 +78,24 @@ class RegisterModel
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setEmergencyPhone($emergency_phone)
+    {
+        $this->emergency_phone = $emergency_phone;
+    }
+    public function getEmergencyPhone()
+    {
+        return $this->emergency_phone;
     }
 
     public function setProfileImage($profile_image)
@@ -198,9 +218,11 @@ class RegisterModel
 
     public function toArray() {
         return [
-            // "id" => $this->getId(),
+            "id" => $this->getId(),
             "name" => $this->getName(),
             "email" => $this->getEmail(),
+            "phone" => $this->getPhone(),
+            "emergency_phone" => $this->getEmergencyPhone(),
             "password" => $this->getPassword(),
             "profile_image" => $this->getProfileImage(),
             "is_confirmed" => $this->getIsConfirmed(),

@@ -37,10 +37,13 @@ class Register extends Controller
         {
             session_start();
             $student = $this->db->readAllByLimit('student');
+            
             $image_store_id = $student[0]['id']+1;
             // for student
             $name = $_POST['student_name'];
             $email=$_POST['email'];
+            $phone=$_POST['phone'];
+            $emergency_phone=$_POST['emergency_phone'];
             $password=base64_encode($_POST['password']);
             $father_name = $_POST['father_name'];
             $date_of_birth = $_POST['date_of_birth'];
@@ -143,9 +146,11 @@ class Register extends Controller
                 }
             }
             // end of image upload
-        //    $register->setId("");
+           $register->setId($image_store_id);
            $register->setName($name);
            $register->setEmail($email);
+           $register->setPhone($phone);
+           $register->setEmergencyPhone($emergency_phone);
            $register->setPassword($password);
            $register->setFatherName($father_name);
            $register->setDateofbirth($date_of_birth);
@@ -162,6 +167,7 @@ class Register extends Controller
            $register->setStatusId($status_id);
            $register->setPerformanceId($performance_id);
            $registerCreate = $this->db->create('student', $register->toArray());
+          
            if( $registerCreate){
             setMessage('success', 'Create successful!');
             redirect('pages/dashboard');
@@ -190,6 +196,8 @@ class Register extends Controller
             $student_data = $this->db->getById('vw_student', 'id', $id);
             $name = $student_data[0]['name'];
             $email=$student_data[0]['email'];
+            $phone=$student_data[0]['phone'];
+            $emergency_phone=$student_data[0]['emergency_phone'];
             $password=$student_data[0]['password'];
             $father_name = $student_data[0]['father_name'];
             $date_of_birth = $student_data[0]['date_of_birth'];
@@ -210,9 +218,11 @@ class Register extends Controller
             $performance_id = $_POST['performanceId'];
             
             $register = new RegisterModel();
-            // $register->setId($id);
+            $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
+            $register->setPhone($phone);
+            $register->setEmergencyPhone($emergency_phone);
             $register->setPassword($password);
             $register->setFatherName($father_name);
             $register->setDateofbirth($date_of_birth);
@@ -258,6 +268,8 @@ class Register extends Controller
            
             $name = $student_data[0]['name'];
             $email=$student_data[0]['email'];
+            $phone=$student_data[0]['phone'];
+            $emergency_phone=$student_data[0]['emergency_phone'];
             $password=$student_data[0]['password'];
             $father_name = $student_data[0]['father_name'];
             $date_of_birth = $student_data[0]['date_of_birth'];
@@ -277,9 +289,11 @@ class Register extends Controller
             $educationId =  $student_data[0]['education_id'];
             
             $register = new RegisterModel();
-            // $register->setId($id);
+            $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
+            $register->setPhone($phone);
+            $register->setEmergencyPhone($emergency_phone);
             $register->setPassword($password);
             $register->setFatherName($father_name);
             $register->setDateofbirth($date_of_birth);
@@ -320,6 +334,8 @@ class Register extends Controller
             $status_id = $student_data[0]['status_id'];
             $name = $_POST['student_name'];
             $email=$_POST['email'];
+            $phone=$_POST['phone'];
+            $emergency_phone=$_POST['emergency_phone'];
             if($student_data[0]['password'] !== $_POST['password']){
                 $password = base64_encode($_POST['password']);
             }else{
@@ -392,9 +408,11 @@ class Register extends Controller
             }
 
             $register = new RegisterModel();
-            // $register->setId($id);
+            $register->setId($id);
             $register->setName($name);
             $register->setEmail($email);
+            $register->setPhone($phone);
+            $register->setEmergencyPhone($emergency_phone);
             $register->setPassword($password);
             $register->setFatherName($father_name);
             $register->setDateofbirth($date_of_birth);
@@ -447,7 +465,7 @@ class Register extends Controller
             }       
 
             $updated = $this->db->update('student', $id, $register->toArray());
-            
+           
             if($updated){
             echo "<script>
             alert('Success! Data has been successfully updated!');
