@@ -60,6 +60,8 @@
 					<strong>Degree :</strong> <?= $degree ?><br>
 					<br />
 					<i class='fa fa-home' aria-hidden='true'> </i> <strong>Addres :</strong> <?= $block ?> Block, <?= $unit ?> Unit, <?= $street ?>, <?= $township ?> Township, <?= $city ?> City<br>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+					<a href="<?= URLROOT; ?>/pages/map">Click here !!</a>
 				</div>
 			</div>   
 		</div>

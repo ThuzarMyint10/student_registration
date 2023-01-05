@@ -20,6 +20,10 @@ class Pages extends Controller
     public function forget_psw() {
         $this->view('pages/forget_psw');
     }
+
+    public function map() {
+        $this->view('pages/map');
+    }
     
     public function create() {
         $this->view('pages/create');
