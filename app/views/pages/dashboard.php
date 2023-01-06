@@ -1,7 +1,6 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/components/auth_message.php'; ?>
 <?php require  APPROOT.'/views/pages/create.php';?>
-<?php require  APPROOT.'/views/pages/payment.php';?>
 <?php require  APPROOT.'/views/pages/view.php';?>
 <?php require  APPROOT.'/views/pages/edit.php';?>
 
@@ -14,9 +13,7 @@
           <h3 class="pt-5 pt-md-5 ps-0 ms-0">Acadamy</h3>
           <small class="ps-0 ms-0">Let's Learn & Share Together!</small>
         </div>
-        <div  class="col-2">
-       
-      </div>
+     
       </div>
       
     <!-- for chart -->
@@ -105,8 +102,7 @@
       <a
         class="btn button_color"
         type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#myPayment"
+        id = "pay_fee"
       >
          Pay Camp Fee
       </a>
@@ -162,7 +158,7 @@
             <tr>
             <td class="text-center"><?php echo ++$i; ?></td>
             <td class="text-left"><?php echo $row['name'];?></td>
-            <td class="text-left"><?php echo $row['id'];?></td>
+            <td class="text-left" id="student_id"><?php echo $row['id'];?></td>
             <td class="text-left"><?php echo $row['email'];?></td>
            
             <td class="text-left">
@@ -293,21 +289,26 @@
 					</div>
 				</div> 
 
+
+        
     <script>
       $(document).ready(function () {
         $("#myTable").DataTable();
-       
+        
+
+        // For view 
+
         $('.profile').on('click', function () {
 
-            $tr = $(this).closest('tr');
+                $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
 
-            var url = 'pages';
-            var form_url = '<?php echo URLROOT; ?>/' + url + '/viewpage';
-              $.ajax({
+                var url = 'pages';
+                var form_url = '<?php echo URLROOT; ?>/' + url + '/viewpage';
+                $.ajax({
                   url : form_url,
                   type : 'GET', 
                   data : jQuery.param({studentId: data[2]}) ,//parse parameter 
@@ -317,15 +318,16 @@
                   }      
               });
           });
-        });
-            
+      
+            // End of View
+            // For Edit
         $('.edituser').on('click', function () {
 
-         $tr = $(this).closest('tr');
+              $tr = $(this).closest('tr');
 
-          var data = $tr.children("td").map(function () {
-             return $(this).text();
-          }).get();
+              var data = $tr.children("td").map(function () {
+                return $(this).text();
+              }).get();
 
               var url = 'pages';
               var form_url = '<?php echo URLROOT; ?>/' + url + '/edit';
@@ -340,89 +342,90 @@
               });
          });
 
-        // For Sweet Alert
-       $('.delete_btn_ajax').click(function(e){
-          e.preventDefault();
-          $tr = $(this).closest('tr');
+        //  End of Edit
 
-        var data = $tr.children("td").map(function () {
-          return $(this).text();
-        }).get();
+            // For Delete
+       $('.delete_btn_ajax').on('click', function(e){
+            e.preventDefault();
+            $tr = $(this).closest('tr');
 
-        var deleteid = data[2];
-        var url = 'pages';
-             var form_url = '<?php echo URLROOT; ?>/' + url + '/delete';
+            var data = $tr.children("td").map(function () {
+              return $(this).text();
+            }).get();
+
+            var deleteid = data[2];
+            var url = 'pages';
+            var form_url = '<?php echo URLROOT; ?>/' + url + '/delete';
         
-        swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this Data!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-          $.ajax({
-            type: "GET",
-            url: form_url,
-            data: {
-              "delete_btn_set": 1,
-              "id": deleteid,
-            },
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this Data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                  $.ajax({
+                    type: "GET",
+                    url: form_url,
+                    data: {
+                      "delete_btn_set": 1,
+                      "id": deleteid,
+                    },
             
-            success: function(response){
-              swal("Data Deleted Successfully!", {
-                icon: "success",
-              }).then((result) => {
-                location.reload();
+                    success: function(response){
+                      swal("Data Deleted Successfully!", {
+                        icon: "success",
+                      }).then((result) => {
+                        location.reload();
+                      });
+                    }
+                  });
+                } 
               });
-            }
-          })
-        } 
-        });
       });
-     
+    //  End of Delete
 
 //  For Suspended
-$('.status').on('click', function (e) {
-  e.preventDefault(); 
-  $tr = $(this).closest('tr');
+      $('.status').on('click', function (e) {
+                e.preventDefault(); 
+                $tr = $(this).closest('tr');
 
- var data = $tr.children("td").map(function () {
-   return $(this).text();
- }).get();
+                var data = $tr.children("td").map(function () {
+                  return $(this).text();
+                }).get();
 
- var form_url = '<?= URLROOT; ?>/Register/updateStatus';
+              var form_url = '<?= URLROOT; ?>/Register/updateStatus';
 
-swal({
-title: "Are you sure?",
-text: "Do you wanna change status!",
-icon: "warning",
-buttons: true,
-dangerMode: true,
-}).then((willChange) => {
-if (willChange) {
-$.ajax({
- type: "POST",
- url: form_url,
+            swal({
+                  title: "Are you sure?",
+                  text: "Do you wanna change status!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                }).then((willChange) => {
+                      if (willChange) {
+                        $.ajax({
+                            type: "POST",
+                            url: form_url,
+                            data: {
+                            "id": data[2],
+                            },
+                          success: function(response){
+                            swal("Change Status Successfully!", {
+                              icon: "success",
+                            }).then((result) => {
+                              location.reload();
+                            });
+                          }
 
- data: {
- "id": data[2],
- },
-
- success: function(response){
- swal("Change Status Successfully!", {
-   icon: "success",
- }).then((result) => {
-   location.reload();
- });}
-
-});
-}
-});
+                        });
+                      }
+                  });
          });
         // End of Suspended
 
+        // For performance
         function GetPerformance(performanceDatas) {
           
           const performanceData = performanceDatas.split(" ");
@@ -440,5 +443,26 @@ $.ajax({
                 }
             });
 }
+
+// End of Performance
+
+// For Payment
+$('#pay_fee').on('click', function () {
+
+paymentId = $('#student_id').text();
+var url = 'pages';
+var form_url = '<?php echo URLROOT; ?>/pages/payment?paymentId='+paymentId;
+$.ajax({
+  url : form_url,
+  type : 'GET', 
+  data: {},
+  // data : jQuery.param({paymentId: paymentId}) ,//parse parameter 
+  success : function (resp) {
+    window.location = '<?php echo URLROOT; ?>/pages/payment?paymentId='+paymentId;
+  }      
+});
+});
+
+});
     </script>
 
