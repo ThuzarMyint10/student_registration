@@ -41,6 +41,7 @@ class Pages extends Controller
         $this->view('pages/suspended');
     }
 
+
     public function townshipEdit() {
         $this->view('pages/township_list');
     }
@@ -74,5 +75,16 @@ class Pages extends Controller
     {
         $this->view('pages/dashboard');
     }
+
     
+    public function payment() {
+        $this->view('pages/payment');
+    }
+
+     
+    public function receiveform() {
+        $this->view('pages/receive_form');
+    }
+
+
 }

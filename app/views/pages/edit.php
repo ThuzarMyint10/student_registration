@@ -1,5 +1,6 @@
 
-<?php if (!empty($_GET['studentId'])) :
+<?php 
+if (!empty($_GET['studentId'])) :
     $database=new Database();
     $data=$database->getById('vw_student', 'id', $_GET['studentId']); ?> 
    <form action="<?= URLROOT; ?>/Register/update?id=<?= $data[0]['id']?>" method="POST" enctype="multipart/form-data">

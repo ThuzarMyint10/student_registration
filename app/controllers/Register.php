@@ -30,6 +30,40 @@ class Register extends Controller
 
         $this->view('pages/dashboard', $data);
     }
+
+    public function paymentStore()
+    { 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            session_start();
+            // $student = $this->db->readAllByLimit('vw_student');
+            
+            // $image_store_id = $student[0]['id']+1;
+            // for student
+            $name = $_POST['student_name'];
+            $email=$_POST['email'];
+            $phone=$_POST['phone_number'];
+            $account_type_id = $_POST['account_type'];
+            $bank_account= $this->db->getById('bank_account', 'id', $account_type_id);
+            $payment_type = $_POST['pay_amount'];
+            
+            print_r($bank_account);
+            exit;
+            $payment = new PaymentModel();
+            $payment->setId("");
+            $payment->setPaymentType($payment_type);
+            $payment->setUnit($unit);
+            $payment->setStreetId($street_id);
+            $payment->setTownshipId($township_id);
+            $isAddressExist = $this->db->getAddressId('address', $unit, $block, $street_id);
+            if($isAddressExist){
+               $addressId = $isAddressExist['id'];
+            } else{
+                $addressCreate = $this->db->create('address', $address->toArray());
+                $addressId = (int)$addressCreate;
+            }
+        }
+    }
     
    public function store()
     { 

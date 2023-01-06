@@ -172,7 +172,7 @@ class Auth extends Controller
             $user->setToken($token);
             $user->setTokenExpire($users['token_expire']);
             $user->setProfileImage($users['profile_image']);
-            $user->setIsLogin(NO_LOGIN);
+            $user->setIsLogin(DAFAULT_VALUE);
             $user->setIsActive(ACTIVE_VALUE);
             $user->setIsConfirmed(ACTIVE_VALUE);
             $user->setDate($users['date']);

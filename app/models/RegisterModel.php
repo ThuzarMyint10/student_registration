@@ -24,6 +24,7 @@ class RegisterModel
     private $education_id;
     private $status_id;
     private $performance_id; 
+    private $payment_id; 
 
     public function setId($id)
     {
@@ -216,6 +217,15 @@ class RegisterModel
         return $this->performance_id;
     }
 
+    public function setPaymentId($payment_id)
+    {
+        $this->payment_id= $payment_id;
+    }
+    public function getPaymentId()
+    {
+        return $this->payment_id;
+    }
+
     public function toArray() {
         return [
             "id" => $this->getId(),
@@ -239,6 +249,7 @@ class RegisterModel
             "education_id" => $this->getEducationId(),
             "status_id" => $this->getStatusId(),
             "performance_id" => $this->getPerformanceId(),
+            "payment_id" => $this->getPaymentId(),
         ];
     }
 }
