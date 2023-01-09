@@ -4,9 +4,11 @@ class PaymentModel {
     private $id;
     private $payment_type;
     private $amount;
-    private $image;
+    private $partial_amount;
+    private $payment_image;
     private $pay_time;
     private $bank_acc_id;
+    private $student_id;
     private $date;
    
     public function setId($id)
@@ -35,14 +37,22 @@ class PaymentModel {
     {
         return $this->amount;
     }
-
-    public function setImage($image)
+    public function setPartialAmount($partial_amount)
     {
-        $this->image = $image;
+        $this->partial_amount = $partial_amount;
+    }
+    public function getPartialAmount()
+    {
+        return $this->partial_amount;
+    }
+
+    public function setImage($payment_image)
+    {
+        $this->payment_image = $payment_image;
     }
     public function getImage()
     {
-        return $this->image;
+        return $this->payment_image;
     }
 
     public function setPayTime($pay_time)
@@ -72,15 +82,26 @@ class PaymentModel {
         return $this->date;
     }
 
+    public function setStudentId($student_id)
+    {
+        $this->student_id= $student_id;
+    }
+    public function getStudentId()
+    {
+        return $this->student_id;
+    }
+
     public function toArray() {
         return [
             "id" => $this->getId(),
             "payment_type" => $this->getPaymentType(),
             "amount" => $this->getAmount(),
+            "partial_amount" => $this->getPartialAmount(),
             "image" => $this->getImage(),
             "pay_time" => $this->getPayTime(),
             "bank_acc_id" => $this->getBankAccId(),
-            "date" => $this->getDate()
+            "student_id" => $this->getStudentId(),
+            "date" => $this->getDate(),
         ];
     }
 }
