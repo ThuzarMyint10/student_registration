@@ -6,6 +6,7 @@ class Register extends Controller
     public function __construct()
     {
         $this->model('RegisterModel');
+        $this->model('PaymentModel');
         $this->model('AddressModel');
         $this->model('StreetModel');
         $this->model('TownshipModel');
@@ -35,32 +36,84 @@ class Register extends Controller
     { 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            session_start();
-            // $student = $this->db->readAllByLimit('vw_student');
-            
-            // $image_store_id = $student[0]['id']+1;
-            // for student
+            session_start(); 
+
+           
             $name = $_POST['student_name'];
             $email=$_POST['email'];
             $phone=$_POST['phone_number'];
             $account_type_id = $_POST['account_type'];
-            $bank_account= $this->db->getById('bank_account', 'id', $account_type_id);
-            $payment_type = $_POST['pay_amount'];
+            $studentData= $this->db->getById('vw_student', 'email', $email);
+            $student_id = $studentData[0]['id'];
+            // $bank_account= $this->db->getById('bank_account', 'id', $account_type_id);
             
-            print_r($bank_account);
-            exit;
+            // if($_POST['pay_amount'] == " "){
+            //     $payment_type = "full paid";
+            //     $pay_amount = "700,000 MMK";
+            //     $partial_amount = "";
+            //     $pay_time = "";
+            // }else{
+            //     $payment_type = "partial paid";
+                $partial_amount = $_POST['pay_amount'];
+            //     $pay_time = $_POST['payment_time'];
+            //     $pay_amount = "700,000 MMK";
+            // }
+            // print_r();
+            // exit;
             $payment = new PaymentModel();
+             // For Image
+            //  $milliseconds = round(microtime(true) * 1000);
+        //      $image =  $_FILES['image'];
+        //      print_r($image);
+        //     exit;
+        //     //  exit;
+        //      $image['name'] = $milliseconds . $_FILES['image']['name'];
+        //      print_r($image['name']);
+        //      exit;
+        //      $target_dir = "upload_images/payment/$student_id/";
+        //      $target_file = $target_dir . basename($image['name']);
+        //  if (is_dir("upload_images/payment/$student_id/")) {
+        //      $mydir = "upload_images/payment/$student_id/"; 
+            
+        //      if (move_uploaded_file($_FILES['payment_image']['tmp_name'], $target_file)) {
+        //          $msg = "Image uploaded successfully";
+        //          $register->setImage($image['name']);
+        //      }else{
+        //          $msg = "Failed to upload image";
+        //      }
+        
+        //  } else{
+        //      mkdir("upload_images/payment/$student_id/");
+        //      if (move_uploaded_file($_FILES['payment_image']['tmp_name'], $target_file)) {
+        //          $msg = "Image uploaded successfully";
+        //          $register->setImage($image['name']);
+        //      }else{
+        //          $msg = "Failed to upload image";
+        //      }
+        //  }
+        //  // end of image upload
+ 
             $payment->setId("");
-            $payment->setPaymentType($payment_type);
-            $payment->setUnit($unit);
-            $payment->setStreetId($street_id);
-            $payment->setTownshipId($township_id);
-            $isAddressExist = $this->db->getAddressId('address', $unit, $block, $street_id);
-            if($isAddressExist){
-               $addressId = $isAddressExist['id'];
-            } else{
-                $addressCreate = $this->db->create('address', $address->toArray());
-                $addressId = (int)$addressCreate;
+            // $payment->setPaymentType($payment_type);
+            $payment->setAmount($pay_amount);
+            // $payment->setPartialAmount($partial_amount);
+            // $payment->setPayTime($pay_time);
+            $payment->setStudentId($student_id);
+            // $payment->setBankAccId($account_type_id);
+            // $isPaymentExist = $this->db->getPaymentId('payment', $pay_amount, $partial_amount, $pay_time);
+            // if($isPaymentExist){
+            //    $paymentId = $isPaymentExist['id'];
+            // } else{
+                $paymentCreate = $this->db->create('payment', $payment->toArray());
+            //     $paymentId = (int)$paymentCreate;
+            // }
+
+            if( $paymentCreate){
+                $_SESSION['status']="Create Successfully!!";
+                $_SESSION['status_code']="success";
+                }else{
+                 $_SESSION['status']="Not Successfully!!";
+                 $_SESSION['status_code']="error";
             }
         }
     }

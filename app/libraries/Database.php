@@ -174,6 +174,18 @@ class Database
         return $success ? $row : [];
     }
 
+    public function getPaymentId($table, $amount, $partial_amount, $pay_time)
+    {
+        $sql = 'SELECT * FROM ' . $table . ' WHERE `amount` =:amount' . ' AND `partial_amount` =:partial_amount' . ' AND `pay_time` =:pay_time';
+        $stm = $this->pdo->prepare($sql);
+        $stm->bindValue(':amount', $amount);
+        $stm->bindValue(':partial_amount', $partial_amount);
+        $stm->bindValue(':pay_time', $pay_time);
+        $success = $stm->execute();
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        return $success ? $row : [];
+    }
+
     public function getAddressId($table, $unit, $block, $street_id)
     {
         $sql = 'SELECT * FROM ' . $table . ' WHERE `unit` =:unit' . ' AND `block` =:block' . ' AND `street_id` =:street_id';
